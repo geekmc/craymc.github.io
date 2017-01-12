@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>3款iOS和Android最酷的开源自动化测试工具  - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="3款iOS和Android最酷的开源自动化测试工具 ">
+<meta property="og:url" content="http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。">
+<meta property="og:updated_time" content="2016-07-20T10:47:18.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3款iOS和Android最酷的开源自动化测试工具 ">
+<meta name="twitter:description" content="自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            3款iOS和Android最酷的开源自动化测试工具 
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Nov 10 2015 12:48:20 GMT+0800">
+	
+		    11月10日, 2015年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。<br><a id="more"></a><br>下面介绍5个最佳的iOS和Android开源自动化工具。 </p>
+<p>1.Calabash(适用于Android和iOS) </p>
+<p>Calabash 是一个开源的验收测试框架，支持Android和iOS自动化。Calabash为Android和iOS自动化测试提供了一个单独的库。这是一个跨平台的框架，支持 Cucumber，Cucumber能让你用自然的英语语言表述app的行为，实现BDD(Behavior Driven Development，行为驱动开发)。 </p>
+<p>Calabash提供了一个桥梁，允许Cucumber测试对iOS和Android运行和验证。Cucumber测试使用一列语句写入，这些语句会形成很多测试场景。Cucumber中的所有语句使用Ruby定义。在Calabash，Cucumber语句只能被定义一次，但可以在Cucumber脚本的不同场景中重复使用。实际测试是用Gherkin写的，依靠Ruby代码的支持，并在Cucumber框架的上下文中运行。 </p>
+<p>优点： </p>
+<p>◆大型社区支持。<br>◆简单，类似英语表述的测试语句。<br>◆支持在屏幕上的所有动作，如滑动，缩放，旋转，敲击等。<br>◆大型且热心的社区。<br>◆跨平台开发支持(同样的代码在Android和iOS设备中都适用)。 </p>
+<p>缺点： </p>
+<p>◆测试步骤失败后，将跳过所有的后续步骤。这可能会导致错过更严重的产品问题。<br>◆需要时间来进行测试，因为它首先总是默认安装app。但是，这种设置可以通过在代码中配置一个钩子(hook)覆盖掉。<br>◆需要Calabash框架安装在ios的ipa文件中。<br>◆我们必须要有iOS的app代码。<br>◆除了Ruby，对其他语言不友好。 </p>
+<p>2.Appium(Android和iOS) </p>
+<p>Appium是Sauce Labs出品的一个开源的自动化测试框架，用于原生、混合和移动的web app。框架内的Appium库函数调用Appium服务器是在操作连接设备的后台运行的。它在内部使用JSONWireProtocol，来与使用 Selenium的WebDriver的iOS和Android app进行互动。 </p>
+<p>不像Calabash只支持Ruby开发，在框架中使用Appium时，你可以从Java、Python和Ruby，以及所有其他Selenium WebDriver支持的语言中选择。Appium服务器被托管在Node服务器上。你可以通过触发一组Node命令来启动Appium服务器。使用Appium Standalone Application作为服务器(从Appium网站下载)，Inspector工具可对app的所有定位器提供查找/识别/操作的能力。 </p>
+<p>优点： </p>
+<p>◆支持多种语言。<br>◆不需要访问源代码。<br>◆跨平台脚本开发。<br>◆大型社区支持。<br>◆支持Mac上的脚本记录。<br>◆使用Appium Server应用程序的Inspector工具提取标识符。<br>◆通过Appium Server的桌面应用程序对Selendroid内置支持。<br>◆它还使用供应商提供的框架：适用于iOS的UIAutomation ，分别适用于Android 4.2+和 2.3+的UIAutomator和Selendroid。<br>◆支持物理设备与仿真器。<br>◆支持原生，混合和移动的web自动化应用程序。 </p>
+<p>缺点： </p>
+<p>◆Appium Server桌面应用程序的发布常常不稳定。<br>◆脚本记录不适用于Application服务器对于Windows OS的桌面应用程序。 </p>
+<p>3.Robotium(Android ) </p>
+<p>Robotium是一个开源的测试框架，用于开发功能性，系统，和验收测试场景。它与Selenium非常相似，除了Robotium只适用于Android。它注册在Apache License 2.0下。<br>因为它不但简单，而且又具有创建强大又可靠的自动化场景的能力，因而它在自动化测试社区广泛流行。<br>它采用运行时绑定到GUI组件。它安装了一个测试用例套件作为在Android设备或仿真器上的应用程序，并提供用于执行测试的真实环境。 </p>
+<p>优点： </p>
+<p>◆容易在最短的时间内编写测试脚本。<br>◆预装自动化app是可能的。<br>◆自动跟随当前activity。<br>◆由于运行时绑定到GUI组件，所以相比Appium，它的测试执行更快，更强大。<br>◆不访问代码或不知道app实现，也可以工作。<br>◆支持Activities、Dialogs、Toasts、Menus、Context Menus和其他Android SDK控件。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Android/">Android</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/14/关于html/"  data-tooltip="关于html">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/&amp;title=3款iOS和Android最酷的开源自动化测试工具 ">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/&amp;title=3款iOS和Android最酷的开源自动化测试工具 ">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-3款iOS和Android最酷的开源自动化测试工具" data-title="3款iOS和Android最酷的开源自动化测试工具 " data-url="http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/14/关于html/"  data-tooltip="关于html">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/&amp;title=3款iOS和Android最酷的开源自动化测试工具 ">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/&amp;title=3款iOS和Android最酷的开源自动化测试工具 ">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/&amp;title=3款iOS和Android最酷的开源自动化测试工具 ">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/&amp;title=3款iOS和Android最酷的开源自动化测试工具 ">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                山西· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

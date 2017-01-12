@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>Kali 使用教程笔记 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="课时1 Kali Linux渗透测试介绍    安全问题的根源        优点：分工明确，工作效率高。        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。   安全目标        先于攻击者发现和防止漏洞出现        攻击型：以攻击者的思维发现漏洞、攻击系统。        防护型:投入巨大，">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Kali 使用教程笔记">
+<meta property="og:url" content="http://www.craymc.com/2016/05/13/Kali使用教程笔记/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="课时1 Kali Linux渗透测试介绍    安全问题的根源        优点：分工明确，工作效率高。        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。   安全目标        先于攻击者发现和防止漏洞出现        攻击型：以攻击者的思维发现漏洞、攻击系统。        防护型:投入巨大，">
+<meta property="og:updated_time" content="2016-07-20T10:47:18.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kali 使用教程笔记">
+<meta name="twitter:description" content="课时1 Kali Linux渗透测试介绍    安全问题的根源        优点：分工明确，工作效率高。        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。   安全目标        先于攻击者发现和防止漏洞出现        攻击型：以攻击者的思维发现漏洞、攻击系统。        防护型:投入巨大，">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Kali 使用教程笔记
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Fri May 13 2016 09:10:28 GMT+0800">
+	
+		    5月13日, 2016年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>课时1 Kali Linux渗透测试介绍<br>    安全问题的根源<br>        优点：分工明确，工作效率高。<br>        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。<br>        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。<br>   安全目标<br>        先于攻击者发现和防止漏洞出现<br>        攻击型：以攻击者的思维发现漏洞、攻击系统。<br>        防护型:投入巨大，会有遗漏，不够全面，收效不高。<br>    渗透测试<br>        尝试破解系统防御机制，发现系统弱点<br>        从攻击者的角度思考，测量安全防护的有效性<br>        证明问题存在，而不是破坏<br>        道德约束、法律<br>        不局限于一台机器出现的问题，而着眼漏洞对整个系统的影响与危害<br><a id="more"></a><br>    渗透测试标准<br>        PETS (<a href="http://www.pentest-standard.org" target="_blank" rel="external">http://www.pentest-standard.org</a>)<br>        前期交互（客户沟通，确定渗透测试范围，对应用系统渗透任务划分，包括支撑整个系统的各种软件组件）<br>        情报收集（收集目标系统信息，被动收集与主动探测）<br>        威胁建模（根据收集到的信息，确定最有效，最有可能成功的攻击途径）<br>        漏洞分析（通过系统软件版本分析，系统应用漏洞分析写出漏洞利用代码）<br>        渗透攻击阶段（并不像想象中那么顺利，目标系统有防护系统）<br>        后渗透测试阶段（以一台被渗透机器为跳板，进一步渗透整个系统）<br>        渗透测试报告（向客户和其他同事证明系统可以被控制，描述发现、利用过程，以及如何解决）<br>    渗透测试项目<br>        测试范围（整个应用系统）<br>        客户授权（允许攻击还是只是渗透都取决于客户的授权）<br>        渗透测试方法<br>        是否允许社会工程学攻击<br>        是否允许DOS攻击<br>    渗透测试误区<br>        扫描器就是一切（不能忽略业务逻辑的漏洞。自动化技术扫描工具有他的适用范围，对业务逻辑的漏洞也是无能为力。扫描器是辅助工具）<br>    KALI<br>        字面意思“黑色”，音译“咖利”，印度神话中最为黑暗和暴虐的黑色地母。<br>        Kali Linux中的Kali用意估计取自“黑色”的意思。<br>    Kali Linux<br>        基于Debian的发行版本，在其基础上添加了许多信息安全工具，用于渗透测试和安全审计<br>        所有Linux发行版本都遵循的FHS标准目录结构（BT pentest目录中工具分类困难，工具难以更新）<br>        定制内核（主要解决无线渗透测试出现各种错误的问题）<br>        支持ARM、手机平台（NetHunter）<br>        Open Source Free-Offensive Security<br>    Kali Linux策略</p>
+<pre><code>Root用户策略（不同于普通Linux系统小心翼翼的使用方式）
+网络服务策略（默认关闭所有网络服务，自启动脚本默认关闭）
+更新升级策略（Debian + KALI官方）
+</code></pre><p>实践是最好的老师，Kali很强大，但不是全部。这只是关于渗透测试的起点。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Kali/">Kali</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/"  data-tooltip="Kali Linux安装-硬盘安装、虚拟机安装">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/22/git问题集-git-生成SSH/" data-tooltip="git问题集-git-生成SSH">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2016/05/13/Kali使用教程笔记/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/05/13/Kali使用教程笔记/&amp;title=Kali 使用教程笔记">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/05/13/Kali使用教程笔记/&amp;title=Kali 使用教程笔记">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-Kali使用教程笔记" data-title="Kali 使用教程笔记" data-url="http://www.craymc.com/2016/05/13/Kali使用教程笔记/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/"  data-tooltip="Kali Linux安装-硬盘安装、虚拟机安装">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/22/git问题集-git-生成SSH/" data-tooltip="git问题集-git-生成SSH">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2016/05/13/Kali使用教程笔记/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/05/13/Kali使用教程笔记/&amp;title=Kali 使用教程笔记">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/05/13/Kali使用教程笔记/&amp;title=Kali 使用教程笔记">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2016/05/13/Kali使用教程笔记/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/05/13/Kali使用教程笔记/&amp;title=Kali 使用教程笔记">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/05/13/Kali使用教程笔记/&amp;title=Kali 使用教程笔记">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                山西· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

