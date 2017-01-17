@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="CRAYMC">
-    <title>Kali Linux安装-硬盘安装、虚拟机安装 - CRAYMC</title>
+    <title>Java设计模式系列详解 - CRAYMC</title>
     <meta name="author" content="craymc">
     
         <link rel="icon" href="/assets/images/bi_favicon .ico">
@@ -14,19 +14,16 @@
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="##第二课时软件版本：1.1.0安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）安装支持设备：u盘移动，手机，电脑
-1.硬盘安装方式进入安装界面      live  体验      live usb persistence  制作u盘无密码移动版      live usb encrypted persistence  制作u盘有密码移动版      install">
+    <meta name="description" content="设计模式初体验  设计模式需要四个要素：                        1.名称                        2.问题                        3.方案                        4.效果设计模式可分为23种，具体可分为以下类型：">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Kali Linux安装-硬盘安装、虚拟机安装">
-<meta property="og:url" content="http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/index.html">
+<meta property="og:title" content="Java设计模式系列详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/16/Java设计模式系列详解/index.html">
 <meta property="og:site_name" content="CRAYMC">
-<meta property="og:description" content="##第二课时软件版本：1.1.0安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）安装支持设备：u盘移动，手机，电脑
-1.硬盘安装方式进入安装界面      live  体验      live usb persistence  制作u盘无密码移动版      live usb encrypted persistence  制作u盘有密码移动版      install">
-<meta property="og:updated_time" content="2016-07-20T10:47:18.971Z">
+<meta property="og:description" content="设计模式初体验  设计模式需要四个要素：                        1.名称                        2.问题                        3.方案                        4.效果设计模式可分为23种，具体可分为以下类型：">
+<meta property="og:updated_time" content="2017-01-16T14:56:03.447Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kali Linux安装-硬盘安装、虚拟机安装">
-<meta name="twitter:description" content="##第二课时软件版本：1.1.0安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）安装支持设备：u盘移动，手机，电脑
-1.硬盘安装方式进入安装界面      live  体验      live usb persistence  制作u盘无密码移动版      live usb encrypted persistence  制作u盘有密码移动版      install">
+<meta name="twitter:title" content="Java设计模式系列详解">
+<meta name="twitter:description" content="设计模式初体验  设计模式需要四个要素：                        1.名称                        2.问题                        3.方案                        4.效果设计模式可分为23种，具体可分为以下类型：">
     
     
     
@@ -203,13 +200,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Kali Linux安装-硬盘安装、虚拟机安装
+            Java设计模式系列详解
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Fri Jul 15 2016 19:04:31 GMT+0800">
+    <time itemprop="datePublished" content="Mon Jan 16 2017 22:43:39 GMT+0800">
 	
-		    7月15日, 2016年
+		    1月16日, 2017年
     	
     </time>
     
@@ -218,43 +215,19 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>##第二课时<br>软件版本：1.1.0<br>安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）<br>安装支持设备：u盘移动，手机，电脑</p>
-<p>1.硬盘安装方式<br>进入安装界面<br>      live  体验<br>      live usb persistence  制作u盘无密码移动版<br>      live usb encrypted persistence  制作u盘有密码移动版<br>      install 直接安装<br>      graphical install 图形化安装</p>
-<p>2.docker(容器)<br>      <a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="external">https://www.kali.org/news/official-kali-linux-docker-images/</a> kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)</p>
-<pre><code>https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
-</code></pre><hr>
-<a id="more"></a>
-<p>1.虚拟机安装<br>    vmware workstation<br>    virtualbox<br>    官方vm镜像文件：<br>     <a href="https://www.offensive-security.com/kali-linux-vmware-arm-image-download/" target="_blank" rel="external">https://www.offensive-security.com/kali-linux-vmware-arm-image-download/</a><br>     win8系统安装虚拟机注意：要卸载微软的kb3045999补丁 卸载方法：打开命令提示符cd/到c盘再powershell再打入get-hotfix -id KB3045999回车打入wusa /uninstall /kb:3045999成功卸载</p>
-<pre><code>安装tools:
-</code></pre><p>先在虚拟机上安装附加模块，在打开哪个镜像，选择里面的vboxlinuxadditions.run拷贝出来用终端打开，先列出目录ls,再查询现有的权限ls -l，在赋予执行权限chmod +x 文件（x表示可执行），再看下文件是否是绿色ls -l，再运行./文件<br>，重启reboot</p>
-<p>2.持久加密usb安装</p>
-<p>模式：<br>1、live(amd64)可以通过启动U盘来运行kali linux。缺点：不可以安装新的软件包或更新修改；<br>2、Live USB P/EP(加密的持久USB启动光盘)。<br>DOCKER?<br>虚拟机安装<br>vmware workstation<br>Virtualbox<br>win8安装virtualbox，需要卸载一个补丁,要用到powershell，cmd下执行powershell，然后<br>poewershell<br>get-hotfix -id KB3045999</p>
-<p>wusa /uninstall /kb:3045999  按回车键，卸载</p>
-<p>虚拟机安装kali linux设置内存最好是2G，最大可以设置成4G</p>
+            <h2 id="设计模式初体验"><a href="#设计模式初体验" class="headerlink" title="设计模式初体验"></a>设计模式初体验</h2><p>  设计模式需要四个要素：<br>                        1.名称<br>                        2.问题<br>                        3.方案<br>                        4.效果<br>设计模式可分为23种，具体可分为以下类型：<br><a id="more"></a><br>设计模式分为：创建型，行为型，结构型，具体分类如下：<br>创建型：工厂，单子，抽象，原型，生成<br>结构型：适配器 ，组合，代理 ，享元，外观，桥接，装饰<br>行为型：责任链，命令，解释器，迭代器，中介，备忘录，观察者，状态，策略，模板，访问者</p>
+<h4 id="为什么要提出设计模式的概念？"><a href="#为什么要提出设计模式的概念？" class="headerlink" title="为什么要提出设计模式的概念？"></a>为什么要提出设计模式的概念？</h4><blockquote>
+<p>设计模式是从许多优秀的软件系统中总结出成功的可复用的设计方案</p>
+</blockquote>
+<h4 id="设计模式的目的是什么呢？"><a href="#设计模式的目的是什么呢？" class="headerlink" title="设计模式的目的是什么呢？"></a>设计模式的目的是什么呢？</h4><p>设计模式的目的不是针对软件设计和开发中的每个问题都给出解决方案，而是针对某种特定环境中通常会遇到的某种软件开发给出的可重用的一些解决方案，在学习的过程中重点在于理解设计的思想，从而去解决实际开发问题。</p>
 <hr>
-<p>安装kali linux操作系统<br>Graphical install   //选择字母界面安装kali linux操作系统</p>
-<p>chinese(Simplified)  中文（简体）</p>
-<p>中国</p>
-<p>汉语</p>
-<p>请输入系统的主机名: Kali</p>
-<p>域名：      //如果这里有域名可以在下面填写,如果木有域名则自己按继续</p>
-<p>输入root账号密码 </p>
-<p>向导-使用整个硬盘</p>
-<p>SCSII (0,0,0)(sda)- 85.9GB ATA VBOX HARDDISK</p>
-<p>√ 讲所有每个文件放在同一个分区中（推荐新手使用）<br>×将/home、/usr、/var和/tmp都分别放在单独的分区</p>
-<p>分区设定结构并将修改写入硬盘</p>
-<p>将改动写入硬盘吗？  是</p>
-<p>将CRUB 启动引导基安装到主引导记录（MBR）上么？  是</p>
-<p>安装完成    继续</p>
-<hr>
-<p>root@kali:~# apt-get install linux-headers-$(uname -r)    //更新系统并显示linux操作系统内核版本号<br>Reading package lists … Done<br>Building dependency tree<br>Reading state information… Done<br>Linux-headers-3.18.0-kalil-586 is already the newesr version.<br>0 upgrade, 0 newly installed, 0 to remove and 163 not upgraded.</p>
-<p>root@kali:~# apt-get update</p>
-<p>root@kali:~# uname -r      //uname用来获取电脑和操作系统的相关信息,显示linux操作系统内核版本号<br>3.18.0-kalil-586</p>
-<p>root@kali:~/Desktop# ls      //打印出当前目录的清单<br>VBocLinuxAdditions.run</p>
-<p>root@kali:~/Desktop# ls -l     //列出文件的详细信息，如创建者，创建时间，文件的读写权限列表等等<br>tottal 6972<br>-rw-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run</p>
-<p>root@kali:~/Desktop# chmod +x VBocLinuxAdditions.run                 赋予执行权限</p>
-<p>root@kali:~/Desktop# ls -l<br>tottal 6972<br>-rwxr-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run      赋予权限且”VBocLinuxAdditions.run”变成绿色</p>
-<p>root@kali:~/Desktop# ./VBocLinuxAdditions.run       运行VBocLinuxAdditions.run</p>
+<p>在详解每一个设计模式之前，有必要了解和掌握面向对象的几个基本原则，</p>
+<ul>
+<li>面向抽象原则</li>
+<li>开-闭原则</li>
+<li>多用组合少用继承原则</li>
+<li>高内聚-低耦合原则<br>接下来会为大家详解23种设计模式…!</li>
+</ul>
 
             
                 
@@ -267,7 +240,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Kali/">Kali</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
 
             </div>
         
@@ -276,7 +249,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/12/java常见面试题/"  data-tooltip="java常见面试题">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/命令模式详解/"  data-tooltip="命令模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -284,7 +257,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/13/Kali使用教程笔记/" data-tooltip="Kali 使用教程笔记">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/12/java中方法执行顺序/" data-tooltip="java中方法执行顺序">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -300,17 +273,17 @@
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/Java设计模式系列详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/&amp;title=Kali Linux安装-硬盘安装、虚拟机安装">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/Java设计模式系列详解/&amp;title=Java设计模式系列详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/&amp;title=Kali Linux安装-硬盘安装、虚拟机安装">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/Java设计模式系列详解/&amp;title=Java设计模式系列详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -319,7 +292,7 @@
 
 
         
-            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-Kali-Linux安装-硬盘安装、虚拟机安装" data-title="Kali Linux安装-硬盘安装、虚拟机安装" data-url="http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-Java设计模式系列详解" data-title="Java设计模式系列详解" data-url="http://www.craymc.com/2017/01/16/Java设计模式系列详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
         
     </div>
 </article>
@@ -340,7 +313,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/12/java常见面试题/"  data-tooltip="java常见面试题">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/命令模式详解/"  data-tooltip="命令模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -348,7 +321,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/13/Kali使用教程笔记/" data-tooltip="Kali 使用教程笔记">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/12/java中方法执行顺序/" data-tooltip="java中方法执行顺序">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -364,17 +337,17 @@
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/Java设计模式系列详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/&amp;title=Kali Linux安装-硬盘安装、虚拟机安装">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/Java设计模式系列详解/&amp;title=Java设计模式系列详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/&amp;title=Kali Linux安装-硬盘安装、虚拟机安装">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/Java设计模式系列详解/&amp;title=Java设计模式系列详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -392,17 +365,17 @@
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/Java设计模式系列详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/&amp;title=Kali Linux安装-硬盘安装、虚拟机安装">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/Java设计模式系列详解/&amp;title=Java设计模式系列详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/&amp;title=Kali Linux安装-硬盘安装、虚拟机安装">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/Java设计模式系列详解/&amp;title=Java设计模式系列详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>

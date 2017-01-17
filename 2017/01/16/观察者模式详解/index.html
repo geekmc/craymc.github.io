@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>观察者模式详解 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="设计模式——观察者模式概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
+
+主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。
+观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。
+具体主题：具体主题是实现主题接口类的">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="观察者模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/16/观察者模式详解/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="设计模式——观察者模式概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
+
+主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。
+观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。
+具体主题：具体主题是实现主题接口类的">
+<meta property="og:updated_time" content="2017-01-16T14:57:23.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="观察者模式详解">
+<meta name="twitter:description" content="设计模式——观察者模式概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
+
+主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。
+观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。
+具体主题：具体主题是实现主题接口类的">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            观察者模式详解
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Jan 16 2017 22:44:49 GMT+0800">
+	
+		    1月16日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="设计模式——观察者模式"><a href="#设计模式——观察者模式" class="headerlink" title="设计模式——观察者模式"></a>设计模式——观察者模式</h3><h2 id="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"><a href="#概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。" class="headerlink" title="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"></a><strong>概念：</strong>定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。</h2><h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>观察者模式的结构中包括四种角色：</p>
+<ul>
+<li>主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。</li>
+<li>观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。</li>
+<li>具体主题：具体主题是实现主题接口类的一个实例，该实例包含有可以经常发生变化的数据。具体主题需要使用一个集合，存放观察者的引用，以便数据变化时通知具体观察者。</li>
+<li>具体观察者：具体观察者是实现观察者接口类的一个实例。具体观察者包含有可以存放具体主题引用的主题接口变量，以便具体观察者让具体主题将自己的引用添加到具体主题的集合中，使自己成为他的观察者，或让这个具体主题将自己从具体主题的集合中删除，使自己不再是它的观察者。</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h4 id="观察者模式中的“推”数据与“拉”数据"><a href="#观察者模式中的“推”数据与“拉”数据" class="headerlink" title="观察者模式中的“推”数据与“拉”数据"></a>观察者模式中的“推”数据与“拉”数据</h4><p><strong>1.推数据方式</strong><br>推数据方式是指具体主题将变化后的数据全部交给具体观察者，既将变化后的数据传递给具体观察者用于更新数据方法的参数。当具体主题认为具体观察者需要这些变换后的全部数据时往往采用推数据方式。<br><strong>2.拉数据方式</strong></p>
+<h2 id="拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。"><a href="#拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。" class="headerlink" title="拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。"></a>拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。</h2><h4 id="观察者模式的优点"><a href="#观察者模式的优点" class="headerlink" title="观察者模式的优点"></a>观察者模式的优点</h4><ul>
+<li>具体主题和具体观察者是松耦合的关系。由于主题接口仅仅依赖于观察者接口，因此具体主题只是知道他的观察者是实现观察者接口的某个实例，但不需要知道具体是哪个类。同样，由于观察者仅仅依赖于主题接口，因此具体观察者只是知道它依赖的主题是实现主题接口的某个类的实例，但不需要知道具体是哪个类。</li>
+<li>观察者模式满足“开-闭原则”。主题接口仅仅依赖于观察者接口，这样，就可以让创建具体主题的类仅仅是依赖于观察者接口，因此，如果增加新的实现观察者接口的类，不必修改创建具体主题的类的代码。同样，创建观察者的类仅仅依赖于主题接口，如果增加新的实现主题接口的类，也不必修改创建具体观察者类的代码。</li>
+</ul>
+<hr>
+<h4 id="观察者模式的使用场景"><a href="#观察者模式的使用场景" class="headerlink" title="观察者模式的使用场景"></a>观察者模式的使用场景</h4><ul>
+<li>当一个对象的数据更新时需要通知其他对象，但这个对象又不希望和被通知的那些对象形成紧耦合。</li>
+<li>当一个对象的数据更新时，这个对象需要让其他对象也各自更新自己的数据，但这个对象不知道具体有多少对象需要更新数据。</li>
+</ul>
+<hr>
+<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h6 id="主题："><a href="#主题：" class="headerlink" title="主题："></a>主题：</h6><pre><code>public interface Subject {
+public void addObserver(Observer o);
+public void deletObserver(Observer o);
+public void notifyObserver();
+}
+</code></pre><h6 id="观察者："><a href="#观察者：" class="headerlink" title="观察者："></a>观察者：</h6><pre><code>public interface Observer {
+    public void update(Subject subject);
+}
+</code></pre><h6 id="具体主题："><a href="#具体主题：" class="headerlink" title="具体主题："></a>具体主题：</h6><pre><code>import java.util.ArrayList;
+
+public class WeatherStation implements Subject {
+String foreastTime ,forecastMess;
+int maxTemperature,minTemperature;
+ArrayList&lt;Observer&gt;personList;
+WeatherStation(){
+    personList=new ArrayList&lt;Observer&gt;();
+}
+
+@Override
+public void addObserver(Observer o) {
+    if(o==null){
+        return;
+    }
+    if(!(personList.contains(o))){
+        personList.add(o);
+    }
+
+}
+
+@Override
+public void deletObserver(Observer o) {
+    if(personList.contains(o))
+        personList.remove(o);
+
+}
+
+public void doForecast(String t,String mess,int max,int min){
+
+    forecastMess=mess;
+    foreastTime=t;
+    maxTemperature=max;
+    minTemperature=min;
+    notifyObserver();
+
+}
+
+@Override
+public void notifyObserver() {
+    for (int i = 0; i &lt; personList.size(); i++) {
+        Observer ob=personList.get(i);
+        ob.update(this);
+    }
+}
+
+public String getForeastTime() {
+    return foreastTime;
+}
+
+public String getForecastMess() {
+    return forecastMess;
+}
+
+public int getMaxTemperature() {
+    return maxTemperature;
+}
+
+public int getMinTemperature() {
+    return minTemperature;
+}
+}
+---
+import java.util.ArrayList;
+
+public class TravelAgency implements Subject {
+
+String tourStarTime;
+String tourMess;
+ArrayList&lt;Observer&gt; personList;
+
+
+
+public TravelAgency() {
+    personList=new ArrayList&lt;Observer&gt;();
+}
+
+@Override
+public void addObserver(Observer o) {
+        if(o==null){
+            return;
+        }
+        if(!(personList.contains(o)))
+            personList.add(o);
+}
+
+@Override
+public void deletObserver(Observer o) {
+    if(personList.contains(o))
+        personList.remove(o);
+
+}
+
+@Override
+public void notifyObserver() {
+        for (int i = 0; i &lt; personList.size(); i++) {
+            Observer ob=personList.get(i);
+            ob.update(this);
+        }
+}
+
+public void giveMess(String time,String mess){
+    tourMess=mess;
+    tourStarTime=time;
+    notifyObserver();
+}
+
+public String getTourStartTime(){
+    return tourStarTime;
+}
+public String getTourMess(){
+    return tourMess;
+}
+}
+</code></pre><h6 id="具体观察者"><a href="#具体观察者" class="headerlink" title="具体观察者"></a>具体观察者</h6><pre><code>public class Person implements Observer{
+Subject subjectOne,subjectTwo;
+String forecastTime,forecastMess;
+String tourStartTime,tourMess;
+int maxTemperature,minTemperature;
+
+Person(Subject subjectOne, Subject subjectTwo) {
+    this.subjectOne = subjectOne;
+    this.subjectTwo = subjectTwo;
+    subjectOne.addObserver(this);
+    subjectTwo.addObserver(this);
+}
+public void update(Subject subject){
+    if(subject instanceof WeatherStation){
+        WeatherStation ws=(WeatherStation)subject;
+        forecastTime=ws.getForeastTime();
+        forecastMess=ws.getForecastMess();
+        maxTemperature=ws.getMaxTemperature();
+        minTemperature=ws.getMinTemperature();
+        System.out.println(&quot;预报日期：&quot;+forecastTime+&quot;,&quot;);
+        System.out.println(&quot;天气状况:&quot;+forecastMess+&quot;,&quot;);
+        System.out.println(&quot;最高温度：&quot;+maxTemperature+&quot;,&quot;);
+        System.out.println(&quot;最低温度:&quot;+minTemperature+&quot;,&quot;);
+    }else if(subject instanceof TravelAgency){
+        TravelAgency ta=(TravelAgency)subject;
+        tourStartTime = ta.getTourStartTime();
+        tourMess=ta.getTourMess();
+        System.out.println(&quot;旅游开始日期：&quot;+tourStartTime+&quot;,&quot;);
+        System.out.println(&quot;旅游信息：&quot;+tourMess+&quot;,&quot;);
+
+    }
+}
+
+}
+</code></pre><h6 id="应用程序："><a href="#应用程序：" class="headerlink" title="应用程序："></a>应用程序：</h6><pre><code>public static void main(String[] args) {
+WeatherStation wt=new WeatherStation();//具体主题
+TravelAgency ta=new TravelAgency();
+Person ma=new Person(wt, ta);
+wt.doForecast(&quot;10日&quot;, &quot;多云&quot;, 28, 15);
+ta.giveMess(&quot;10日&quot;, &quot;北京一日游&quot;);
+wt.doForecast(&quot;11日&quot;, &quot;大雪&quot;, 10, 5);
+ta.giveMess(&quot;11日&quot;, &quot;香港一日游&quot;);
+}
+}
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/策略模式详解/"  data-tooltip="策略模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/命令模式详解/" data-tooltip="命令模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/观察者模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/观察者模式详解/&amp;title=观察者模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/观察者模式详解/&amp;title=观察者模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-观察者模式详解" data-title="观察者模式详解" data-url="http://www.craymc.com/2017/01/16/观察者模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/策略模式详解/"  data-tooltip="策略模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/命令模式详解/" data-tooltip="命令模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/观察者模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/观察者模式详解/&amp;title=观察者模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/观察者模式详解/&amp;title=观察者模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/观察者模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/观察者模式详解/&amp;title=观察者模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/观察者模式详解/&amp;title=观察者模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                山西· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

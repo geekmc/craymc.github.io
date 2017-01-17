@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.craymc.com/"/>
-  <updated>2017-01-12T14:32:35.542Z</updated>
+  <updated>2017-01-17T14:21:59.171Z</updated>
   <id>http://www.craymc.com/</id>
   
   <author>
@@ -14,6 +14,657 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>装饰模式详解</title>
+    <link href="http://www.craymc.com/2017/01/17/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/17/装饰模式详解/</id>
+    <published>2017-01-17T14:19:36.000Z</published>
+    <updated>2017-01-17T14:21:59.171Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="装饰模式详解"><a href="#装饰模式详解" class="headerlink" title="装饰模式详解"></a>装饰模式详解</h3><h4 id="定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。"><a href="#定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。" class="headerlink" title="定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。"></a>定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。</h4><h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><ul>
+<li>抽象组件：抽象组件是一个抽象类。抽象组件定义了“被装饰者”需要进行“装饰”的方法。</li>
+<li>具体组件：具体组件是抽象组件的一个子类，具体组件的实例称作“被装饰者”。</li>
+<li>装饰：装饰也是抽象组件的一个子类，但装饰还包含一个抽象组件声明的变量以保存“被装饰者”的引用。装饰可以是抽象类也可以是一个非抽象类，如果是非抽象类，那么该类的实例称作“装饰者”。</li>
+<li>具体装饰： 具体装饰是装饰的一个非抽象类，具体装饰的实例称作“装饰者”。</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h4 id="结构描述"><a href="#结构描述" class="headerlink" title="结构描述"></a>结构描述</h4><p>“具体组件”和“装饰”都是“抽象组件”的子类。因此，“抽象组件”声明的对象即可以存放“被装饰者”的引用也可以存放“装饰者”的引用。如果“抽象组件”声明对象存放“被装饰者”的引用，那么该对象就能调用“被装饰者”所实现“抽象组件”中的方法；如果“抽象组件”声明对象存放“装饰者”的引用，那么该对象就能调用“装饰者”所实现“抽象组件”中的方法。</p>
+<hr>
+<h4 id="装饰模式相对于继承机制的优势"><a href="#装饰模式相对于继承机制的优势" class="headerlink" title="装饰模式相对于继承机制的优势"></a>装饰模式相对于继承机制的优势</h4><p>通过继承可以改进对象的行为，对于某些简单的问题这样无所谓，但是如果考虑到系统扩展性，就应当遵循：<strong>少用继承，多用组合。</strong>就功能来说：<strong>装饰模式相比生产子类更加灵活</strong>。</p>
+<h4 id="装饰模式的优点"><a href="#装饰模式的优点" class="headerlink" title="装饰模式的优点"></a>装饰模式的优点</h4><ul>
+<li>被装饰者和装饰者是松耦合的关系。由于装饰仅仅依赖于抽象组件，因此具体装饰只知道他要装饰的对象是抽象组件某一个子类的实例，但不需要知道是那一个人具体子类。</li>
+<li>装饰者模式满足“开-闭原则”。不必修改具体组件，就可以增加新的针对该具体组件的具体装饰。</li>
+<li>可以使用多个装饰来装饰具体组件的实例。</li>
+</ul>
+<hr>
+<h4 id="适合使用装饰模式的情景"><a href="#适合使用装饰模式的情景" class="headerlink" title="适合使用装饰模式的情景"></a>适合使用装饰模式的情景</h4><ul>
+<li>程序希望动态地增强类非某个对象的功能，而又不影响到该类的其他对象。</li>
+<li>采用继承来增强对象功能不利于系统的扩展和维护。</li>
+</ul>
+<hr>
+<h5 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h5><h6 id="抽象组件："><a href="#抽象组件：" class="headerlink" title="抽象组件："></a>抽象组件：</h6><pre><code>import java.io.File;
+import java.util.ArrayList;
+
+public abstract class ReadWord {
+public abstract ArrayList&lt;String&gt; readWord(File file);
+
+}
+</code></pre><h6 id="具体组件："><a href="#具体组件：" class="headerlink" title="具体组件："></a>具体组件：</h6><pre><code>import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+public class ReadEnglishWord extends ReadWord{
+
+@Override
+public ArrayList&lt;String&gt; readWord(File file) {
+    ArrayList&lt;String&gt; wordList=new ArrayList&lt;String&gt;();
+    try {
+        FileReader inOne=new FileReader(file);
+        BufferedReader inTwo=new BufferedReader(inOne);
+        String s=null;
+        while((s=inTwo.readLine())!=null){
+            wordList.add(s);
+        }
+        inTwo.close();
+        inOne.close();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    return null;
+}
+
+}
+</code></pre><h6 id="装饰："><a href="#装饰：" class="headerlink" title="装饰："></a>装饰：</h6><pre><code>public abstract class Decorator extends ReadWord {
+protected ReadWord reader;
+
+public Decorator() {
+    super();
+    // TODO Auto-generated constructor stub
+}
+
+public Decorator(ReadWord reader) {
+    super();
+    this.reader = reader;
+}
+}
+</code></pre><h6 id="具体装饰与相关文件："><a href="#具体装饰与相关文件：" class="headerlink" title="具体装饰与相关文件："></a>具体装饰与相关文件：</h6><pre><code>import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+public class WordDecorator extends Decorator{
+File decoratorFile;
+
+public WordDecorator(ReadWord reader,File decoratorFile) {
+    super(reader);
+    this.decoratorFile = decoratorFile;
+
+}
+public ArrayList&lt;String&gt; readWord(File file){
+    ArrayList&lt;String&gt; wordList=reader.readWord(file);
+    try {
+        FileReader inOne=new FileReader(decoratorFile);
+        BufferedReader inTwo=new BufferedReader(inOne);
+        String s=null;
+        int m=0;
+        while((s=inTwo.readLine())!=null){
+            String word=wordList.get(m);
+            word=word.concat(&quot;|&quot;+s);
+            wordList.set(m, word);
+            m++;
+            if(m&gt;wordList.size())break;
+        }
+        inOne.close();
+        inTwo.close();
+    } catch (Exception e) {
+        // TODO: handle exception
+    }
+    return wordList;
+
+
+}
+
+
+}
+</code></pre><h6 id="应用程序："><a href="#应用程序：" class="headerlink" title="应用程序："></a>应用程序：</h6><pre><code>import java.io.File;
+import java.util.ArrayList;
+
+public class Application {
+
+public static void main(String[] args) {
+    ArrayList&lt;String&gt;wordList=new ArrayList&lt;String&gt;();
+    ReadEnglishWord REW=new ReadEnglishWord();
+    WordDecorator WD1=new WordDecorator(REW, new File(&quot;chinese.txt&quot;));
+    ReadWord reader=WD1;
+    wordList=reader.readWord(new File(&quot;word.txt&quot;));
+    for (int i = 0; i &lt; wordList.size(); i++) {
+
+        System.out.println(wordList.get(i));
+    }
+    WordDecorator WD2=new WordDecorator(WD1, new File(&quot;englishSentence.txt&quot;));
+    reader=WD2;
+    wordList=reader.readWord(new File(&quot;word.txt&quot;));
+    for (int i = 0; i &lt; wordList.size(); i++) {
+        System.out.println(wordList.get(i));
+    }
+}
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;装饰模式详解&quot;&gt;&lt;a href=&quot;#装饰模式详解&quot; class=&quot;headerlink&quot; title=&quot;装饰模式详解&quot;&gt;&lt;/a&gt;装饰模式详解&lt;/h3&gt;&lt;h4 id=&quot;定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。&quot;&gt;&lt;a href=&quot;#定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。&quot; class=&quot;headerlink&quot; title=&quot;定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。&quot;&gt;&lt;/a&gt;定义：动态地给对象添加一些额外的职责。就功能来说装饰模式相比生产子类更为灵活。&lt;/h4&gt;&lt;h4 id=&quot;模式的结构与使用&quot;&gt;&lt;a href=&quot;#模式的结构与使用&quot; class=&quot;headerlink&quot; title=&quot;模式的结构与使用&quot;&gt;&lt;/a&gt;模式的结构与使用&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;抽象组件：抽象组件是一个抽象类。抽象组件定义了“被装饰者”需要进行“装饰”的方法。&lt;/li&gt;
+&lt;li&gt;具体组件：具体组件是抽象组件的一个子类，具体组件的实例称作“被装饰者”。&lt;/li&gt;
+&lt;li&gt;装饰：装饰也是抽象组件的一个子类，但装饰还包含一个抽象组件声明的变量以保存“被装饰者”的引用。装饰可以是抽象类也可以是一个非抽象类，如果是非抽象类，那么该类的实例称作“装饰者”。&lt;/li&gt;
+&lt;li&gt;具体装饰： 具体装饰是装饰的一个非抽象类，具体装饰的实例称作“装饰者”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>策略模式详解</title>
+    <link href="http://www.craymc.com/2017/01/17/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/17/策略模式详解/</id>
+    <published>2017-01-17T14:19:03.000Z</published>
+    <updated>2017-01-17T14:21:27.721Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="策略模式详解"><a href="#策略模式详解" class="headerlink" title="策略模式详解"></a>策略模式详解</h3><hr>
+<h4 id="定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。"><a href="#定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。" class="headerlink" title="定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。"></a>定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。</h4><hr>
+<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>策略模式的结构包括三种角色：</p>
+<ul>
+<li>策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。</li>
+<li>具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。</li>
+<li>上下文：上下文是依赖于策略接口的类，既上下文包含有策略声明的变量。上下文中提供一个方法，该方法委托策略变量调用策略所实现的策略接口中的方法。</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h4 id="策略模式的优点"><a href="#策略模式的优点" class="headerlink" title="策略模式的优点"></a>策略模式的优点</h4><ul>
+<li>上下文和具体策略是松耦关系。</li>
+<li>策略模式满足“开-闭原则”。当增加新策略时，不需要修改上下文类的代码，上下文就可以引用新的具体策略的实例。</li>
+</ul>
+<hr>
+<h4 id="策略模式的适用场景"><a href="#策略模式的适用场景" class="headerlink" title="策略模式的适用场景"></a>策略模式的适用场景</h4><ul>
+<li>一个类定义了多种行为，并且这些行为在这个类的方法中以多个条件语句的形式出现，那么可以使用策略模式避免在类中使用大量的条件语句。</li>
+<li>程序不希望暴露复杂的，与算法相关的数据结构，那么可以使用策略模式封装算法。</li>
+<li>需要使用一个算法的不同变体。</li>
+</ul>
+<hr>
+<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="策略："><a href="#策略：" class="headerlink" title="策略："></a>策略：</h5><pre><code>public interface ComputableStrategy {
+public abstract double computeSocre(double []a);
+
+}
+</code></pre><h5 id="具体策略："><a href="#具体策略：" class="headerlink" title="具体策略："></a>具体策略：</h5><pre><code>public class StrategyOne implements ComputableStrategy {
+
+@Override
+public double computeSocre(double[] a) {
+        double score=0,sum=0;
+        for (int i = 0; i &lt; a.length; i++) {
+            sum=sum+a[i];
+        }
+        score=sum/a.length;
+    return score;
+}
+
+}
+
+public class StrategyTwo implements ComputableStrategy {
+
+@Override
+public double computeSocre(double[] a) {
+    double score=0,multi=1;
+    int n=a.length;
+    for (int i = 0; i &lt; a.length; i++) {
+        multi=multi*a[i];
+    }
+    score=Math.pow(multi, 1.0/n);
+
+    return score;
+}
+
+}
+
+import java.util.Arrays;
+
+public class StrategyThree implements ComputableStrategy{
+
+@Override
+public double computeSocre(double[] a) {
+    if(a.length&lt;=2){
+        return 0;
+    }
+    double score=0,sum=0;
+    Arrays.sort(a);
+    for (int i = 0; i &lt; a.length-1; i++) {
+        sum=sum+a[i];
+
+    }
+    score=sum/(a.length-2);
+    return score;
+}
+
+}
+</code></pre><h5 id="上下文："><a href="#上下文：" class="headerlink" title="上下文："></a>上下文：</h5><pre><code>public class GymnasticsGame {
+ComputableStrategy strategy;
+public void setStrategy(ComputableStrategy strategy){
+ this.strategy=strategy;
+
+}
+public double getPersonScore(double []a){
+if(strategy!=null)
+{
+    return strategy.computeSocre(a);
+}else{
+    return 0;
+}    
+
+}
+
+}
+</code></pre><h5 id="模式使用："><a href="#模式使用：" class="headerlink" title="模式使用："></a>模式使用：</h5><pre><code>public class Application {
+    public static void main(String[] args) {
+        GymnasticsGame game=new GymnasticsGame();
+        game.setStrategy(new StrategyOne());
+        Person zhang=new Person();
+        zhang.setName(&quot;张三&quot;);
+        double []a={9.12,9.25,8.87,9.89};
+        Person li=new Person();
+        li.setName(&quot;李四&quot;);
+        double []b={9.12,9.25,8.87,9.89};
+        zhang.setScore(game.getPersonScore(a));
+        li.setScore(game.getPersonScore(b));
+        System.out.println(&quot;使用算术平均值方案：&quot;);
+        System.out.printf(&quot;最后得分：&quot;,zhang.getName(),zhang.getScore());
+
+
+
+
+    }
+}
+class Person{
+
+String name;
+double score;
+public String getName() {
+    return name;
+}
+public void setName(String name) {
+    this.name = name;
+}
+public double getScore() {
+    return score;
+}
+public void setScore(double score) {
+    this.score = score;
+}
+
+
+} 
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;策略模式详解&quot;&gt;&lt;a href=&quot;#策略模式详解&quot; class=&quot;headerlink&quot; title=&quot;策略模式详解&quot;&gt;&lt;/a&gt;策略模式详解&lt;/h3&gt;&lt;hr&gt;
+&lt;h4 id=&quot;定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。&quot;&gt;&lt;a href=&quot;#定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。&quot; class=&quot;headerlink&quot; title=&quot;定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。&quot;&gt;&lt;/a&gt;定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。&lt;/h4&gt;&lt;hr&gt;
+&lt;h4 id=&quot;模式的结构与使用&quot;&gt;&lt;a href=&quot;#模式的结构与使用&quot; class=&quot;headerlink&quot; title=&quot;模式的结构与使用&quot;&gt;&lt;/a&gt;模式的结构与使用&lt;/h4&gt;&lt;p&gt;策略模式的结构包括三种角色：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。&lt;/li&gt;
+&lt;li&gt;具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。&lt;/li&gt;
+&lt;li&gt;上下文：上下文是依赖于策略接口的类，既上下文包含有策略声明的变量。上下文中提供一个方法，该方法委托策略变量调用策略所实现的策略接口中的方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>观察者模式详解</title>
+    <link href="http://www.craymc.com/2017/01/16/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/16/观察者模式详解/</id>
+    <published>2017-01-16T14:44:49.000Z</published>
+    <updated>2017-01-16T14:57:23.969Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="设计模式——观察者模式"><a href="#设计模式——观察者模式" class="headerlink" title="设计模式——观察者模式"></a>设计模式——观察者模式</h3><h2 id="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"><a href="#概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。" class="headerlink" title="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"></a><strong>概念：</strong>定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。</h2><h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>观察者模式的结构中包括四种角色：</p>
+<ul>
+<li>主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。</li>
+<li>观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。</li>
+<li>具体主题：具体主题是实现主题接口类的一个实例，该实例包含有可以经常发生变化的数据。具体主题需要使用一个集合，存放观察者的引用，以便数据变化时通知具体观察者。</li>
+<li>具体观察者：具体观察者是实现观察者接口类的一个实例。具体观察者包含有可以存放具体主题引用的主题接口变量，以便具体观察者让具体主题将自己的引用添加到具体主题的集合中，使自己成为他的观察者，或让这个具体主题将自己从具体主题的集合中删除，使自己不再是它的观察者。</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h4 id="观察者模式中的“推”数据与“拉”数据"><a href="#观察者模式中的“推”数据与“拉”数据" class="headerlink" title="观察者模式中的“推”数据与“拉”数据"></a>观察者模式中的“推”数据与“拉”数据</h4><p><strong>1.推数据方式</strong><br>推数据方式是指具体主题将变化后的数据全部交给具体观察者，既将变化后的数据传递给具体观察者用于更新数据方法的参数。当具体主题认为具体观察者需要这些变换后的全部数据时往往采用推数据方式。<br><strong>2.拉数据方式</strong></p>
+<h2 id="拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。"><a href="#拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。" class="headerlink" title="拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。"></a>拉数据的方式是指具体主题不将变化后的数据交给具体观察者，而是提供了获得这些数据的方法，具体观察者在得到通知后，可以调用具体主题提供的方法得到数据（观察者自己把数据“拉”过来），但需要自己判断数据是否发生了变化。当具体主题不知道具体观察者是否需要这些变换后的数据时往往采用拉数据的方式。</h2><h4 id="观察者模式的优点"><a href="#观察者模式的优点" class="headerlink" title="观察者模式的优点"></a>观察者模式的优点</h4><ul>
+<li>具体主题和具体观察者是松耦合的关系。由于主题接口仅仅依赖于观察者接口，因此具体主题只是知道他的观察者是实现观察者接口的某个实例，但不需要知道具体是哪个类。同样，由于观察者仅仅依赖于主题接口，因此具体观察者只是知道它依赖的主题是实现主题接口的某个类的实例，但不需要知道具体是哪个类。</li>
+<li>观察者模式满足“开-闭原则”。主题接口仅仅依赖于观察者接口，这样，就可以让创建具体主题的类仅仅是依赖于观察者接口，因此，如果增加新的实现观察者接口的类，不必修改创建具体主题的类的代码。同样，创建观察者的类仅仅依赖于主题接口，如果增加新的实现主题接口的类，也不必修改创建具体观察者类的代码。</li>
+</ul>
+<hr>
+<h4 id="观察者模式的使用场景"><a href="#观察者模式的使用场景" class="headerlink" title="观察者模式的使用场景"></a>观察者模式的使用场景</h4><ul>
+<li>当一个对象的数据更新时需要通知其他对象，但这个对象又不希望和被通知的那些对象形成紧耦合。</li>
+<li>当一个对象的数据更新时，这个对象需要让其他对象也各自更新自己的数据，但这个对象不知道具体有多少对象需要更新数据。</li>
+</ul>
+<hr>
+<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h6 id="主题："><a href="#主题：" class="headerlink" title="主题："></a>主题：</h6><pre><code>public interface Subject {
+public void addObserver(Observer o);
+public void deletObserver(Observer o);
+public void notifyObserver();
+}
+</code></pre><h6 id="观察者："><a href="#观察者：" class="headerlink" title="观察者："></a>观察者：</h6><pre><code>public interface Observer {
+    public void update(Subject subject);
+}
+</code></pre><h6 id="具体主题："><a href="#具体主题：" class="headerlink" title="具体主题："></a>具体主题：</h6><pre><code>import java.util.ArrayList;
+
+public class WeatherStation implements Subject {
+String foreastTime ,forecastMess;
+int maxTemperature,minTemperature;
+ArrayList&lt;Observer&gt;personList;
+WeatherStation(){
+    personList=new ArrayList&lt;Observer&gt;();
+}
+
+@Override
+public void addObserver(Observer o) {
+    if(o==null){
+        return;
+    }
+    if(!(personList.contains(o))){
+        personList.add(o);
+    }
+
+}
+
+@Override
+public void deletObserver(Observer o) {
+    if(personList.contains(o))
+        personList.remove(o);
+
+}
+
+public void doForecast(String t,String mess,int max,int min){
+
+    forecastMess=mess;
+    foreastTime=t;
+    maxTemperature=max;
+    minTemperature=min;
+    notifyObserver();
+
+}
+
+@Override
+public void notifyObserver() {
+    for (int i = 0; i &lt; personList.size(); i++) {
+        Observer ob=personList.get(i);
+        ob.update(this);
+    }
+}
+
+public String getForeastTime() {
+    return foreastTime;
+}
+
+public String getForecastMess() {
+    return forecastMess;
+}
+
+public int getMaxTemperature() {
+    return maxTemperature;
+}
+
+public int getMinTemperature() {
+    return minTemperature;
+}
+}
+---
+import java.util.ArrayList;
+
+public class TravelAgency implements Subject {
+
+String tourStarTime;
+String tourMess;
+ArrayList&lt;Observer&gt; personList;
+
+
+
+public TravelAgency() {
+    personList=new ArrayList&lt;Observer&gt;();
+}
+
+@Override
+public void addObserver(Observer o) {
+        if(o==null){
+            return;
+        }
+        if(!(personList.contains(o)))
+            personList.add(o);
+}
+
+@Override
+public void deletObserver(Observer o) {
+    if(personList.contains(o))
+        personList.remove(o);
+
+}
+
+@Override
+public void notifyObserver() {
+        for (int i = 0; i &lt; personList.size(); i++) {
+            Observer ob=personList.get(i);
+            ob.update(this);
+        }
+}
+
+public void giveMess(String time,String mess){
+    tourMess=mess;
+    tourStarTime=time;
+    notifyObserver();
+}
+
+public String getTourStartTime(){
+    return tourStarTime;
+}
+public String getTourMess(){
+    return tourMess;
+}
+}
+</code></pre><h6 id="具体观察者"><a href="#具体观察者" class="headerlink" title="具体观察者"></a>具体观察者</h6><pre><code>public class Person implements Observer{
+Subject subjectOne,subjectTwo;
+String forecastTime,forecastMess;
+String tourStartTime,tourMess;
+int maxTemperature,minTemperature;
+
+Person(Subject subjectOne, Subject subjectTwo) {
+    this.subjectOne = subjectOne;
+    this.subjectTwo = subjectTwo;
+    subjectOne.addObserver(this);
+    subjectTwo.addObserver(this);
+}
+public void update(Subject subject){
+    if(subject instanceof WeatherStation){
+        WeatherStation ws=(WeatherStation)subject;
+        forecastTime=ws.getForeastTime();
+        forecastMess=ws.getForecastMess();
+        maxTemperature=ws.getMaxTemperature();
+        minTemperature=ws.getMinTemperature();
+        System.out.println(&quot;预报日期：&quot;+forecastTime+&quot;,&quot;);
+        System.out.println(&quot;天气状况:&quot;+forecastMess+&quot;,&quot;);
+        System.out.println(&quot;最高温度：&quot;+maxTemperature+&quot;,&quot;);
+        System.out.println(&quot;最低温度:&quot;+minTemperature+&quot;,&quot;);
+    }else if(subject instanceof TravelAgency){
+        TravelAgency ta=(TravelAgency)subject;
+        tourStartTime = ta.getTourStartTime();
+        tourMess=ta.getTourMess();
+        System.out.println(&quot;旅游开始日期：&quot;+tourStartTime+&quot;,&quot;);
+        System.out.println(&quot;旅游信息：&quot;+tourMess+&quot;,&quot;);
+
+    }
+}
+
+}
+</code></pre><h6 id="应用程序："><a href="#应用程序：" class="headerlink" title="应用程序："></a>应用程序：</h6><pre><code>public static void main(String[] args) {
+WeatherStation wt=new WeatherStation();//具体主题
+TravelAgency ta=new TravelAgency();
+Person ma=new Person(wt, ta);
+wt.doForecast(&quot;10日&quot;, &quot;多云&quot;, 28, 15);
+ta.giveMess(&quot;10日&quot;, &quot;北京一日游&quot;);
+wt.doForecast(&quot;11日&quot;, &quot;大雪&quot;, 10, 5);
+ta.giveMess(&quot;11日&quot;, &quot;香港一日游&quot;);
+}
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;设计模式——观察者模式&quot;&gt;&lt;a href=&quot;#设计模式——观察者模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式——观察者模式&quot;&gt;&lt;/a&gt;设计模式——观察者模式&lt;/h3&gt;&lt;h2 id=&quot;概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。&quot;&gt;&lt;a href=&quot;#概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。&quot; class=&quot;headerlink&quot; title=&quot;概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。&quot;&gt;&lt;/a&gt;&lt;strong&gt;概念：&lt;/strong&gt;定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。&lt;/h2&gt;&lt;h4 id=&quot;模式的结构与使用&quot;&gt;&lt;a href=&quot;#模式的结构与使用&quot; class=&quot;headerlink&quot; title=&quot;模式的结构与使用&quot;&gt;&lt;/a&gt;模式的结构与使用&lt;/h4&gt;&lt;p&gt;观察者模式的结构中包括四种角色：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。&lt;/li&gt;
+&lt;li&gt;观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。&lt;/li&gt;
+&lt;li&gt;具体主题：具体主题是实现主题接口类的一个实例，该实例包含有可以经常发生变化的数据。具体主题需要使用一个集合，存放观察者的引用，以便数据变化时通知具体观察者。&lt;/li&gt;
+&lt;li&gt;具体观察者：具体观察者是实现观察者接口类的一个实例。具体观察者包含有可以存放具体主题引用的主题接口变量，以便具体观察者让具体主题将自己的引用添加到具体主题的集合中，使自己成为他的观察者，或让这个具体主题将自己从具体主题的集合中删除，使自己不再是它的观察者。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>命令模式详解</title>
+    <link href="http://www.craymc.com/2017/01/16/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/16/命令模式详解/</id>
+    <published>2017-01-16T14:44:26.000Z</published>
+    <updated>2017-01-16T14:57:51.825Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="设计模式——命令模式"><a href="#设计模式——命令模式" class="headerlink" title="设计模式——命令模式"></a>设计模式——命令模式</h2><h3 id="命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。"><a href="#命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。" class="headerlink" title="命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。"></a>命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。</h3><hr>
+<p>在命令模式中，当一个对象请求另一个对象调用其方法时，不和被请求对象直接打交道，而是把这种“请求”封装到一个称作“命令”的对象中，其封装手段是将“请求”封装在“命令”对象的一个方法中。<strong>命令模式的核心：</strong>使用命令对象来封装方法的调用，既将请求者的请求：“接收者调用方法”封装到命令对象的一个方法中，这样一来，当一个对象请求另一个对象调用方法来完成某项任务时，只需和命令对象交互，既让命令对象调用封装了“请求”的那个方法即可。</p>
+<h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>命令模式的结构中包括四种角色：</p>
+<ul>
+<li>接受者：接受者是一个类的实例，该实例负责执行与请求相关的操作。</li>
+<li>命令接口：命令是一个接口，规定了用来封装“请求”的若干个方法。</li>
+<li>具体命令：具体命令是实现命令接口类的实例。具体命令必须实现命令接口中的方法。</li>
+<li>请求者：请求者是一个包含命令接口变量的类的实例。请求者中的命令接口的变量可以存放任何具体的引用。请求者负责调用具体命令，让具体命令执行那些封装了“请求”的方法。</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h4 id="命令模式的优点"><a href="#命令模式的优点" class="headerlink" title="命令模式的优点"></a>命令模式的优点</h4><p>  1.在命令模式中，请求者不直接与接收者交互，既请求者不包含接收者的引用，因此彻底消除了彼此之间的耦合。<br>  2.命令模式满足“开-闭原则”。如果增加新的具体命令和该命令的接收者，不必修改调用者的代码，调用者就可以使用新的命令对象；反之，如果增加新的调用者，不必修改现有的具体命令和接收者，新增加的调用者就可以使用已有的具体命令。<br>  3.由于请求者的请求被封装到了具体命令中，那么就可以将具体命令保存到持久化的媒介中，在需要的时候，重新执行这个命令。因此，使用命令模式可以记录日志</p>
+<h2 id="4-使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。"><a href="#4-使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。" class="headerlink" title="  4.使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。"></a>  4.使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。</h2><h4 id="适合使用命令模式的场景"><a href="#适合使用命令模式的场景" class="headerlink" title="适合使用命令模式的场景"></a>适合使用命令模式的场景</h4><ul>
+<li>程序需要在不同的时刻指定，排列和执行请求</li>
+<li>程序需要提供撤销操作</li>
+<li>程序需要支持宏操作</li>
+</ul>
+<hr>
+<h5 id="代码描述："><a href="#代码描述：" class="headerlink" title="代码描述："></a>代码描述：</h5><h6 id="接受者："><a href="#接受者：" class="headerlink" title="接受者："></a>接受者：</h6><pre><code>public class ComapanyArmy {
+public void sneakAttack(){
+   System.out.println(&quot;我们知道如何完成任务&quot;);
+  }
+  }
+</code></pre><h6 id="命令接口："><a href="#命令接口：" class="headerlink" title="命令接口："></a>命令接口：</h6><pre><code>public interface Command {
+public abstract void execute();
+    }
+</code></pre><h6 id="具体命令："><a href="#具体命令：" class="headerlink" title="具体命令："></a>具体命令：</h6><pre><code>public class ConcreteCommand implements Command {
+
+ComapanyArmy army;//含有接收者的引用
+
+ConcreteCommand(ComapanyArmy army) {
+    this.army = army;
+}
+
+@Override
+public void execute() {
+    army.sneakAttack();
+
+}
+
+}
+</code></pre><h6 id="请求者："><a href="#请求者：" class="headerlink" title="请求者："></a>请求者：</h6><pre><code>public class ArmySuperior {
+Command command;//用来存放具体命令的引用
+public void setCommand(Command command){
+    this.command=command;
+}
+public void startExecuteCommand(){
+    command.execute();
+}
+
+}
+</code></pre><h6 id="模式使用："><a href="#模式使用：" class="headerlink" title="模式使用："></a>模式使用：</h6><pre><code>public class Application {
+
+public static void main(String[] args) {
+    ComapanyArmy tz=new ComapanyArmy();
+    Command c=new ConcreteCommand(tz);
+    ArmySuperior ld=new ArmySuperior();
+    ld.setCommand(c);
+    ld.startExecuteCommand();
+}
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;设计模式——命令模式&quot;&gt;&lt;a href=&quot;#设计模式——命令模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式——命令模式&quot;&gt;&lt;/a&gt;设计模式——命令模式&lt;/h2&gt;&lt;h3 id=&quot;命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。&quot;&gt;&lt;a href=&quot;#命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。&quot; class=&quot;headerlink&quot; title=&quot;命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。&quot;&gt;&lt;/a&gt;命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。&lt;/h3&gt;&lt;hr&gt;
+&lt;p&gt;在命令模式中，当一个对象请求另一个对象调用其方法时，不和被请求对象直接打交道，而是把这种“请求”封装到一个称作“命令”的对象中，其封装手段是将“请求”封装在“命令”对象的一个方法中。&lt;strong&gt;命令模式的核心：&lt;/strong&gt;使用命令对象来封装方法的调用，既将请求者的请求：“接收者调用方法”封装到命令对象的一个方法中，这样一来，当一个对象请求另一个对象调用方法来完成某项任务时，只需和命令对象交互，既让命令对象调用封装了“请求”的那个方法即可。&lt;/p&gt;
+&lt;h4 id=&quot;模式的结构和使用&quot;&gt;&lt;a href=&quot;#模式的结构和使用&quot; class=&quot;headerlink&quot; title=&quot;模式的结构和使用&quot;&gt;&lt;/a&gt;模式的结构和使用&lt;/h4&gt;&lt;p&gt;命令模式的结构中包括四种角色：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;接受者：接受者是一个类的实例，该实例负责执行与请求相关的操作。&lt;/li&gt;
+&lt;li&gt;命令接口：命令是一个接口，规定了用来封装“请求”的若干个方法。&lt;/li&gt;
+&lt;li&gt;具体命令：具体命令是实现命令接口类的实例。具体命令必须实现命令接口中的方法。&lt;/li&gt;
+&lt;li&gt;请求者：请求者是一个包含命令接口变量的类的实例。请求者中的命令接口的变量可以存放任何具体的引用。请求者负责调用具体命令，让具体命令执行那些封装了“请求”的方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java设计模式系列详解</title>
+    <link href="http://www.craymc.com/2017/01/16/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/16/Java设计模式系列详解/</id>
+    <published>2017-01-16T14:43:39.000Z</published>
+    <updated>2017-01-16T14:56:03.447Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="设计模式初体验"><a href="#设计模式初体验" class="headerlink" title="设计模式初体验"></a>设计模式初体验</h2><p>  设计模式需要四个要素：<br>                        1.名称<br>                        2.问题<br>                        3.方案<br>                        4.效果<br>设计模式可分为23种，具体可分为以下类型：<br><a id="more"></a><br>设计模式分为：创建型，行为型，结构型，具体分类如下：<br>创建型：工厂，单子，抽象，原型，生成<br>结构型：适配器 ，组合，代理 ，享元，外观，桥接，装饰<br>行为型：责任链，命令，解释器，迭代器，中介，备忘录，观察者，状态，策略，模板，访问者</p>
+<h4 id="为什么要提出设计模式的概念？"><a href="#为什么要提出设计模式的概念？" class="headerlink" title="为什么要提出设计模式的概念？"></a>为什么要提出设计模式的概念？</h4><blockquote>
+<p>设计模式是从许多优秀的软件系统中总结出成功的可复用的设计方案</p>
+</blockquote>
+<h4 id="设计模式的目的是什么呢？"><a href="#设计模式的目的是什么呢？" class="headerlink" title="设计模式的目的是什么呢？"></a>设计模式的目的是什么呢？</h4><p>设计模式的目的不是针对软件设计和开发中的每个问题都给出解决方案，而是针对某种特定环境中通常会遇到的某种软件开发给出的可重用的一些解决方案，在学习的过程中重点在于理解设计的思想，从而去解决实际开发问题。</p>
+<hr>
+<p>在详解每一个设计模式之前，有必要了解和掌握面向对象的几个基本原则，</p>
+<ul>
+<li>面向抽象原则</li>
+<li>开-闭原则</li>
+<li>多用组合少用继承原则</li>
+<li>高内聚-低耦合原则<br>接下来会为大家详解23种设计模式…!</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;设计模式初体验&quot;&gt;&lt;a href=&quot;#设计模式初体验&quot; class=&quot;headerlink&quot; title=&quot;设计模式初体验&quot;&gt;&lt;/a&gt;设计模式初体验&lt;/h2&gt;&lt;p&gt;  设计模式需要四个要素：&lt;br&gt;                        1.名称&lt;br&gt;                        2.问题&lt;br&gt;                        3.方案&lt;br&gt;                        4.效果&lt;br&gt;设计模式可分为23种，具体可分为以下类型：&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>java中方法执行顺序</title>
@@ -46,7 +697,7 @@
     <link href="http://www.craymc.com/2017/01/12/java%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     <id>http://www.craymc.com/2017/01/12/java常见面试题/</id>
     <published>2017-01-12T13:36:50.000Z</published>
-    <updated>2017-01-12T14:33:24.276Z</updated>
+    <updated>2017-01-16T15:00:28.756Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><a href="#java">java基础</a><ul>
@@ -72,16 +723,13 @@
 <li><a href="#容器类之间的区别-乐视-美团">容器类之间的区别-乐视-美团</a></li>
 <li><a href="#内部类">内部类</a></li>
 <li><a href="#hashmap和hashtable的区别-乐视-小米">hashmap和hashtable的区别-乐视-小米</a></li>
-<li><a href="#arraymap对比hashmap">ArrayMap对比HashMap</a><br>###java</li>
+<li><a href="#arraymap对比hashmap">ArrayMap对比HashMap</a><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3></li>
 </ul>
 </li>
 </ul>
-<p>####接口的意义-百度</p>
-<p>规范、扩展、回调<br><a id="more"></a></p>
-<p>####抽象类的意义-乐视</p>
-<p>为其子类提供一个公共的类型<br>封装子类中得重复内容<br>定义抽象方法，子类虽然有不同的实现 但是定义是一致的</p>
-<p>####内部类的作用-乐视</p>
-<ol>
+<h4 id="接口的意义-百度"><a href="#接口的意义-百度" class="headerlink" title="接口的意义-百度"></a>接口的意义-百度</h4><p>规范、扩展、回调<br><a id="more"></a></p>
+<h4 id="抽象类的意义-乐视"><a href="#抽象类的意义-乐视" class="headerlink" title="抽象类的意义-乐视"></a>抽象类的意义-乐视</h4><p>为其子类提供一个公共的类型<br>封装子类中得重复内容<br>定义抽象方法，子类虽然有不同的实现 但是定义是一致的</p>
+<h4 id="内部类的作用-乐视"><a href="#内部类的作用-乐视" class="headerlink" title="内部类的作用-乐视"></a>内部类的作用-乐视</h4><ol>
 <li>内部类可以用多个实例，每个实例都有自己的状态信息，并且与其他外围对象的信息相互独立。</li>
 <li>在单个外围类中，可以让多个内部类以不同的方式实现同一个接口，或者继承同一个类。</li>
 <li>创建内部类对象的时刻并不依赖于外围类对象的创建。</li>
@@ -94,20 +742,14 @@
 <p>3）如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。</p>
 <p>什么时候使用抽象类和接口</p>
 <p>如果你拥有一些方法并且想让它们中的一些有默认实现，那么使用抽象类吧。<br>如果你想实现多重继承，那么你必须使用接口。由于Java不支持多继承，子类不能够继承多个类，但可以实现多个接口。因此你就可以使用接口来解决它。<br>如果基本功能在不断改变，那么就需要使用抽象类。如果不断改变基本功能并且使用接口，那么就需要改变所有实现了该接口的类。</p>
-<p>####父类的静态方法能否被子类重写-猎豹</p>
-<p>不能</p>
+<h4 id="父类的静态方法能否被子类重写-猎豹"><a href="#父类的静态方法能否被子类重写-猎豹" class="headerlink" title="父类的静态方法能否被子类重写-猎豹"></a>父类的静态方法能否被子类重写-猎豹</h4><p>不能</p>
 <p>子类继承父类后，用相同的静态方法和非静态方法，这时非静态方法覆盖父类中的方法（即方法重写），父类的该静态方法被隐藏（如果对象是父类则调用该隐藏的方法），另外子类可继承父类的静态与非静态方法，至于方法重载我觉得它其中一要素就是在同一类中，不能说父类中的什么方法与子类里的什么方法是方法重载的体现</p>
 <p>快速失败和安全失败<br>快速失败：对于非并发集合来说，在其进行迭代时，例如iterator迭代时，iterator是另起一个线程，若有其他线程（如 Collection）进行结构修改（修改了增减了集合中的内容），这个迭代会马上感知到，并且立即抛出 ConcurrentModificationException 异常，而不是迭代完成后才告诉你出错了，引起快速失败。若用iterator进行修改则不会出现这个问题，如iterator.move();也就是说涉 及到了多个线程间的同步问题</p>
-<p>####java排序算法-美团</p>
-<p><a href="http://blog.csdn.net/qy1387/article/details/7752973" target="_blank" rel="external">http://blog.csdn.net/qy1387/article/details/7752973</a></p>
-<p>####列举java的集合和继承关系-百度-美团</p>
-<p><img src="https://github.com/JackyAndroid/AndroidInterview-Q-A/blob/master/picture/collection.png" alt=""></p>
-<p>####java虚拟机的特性-百度-乐视</p>
-<p>Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用模式Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。</p>
-<p>####哪些情况下的对象会被垃圾回收机制处理掉-美团-小米</p>
-<p>Java 垃圾回收机制最基本的做法是分代回收。内存中的区域被划分成不同的世代，对象根据其存活的时间被保存在对应世代的区域中。一般的实现是划分成3个世代：年轻、年老和永久。内存的分配是发生在年轻世代中的。当一个对象存活时间足够长的时候，它就会被复制到年老世代中。对于不同的世代可以使用不同的垃圾回收算法。进行世代划分的出发点是对应用中对象存活时间进行研究之后得出的统计规律。一般来说，一个应用中的大部分对象的存活时间都很短。比如局部变量的存活时间就只在方法的执行过程中。基于这一点，对于年轻世代的垃圾回收算法就可以很有针对性。</p>
-<p>####进程和线程的区别-猎豹-美团</p>
-<p>简而言之,一个程序至少有一个进程,一个进程至少有一个线程。</p>
+<h4 id="java排序算法-美团"><a href="#java排序算法-美团" class="headerlink" title="java排序算法-美团"></a>java排序算法-美团</h4><p><a href="http://blog.csdn.net/qy1387/article/details/7752973" target="_blank" rel="external">http://blog.csdn.net/qy1387/article/details/7752973</a></p>
+<h4 id="列举java的集合和继承关系-百度-美团"><a href="#列举java的集合和继承关系-百度-美团" class="headerlink" title="列举java的集合和继承关系-百度-美团"></a>列举java的集合和继承关系-百度-美团</h4><p><img src="https://github.com/JackyAndroid/AndroidInterview-Q-A/blob/master/picture/collection.png" alt=""></p>
+<h4 id="java虚拟机的特性-百度-乐视"><a href="#java虚拟机的特性-百度-乐视" class="headerlink" title="java虚拟机的特性-百度-乐视"></a>java虚拟机的特性-百度-乐视</h4><p>Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用模式Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。</p>
+<h4 id="哪些情况下的对象会被垃圾回收机制处理掉-美团-小米"><a href="#哪些情况下的对象会被垃圾回收机制处理掉-美团-小米" class="headerlink" title="哪些情况下的对象会被垃圾回收机制处理掉-美团-小米"></a>哪些情况下的对象会被垃圾回收机制处理掉-美团-小米</h4><p>Java 垃圾回收机制最基本的做法是分代回收。内存中的区域被划分成不同的世代，对象根据其存活的时间被保存在对应世代的区域中。一般的实现是划分成3个世代：年轻、年老和永久。内存的分配是发生在年轻世代中的。当一个对象存活时间足够长的时候，它就会被复制到年老世代中。对于不同的世代可以使用不同的垃圾回收算法。进行世代划分的出发点是对应用中对象存活时间进行研究之后得出的统计规律。一般来说，一个应用中的大部分对象的存活时间都很短。比如局部变量的存活时间就只在方法的执行过程中。基于这一点，对于年轻世代的垃圾回收算法就可以很有针对性。</p>
+<h4 id="进程和线程的区别-猎豹-美团"><a href="#进程和线程的区别-猎豹-美团" class="headerlink" title="进程和线程的区别-猎豹-美团"></a>进程和线程的区别-猎豹-美团</h4><p>简而言之,一个程序至少有一个进程,一个进程至少有一个线程。</p>
 <p>线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
 <p>另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
 <p>线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
@@ -116,29 +758,22 @@
 <p>线程是进程的一个实体,是CPU调度和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源.</p>
 <p>一个线程可以创建和撤销另一个线程;同一个进程中的多个线程之间可以并发执行.</p>
 <p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。如果有兴趣深入的话，我建议你们看看《现代操作系统》或者《操作系统的设计与实现》。对就个问题说得比较清楚。</p>
-<p>####java中==和equals和hashCode的区别-乐视</p>
-<p><a href="http://blog.csdn.net/tiantiandjava/article/details/46988461" target="_blank" rel="external">http://blog.csdn.net/tiantiandjava/article/details/46988461</a></p>
-<p>####常见的排序算法时间复杂度-小米</p>
-<p>####HashMap的实现原理-美团</p>
-<ol>
+<h4 id="java中-和equals和hashCode的区别-乐视"><a href="#java中-和equals和hashCode的区别-乐视" class="headerlink" title="java中==和equals和hashCode的区别-乐视"></a>java中==和equals和hashCode的区别-乐视</h4><p><a href="http://blog.csdn.net/tiantiandjava/article/details/46988461" target="_blank" rel="external">http://blog.csdn.net/tiantiandjava/article/details/46988461</a></p>
+<h4 id="常见的排序算法时间复杂度-小米"><a href="#常见的排序算法时间复杂度-小米" class="headerlink" title="常见的排序算法时间复杂度-小米"></a>常见的排序算法时间复杂度-小米</h4><h4 id="HashMap的实现原理-美团"><a href="#HashMap的实现原理-美团" class="headerlink" title="HashMap的实现原理-美团"></a>HashMap的实现原理-美团</h4><ol>
 <li>HashMap概述：<br>HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。 </li>
 <li>HashMap的数据结构：<br> 在java编程语言中，最基本的结构就是两种，一个是数组，另外一个是模拟指针（引用），所有的数据结构都可以用这两个基本结构来构造的，HashMap也不例外。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。</li>
 </ol>
 <p>从上图中可以看出，HashMap底层就是一个数组结构，数组中的每一项又是一个链表。当新建一个HashMap的时候，就会初始化一个数组。</p>
-<p>####状态机</p>
-<p><a href="http://www.jdon.com/designpatterns/designpattern_State.htm" target="_blank" rel="external">http://www.jdon.com/designpatterns/designpattern_State.htm</a></p>
-<p>####int-char-long各占多少字节数</p>
-<p>byte 位数 8 字节数 1</p>
+<h4 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h4><p><a href="http://www.jdon.com/designpatterns/designpattern_State.htm" target="_blank" rel="external">http://www.jdon.com/designpatterns/designpattern_State.htm</a></p>
+<h4 id="int-char-long各占多少字节数"><a href="#int-char-long各占多少字节数" class="headerlink" title="int-char-long各占多少字节数"></a>int-char-long各占多少字节数</h4><p>byte 位数 8 字节数 1</p>
 <p>short 16 2</p>
 <p>int 32 4</p>
 <p>long 64 8</p>
 <p>float 32 4</p>
 <p>double 64 8</p>
 <p>char 16 2</p>
-<p>####int与integer的区别</p>
-<p><a href="http://www.cnblogs.com/shenliang123/archive/2011/10/27/2226903.html" target="_blank" rel="external">http://www.cnblogs.com/shenliang123/archive/2011/10/27/2226903.html</a></p>
-<p>####string-stringbuffer-stringbuilder区别-小米-乐视-百度</p>
-<p>String 字符串常量</p>
+<h4 id="int与integer的区别"><a href="#int与integer的区别" class="headerlink" title="int与integer的区别"></a>int与integer的区别</h4><p><a href="http://www.cnblogs.com/shenliang123/archive/2011/10/27/2226903.html" target="_blank" rel="external">http://www.cnblogs.com/shenliang123/archive/2011/10/27/2226903.html</a></p>
+<h4 id="string-stringbuffer-stringbuilder区别-小米-乐视-百度"><a href="#string-stringbuffer-stringbuilder区别-小米-乐视-百度" class="headerlink" title="string-stringbuffer-stringbuilder区别-小米-乐视-百度"></a>string-stringbuffer-stringbuilder区别-小米-乐视-百度</h4><p>String 字符串常量</p>
 <p>StringBuffer 字符串变量（线程安全）</p>
 <p>StringBuilder 字符串变量（非线程安全）</p>
 <p>简要的说， String 类型和 StringBuffer 类型的主要性能区别其实在于 String 是不可变的对象, 因此在每次对 String 类型进行改变的时候其实都等同于生成了一个新的 String 对象，然后将指针指向新的 String 对象，所以经常改变内容的字符串最好不要用String ，因为每次生成对象都会对系统性能产生影响，特别当内存中无引用对象多了以后,JVM 的 GC 就会开始工作，那速度是一定会相当慢的。</p>
@@ -154,8 +789,7 @@
 <p>在大部分情况下 StringBuilder &gt; StringBuffer</p>
 <p>java.lang.StringBuilder</p>
 <p>java.lang.StringBuilder一个可变的字符序列是5.0新增的。此类提供一个与 StringBuffer 兼容的 API，但不保证同步。该类被设计用作 StringBuffer 的一个简易替换，用在字符串缓冲区被单个线程使用的时候（这种情况很普遍）。如果可能，建议优先采用该类，因为在大多数实现中，它比 StringBuffer 要快。两者的方法基本相同</p>
-<p>####java多态-乐视</p>
-<p>Java多态性理解</p>
+<h4 id="java多态-乐视"><a href="#java多态-乐视" class="headerlink" title="java多态-乐视"></a>java多态-乐视</h4><p>Java多态性理解</p>
 <p>Java中多态性的实现</p>
 <p>什么是多态</p>
 <p>面向对象的三大特性：封装、继承、多态。从一定角度来看，封装和继承几乎都是为多态而准备的。这是我们最后一个概念，也是最重要的知识点。</p>
@@ -171,8 +805,7 @@
 <p>4.灵活性（flexibility）。它在应用中体现了灵活多样的操作，提高了使用效率。</p>
 <p>5.简化性（simplicity）。多态简化对应用软件的代码编写和修改过程，尤其在处理大量对象的运算和操作时，这个特点尤为突出和重要。</p>
 <p>Java中多态的实现方式：接口实现，继承父类进行方法重写，同一个类中进行方法重载。</p>
-<p>####什么导致线程阻塞-58-美团</p>
-<p>线程的阻塞</p>
+<h4 id="什么导致线程阻塞-58-美团"><a href="#什么导致线程阻塞-58-美团" class="headerlink" title="什么导致线程阻塞-58-美团"></a>什么导致线程阻塞-58-美团</h4><p>线程的阻塞</p>
 <p>为了解决对共享存储区的访问冲突，Java 引入了同步机制，现在让我们来考察多个线程对共享资源的访问，显然同步机制已经不够了，因为在任意时刻所要求的资源不一定已经准备好了被访问，反过来，同一时刻准备好了的资源也可能不止一个。为了解决这种情况下的访问控制问题，Java 引入了对阻塞机制的支持.</p>
 <p>阻塞指的是暂停一个线程的执行以等待某个条件发生（如某资源就绪），学过操作系统的同学对它一定已经很熟悉了。Java 提供了大量方法来支持阻塞，下面让我们逐一分析。</p>
 <ol>
@@ -191,8 +824,7 @@
 <p>第二：除了 notify()，还有一个方法 notifyAll() 也可起到类似作用，唯一的区别在于，调用 notifyAll() 方法将把因调用该对象的 wait() 方法而阻塞的所有线程一次性全部解除阻塞。当然，只有获得锁的那一个线程才能进入可执行状态。</p>
 <p>谈到阻塞，就不能不谈一谈死锁，略一分析就能发现，suspend() 方法和不指定超时期限的 wait() 方法的调用都可能产生死锁。遗憾的是，Java 并不在语言级别上支持死锁的避免，我们在编程中必须小心地避免死锁。</p>
 <p>以上我们对 Java 中实现线程阻塞的各种方法作了一番分析，我们重点分析了 wait() 和 notify() 方法，因为它们的功能最强大，使用也最灵活，但是这也导致了它们的效率较低，较容易出错。实际使用中我们应该灵活使用各种方法，以便更好地达到我们的目的。</p>
-<p>####抽象类接口区别-360</p>
-<ol>
+<h4 id="抽象类接口区别-360"><a href="#抽象类接口区别-360" class="headerlink" title="抽象类接口区别-360"></a>抽象类接口区别-360</h4><ol>
 <li><p>默认的方法实现<br>抽象类可以有默认的方法实现完全是抽象的。接口根本不存在方法的实现</p>
 </li>
 <li><p>实现<br>子类使用extends关键字来继承抽象类。如果子类不是抽象类的话，它需要提供抽象类中所有声明的方法的实现。<br>子类使用关键字implements来实现接口。它需要提供接口中所有声明的方法的实现</p>
@@ -212,14 +844,10 @@
 <li><p>添加新方法<br>如果你往抽象类中添加新的方法，你可以给它提供默认的实现。因此你不需要改变你现在的代码。<br>如果你往接口中添加方法，那么你必须改变实现该接口的类。</p>
 </li>
 </ol>
-<p>####容器类之间的区别-乐视-美团</p>
-<p><a href="http://www.cnblogs.com/yuanermen/archive/2009/08/05/1539917.html" target="_blank" rel="external">http://www.cnblogs.com/yuanermen/archive/2009/08/05/1539917.html</a><br><a href="http://alexyyek.github.io/2015/04/06/Collection/" target="_blank" rel="external">http://alexyyek.github.io/2015/04/06/Collection/</a><br><a href="http://tianmaying.com/tutorial/java_collection" target="_blank" rel="external">http://tianmaying.com/tutorial/java_collection</a></p>
-<p>####内部类</p>
-<p><a href="http://www.cnblogs.com/chenssy/p/3388487.html" target="_blank" rel="external">http://www.cnblogs.com/chenssy/p/3388487.html</a></p>
-<p>####hashmap和hashtable的区别-乐视-小米</p>
-<p><a href="http://www.233.com/ncre2/JAVA/jichu/20100717/084230917.html" target="_blank" rel="external">http://www.233.com/ncre2/JAVA/jichu/20100717/084230917.html</a></p>
-<p>####ArrayMap对比HashMap</p>
-<p><a href="http://lvable.com/?p=217" target="_blank" rel="external">http://lvable.com/?p=217</a></p>
+<h4 id="容器类之间的区别-乐视-美团"><a href="#容器类之间的区别-乐视-美团" class="headerlink" title="容器类之间的区别-乐视-美团"></a>容器类之间的区别-乐视-美团</h4><p><a href="http://www.cnblogs.com/yuanermen/archive/2009/08/05/1539917.html" target="_blank" rel="external">http://www.cnblogs.com/yuanermen/archive/2009/08/05/1539917.html</a><br><a href="http://alexyyek.github.io/2015/04/06/Collection/" target="_blank" rel="external">http://alexyyek.github.io/2015/04/06/Collection/</a><br><a href="http://tianmaying.com/tutorial/java_collection" target="_blank" rel="external">http://tianmaying.com/tutorial/java_collection</a></p>
+<h4 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h4><p><a href="http://www.cnblogs.com/chenssy/p/3388487.html" target="_blank" rel="external">http://www.cnblogs.com/chenssy/p/3388487.html</a></p>
+<h4 id="hashmap和hashtable的区别-乐视-小米"><a href="#hashmap和hashtable的区别-乐视-小米" class="headerlink" title="hashmap和hashtable的区别-乐视-小米"></a>hashmap和hashtable的区别-乐视-小米</h4><p><a href="http://www.233.com/ncre2/JAVA/jichu/20100717/084230917.html" target="_blank" rel="external">http://www.233.com/ncre2/JAVA/jichu/20100717/084230917.html</a></p>
+<h4 id="ArrayMap对比HashMap"><a href="#ArrayMap对比HashMap" class="headerlink" title="ArrayMap对比HashMap"></a>ArrayMap对比HashMap</h4><p><a href="http://lvable.com/?p=217" target="_blank" rel="external">http://lvable.com/?p=217</a></p>
 ]]></content>
     
     <summary type="html">
@@ -248,105 +876,16 @@
 &lt;li&gt;&lt;a href=&quot;#容器类之间的区别-乐视-美团&quot;&gt;容器类之间的区别-乐视-美团&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#内部类&quot;&gt;内部类&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#hashmap和hashtable的区别-乐视-小米&quot;&gt;hashmap和hashtable的区别-乐视-小米&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#arraymap对比hashmap&quot;&gt;ArrayMap对比HashMap&lt;/a&gt;&lt;br&gt;###java&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#arraymap对比hashmap&quot;&gt;ArrayMap对比HashMap&lt;/a&gt;&lt;h3 id=&quot;java&quot;&gt;&lt;a href=&quot;#java&quot; class=&quot;headerlink&quot; title=&quot;java&quot;&gt;&lt;/a&gt;java&lt;/h3&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;####接口的意义-百度&lt;/p&gt;
-&lt;p&gt;规范、扩展、回调&lt;br&gt;
+&lt;h4 id=&quot;接口的意义-百度&quot;&gt;&lt;a href=&quot;#接口的意义-百度&quot; class=&quot;headerlink&quot; title=&quot;接口的意义-百度&quot;&gt;&lt;/a&gt;接口的意义-百度&lt;/h4&gt;&lt;p&gt;规范、扩展、回调&lt;br&gt;
     
     </summary>
     
     
       <category term="Java" scheme="http://www.craymc.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://www.craymc.com/2016/07/20/hello-world/"/>
-    <id>http://www.craymc.com/2016/07/20/hello-world/</id>
-    <published>2016-07-20T10:47:00.000Z</published>
-    <updated>2017-01-12T12:48:30.024Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info.<br><a id="more"></a><br> If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;http://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;http://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info.&lt;br&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>one</title>
-    <link href="http://www.craymc.com/2016/07/20/one/"/>
-    <id>http://www.craymc.com/2016/07/20/one/</id>
-    <published>2016-07-20T02:16:29.000Z</published>
-    <updated>2016-07-20T10:47:18.974Z</updated>
-    
-    <content type="html"><![CDATA[<p>##第二课时<br>软件版本：1.1.0<br>安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）<br>安装支持设备：u盘移动，手机，电脑</p>
-<p>1.硬盘安装方式<br>进入安装界面<br>      live  体验<br>      live usb persistence  制作u盘无密码移动版<br>      live usb encrypted persistence  制作u盘有密码移动版<br>      install 直接安装<br>      graphical install 图形化安装</p>
-<p>2.docker(容器)<br>      <a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="external">https://www.kali.org/news/official-kali-linux-docker-images/</a> kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)</p>
-<pre><code>https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
-</code></pre><hr>
-<a id="more"></a>
-<p>1.虚拟机安装<br>    vmware workstation<br>    virtualbox<br>    官方vm镜像文件：<br>     <a href="https://www.offensive-security.com/kali-linux-vmware-arm-image-download/" target="_blank" rel="external">https://www.offensive-security.com/kali-linux-vmware-arm-image-download/</a><br>     win8系统安装虚拟机注意：要卸载微软的kb3045999补丁 卸载方法：打开命令提示符cd/到c盘再powershell再打入get-hotfix -id KB3045999回车打入wusa /uninstall /kb:3045999成功卸载</p>
-<pre><code>安装tools:
-</code></pre><p>先在虚拟机上安装附加模块，在打开哪个镜像，选择里面的vboxlinuxadditions.run拷贝出来用终端打开，先列出目录ls,再查询现有的权限ls -l，在赋予执行权限chmod +x 文件（x表示可执行），再看下文件是否是绿色ls -l，再运行./文件<br>，重启reboot</p>
-<p>2.持久加密usb安装</p>
-<p>模式：<br>1、live(amd64)可以通过启动U盘来运行kali linux。缺点：不可以安装新的软件包或更新修改；<br>2、Live USB P/EP(加密的持久USB启动光盘)。<br>DOCKER?<br>虚拟机安装<br>vmware workstation<br>Virtualbox<br>win8安装virtualbox，需要卸载一个补丁,要用到powershell，cmd下执行powershell，然后<br>poewershell<br>get-hotfix -id KB3045999</p>
-<p>wusa /uninstall /kb:3045999  按回车键，卸载</p>
-<p>虚拟机安装kali linux设置内存最好是2G，最大可以设置成4G</p>
-<hr>
-<p>安装kali linux操作系统<br>Graphical install   //选择字母界面安装kali linux操作系统</p>
-<p>chinese(Simplified)  中文（简体）</p>
-<p>中国</p>
-<p>汉语</p>
-<p>请输入系统的主机名: Kali</p>
-<p>域名：      //如果这里有域名可以在下面填写,如果木有域名则自己按继续</p>
-<p>输入root账号密码 </p>
-<p>向导-使用整个硬盘</p>
-<p>SCSII (0,0,0)(sda)- 85.9GB ATA VBOX HARDDISK</p>
-<p>√ 讲所有每个文件放在同一个分区中（推荐新手使用）<br>×将/home、/usr、/var和/tmp都分别放在单独的分区</p>
-<p>分区设定结构并将修改写入硬盘</p>
-<p>将改动写入硬盘吗？  是</p>
-<p>将CRUB 启动引导基安装到主引导记录（MBR）上么？  是</p>
-<p>安装完成    继续</p>
-<hr>
-<p>root@kali:~# apt-get install linux-headers-$(uname -r)    //更新系统并显示linux操作系统内核版本号<br>Reading package lists … Done<br>Building dependency tree<br>Reading state information… Done<br>Linux-headers-3.18.0-kalil-586 is already the newesr version.<br>0 upgrade, 0 newly installed, 0 to remove and 163 not upgraded.</p>
-<p>root@kali:~# apt-get update</p>
-<p>root@kali:~# uname -r      //uname用来获取电脑和操作系统的相关信息,显示linux操作系统内核版本号<br>3.18.0-kalil-586</p>
-<p>root@kali:~/Desktop# ls      //打印出当前目录的清单<br>VBocLinuxAdditions.run</p>
-<p>root@kali:~/Desktop# ls -l     //列出文件的详细信息，如创建者，创建时间，文件的读写权限列表等等<br>tottal 6972<br>-rw-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run</p>
-<p>root@kali:~/Desktop# chmod +x VBocLinuxAdditions.run                 赋予执行权限</p>
-<p>root@kali:~/Desktop# ls -l<br>tottal 6972<br>-rwxr-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run      赋予权限且”VBocLinuxAdditions.run”变成绿色</p>
-<p>root@kali:~/Desktop# ./VBocLinuxAdditions.run       运行VBocLinuxAdditions.run</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;##第二课时&lt;br&gt;软件版本：1.1.0&lt;br&gt;安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）&lt;br&gt;安装支持设备：u盘移动，手机，电脑&lt;/p&gt;
-&lt;p&gt;1.硬盘安装方式&lt;br&gt;进入安装界面&lt;br&gt;      live  体验&lt;br&gt;      live usb persistence  制作u盘无密码移动版&lt;br&gt;      live usb encrypted persistence  制作u盘有密码移动版&lt;br&gt;      install 直接安装&lt;br&gt;      graphical install 图形化安装&lt;/p&gt;
-&lt;p&gt;2.docker(容器)&lt;br&gt;      &lt;a href=&quot;https://www.kali.org/news/official-kali-linux-docker-images/&quot;&gt;https://www.kali.org/news/official-kali-linux-docker-images/&lt;/a&gt; kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-    
-    </summary>
-    
-    
-      <category term="Kali" scheme="http://www.craymc.com/tags/Kali/"/>
     
   </entry>
   
@@ -874,168 +1413,6 @@ Response.write “</form></p>]]></content>
     
     
       <category term="生活" scheme="http://www.craymc.com/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于html</title>
-    <link href="http://www.craymc.com/2015/11/14/%E5%85%B3%E4%BA%8Ehtml/"/>
-    <id>http://www.craymc.com/2015/11/14/关于html/</id>
-    <published>2015-11-14T05:27:07.000Z</published>
-    <updated>2016-07-20T10:47:18.975Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文是利用html5实现的一个简单动画（时钟），实现的关键在于html与js的配合使用，代码量不多，实现起来也比较容易，难点在于对角度的计算，需要注意的地方已经用注释标记。代码如下<br><a id="more"></a></p>
-<pre><code>&lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot; /&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;canvas id=&quot;canvas&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;
-    &lt;script&gt;
-        var canvas = document.getElementById(&quot;canvas&quot;);
-        var context = canvas.getContext(&quot;2d&quot;);
-
-
-        function drawClock(){
-            context.clearRect(0,0,500,500);
-
-        var now = new Date();
-        var sec = now.getSeconds();
-        var min = now.getMinutes();
-        var hours = now.getHours();
-        //小时必须获取浮点类型 (小时+分钟/60)
-        hours = hours+min/60;
-        var hours = hours&gt;12?hours-12:hours;
-
-        context.lineWidth = 10;
-        context.strokeStyle = &quot;blue&quot;;
-        context.beginPath();
-        context.arc(250,250,200,0,360,false);
-        context.closePath();
-        context.stroke();
-
-        //画刻度
-        for(var i=0;i&lt;12;i++){
-            context.save();
-            context.lineWidth = 7;
-            context.strokeStyle = &quot;#000&quot;;
-            context.translate(250,250);//平移（移到中心位置）
-            //设置时钟偏移弧度
-            context.rotate(i*30*Math.PI/180);//弧度=math.PI/180[弧度=角度乘以π后再除以180
-                                                                                    //角度=弧度除以π再乘以180]
-                                                                                    //循环画出所有刻度
-            context.beginPath();//开启流
-            context.moveTo(0,-170);
-            context.lineTo(0,-190);//划线    
-            context.closePath();//关闭流
-            context.stroke();
-            context.restore();
-        }
-        //画分刻度
-        for(var i=0;i&lt;60;i++){
-            //保存当前状态
-            context.save();
-            context.beginPath();
-            context.lineWidth = 5;
-            context.strokeStyle = &quot;#000&quot;;
-            context.translate(250,250);
-            context.rotate(i*6*Math.PI/180);
-            context.moveTo(0,-180);
-            context.lineTo(0,-190);
-            context.closePath();
-
-            context.stroke();
-            context.restore();//恢复状态
-        }
-        //时钟
-        context.save();
-        context.lineWidth = 7;
-        context.strokeStyle = &quot;#000&quot;;
-        context.beginPath();
-        context.translate(250,250);
-        context.rotate(hours*30*Math.PI/180);
-        context.moveTo(0,-140);
-        context.lineTo(0,10);
-        context.closePath();
-        context.stroke();
-        context.restore();
-        //分钟
-        context.save();
-        context.lineWidth = 5;
-        context.strokeStyle = &quot;#000&quot;;
-        context.beginPath();
-        context.translate(250,250);
-        context.rotate(min*6*Math.PI/180);
-        context.moveTo(0,-140);
-        context.lineTo(0,10);
-        context.closePath();
-        context.stroke();
-        context.restore();
-        //秒钟
-        context.save();
-        context.lineWidth = 5;
-        context.strokeStyle = &quot;#ff0000&quot;;
-        context.beginPath();
-        context.translate(250,250);
-        context.rotate(sec*6*Math.PI/180);
-        context.moveTo(0,-160);
-        context.lineTo(0,15);
-        context.closePath();
-        context.stroke();
-        context.restore();
-        }
-
-
-        setInterval(drawClock,1000);//每隔1秒钟，上面的代码全部运行一次
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文是利用html5实现的一个简单动画（时钟），实现的关键在于html与js的配合使用，代码量不多，实现起来也比较容易，难点在于对角度的计算，需要注意的地方已经用注释标记。代码如下&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="html5" scheme="http://www.craymc.com/tags/html5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>3款iOS和Android最酷的开源自动化测试工具 </title>
-    <link href="http://www.craymc.com/2015/11/10/3%E6%AC%BEiOS%E5%92%8CAndroid%E6%9C%80%E9%85%B7%E7%9A%84%E5%BC%80%E6%BA%90%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/"/>
-    <id>http://www.craymc.com/2015/11/10/3款iOS和Android最酷的开源自动化测试工具/</id>
-    <published>2015-11-10T04:48:20.000Z</published>
-    <updated>2016-07-20T10:47:18.970Z</updated>
-    
-    <content type="html"><![CDATA[<p>自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。<br><a id="more"></a><br>下面介绍5个最佳的iOS和Android开源自动化工具。 </p>
-<p>1.Calabash(适用于Android和iOS) </p>
-<p>Calabash 是一个开源的验收测试框架，支持Android和iOS自动化。Calabash为Android和iOS自动化测试提供了一个单独的库。这是一个跨平台的框架，支持 Cucumber，Cucumber能让你用自然的英语语言表述app的行为，实现BDD(Behavior Driven Development，行为驱动开发)。 </p>
-<p>Calabash提供了一个桥梁，允许Cucumber测试对iOS和Android运行和验证。Cucumber测试使用一列语句写入，这些语句会形成很多测试场景。Cucumber中的所有语句使用Ruby定义。在Calabash，Cucumber语句只能被定义一次，但可以在Cucumber脚本的不同场景中重复使用。实际测试是用Gherkin写的，依靠Ruby代码的支持，并在Cucumber框架的上下文中运行。 </p>
-<p>优点： </p>
-<p>◆大型社区支持。<br>◆简单，类似英语表述的测试语句。<br>◆支持在屏幕上的所有动作，如滑动，缩放，旋转，敲击等。<br>◆大型且热心的社区。<br>◆跨平台开发支持(同样的代码在Android和iOS设备中都适用)。 </p>
-<p>缺点： </p>
-<p>◆测试步骤失败后，将跳过所有的后续步骤。这可能会导致错过更严重的产品问题。<br>◆需要时间来进行测试，因为它首先总是默认安装app。但是，这种设置可以通过在代码中配置一个钩子(hook)覆盖掉。<br>◆需要Calabash框架安装在ios的ipa文件中。<br>◆我们必须要有iOS的app代码。<br>◆除了Ruby，对其他语言不友好。 </p>
-<p>2.Appium(Android和iOS) </p>
-<p>Appium是Sauce Labs出品的一个开源的自动化测试框架，用于原生、混合和移动的web app。框架内的Appium库函数调用Appium服务器是在操作连接设备的后台运行的。它在内部使用JSONWireProtocol，来与使用 Selenium的WebDriver的iOS和Android app进行互动。 </p>
-<p>不像Calabash只支持Ruby开发，在框架中使用Appium时，你可以从Java、Python和Ruby，以及所有其他Selenium WebDriver支持的语言中选择。Appium服务器被托管在Node服务器上。你可以通过触发一组Node命令来启动Appium服务器。使用Appium Standalone Application作为服务器(从Appium网站下载)，Inspector工具可对app的所有定位器提供查找/识别/操作的能力。 </p>
-<p>优点： </p>
-<p>◆支持多种语言。<br>◆不需要访问源代码。<br>◆跨平台脚本开发。<br>◆大型社区支持。<br>◆支持Mac上的脚本记录。<br>◆使用Appium Server应用程序的Inspector工具提取标识符。<br>◆通过Appium Server的桌面应用程序对Selendroid内置支持。<br>◆它还使用供应商提供的框架：适用于iOS的UIAutomation ，分别适用于Android 4.2+和 2.3+的UIAutomator和Selendroid。<br>◆支持物理设备与仿真器。<br>◆支持原生，混合和移动的web自动化应用程序。 </p>
-<p>缺点： </p>
-<p>◆Appium Server桌面应用程序的发布常常不稳定。<br>◆脚本记录不适用于Application服务器对于Windows OS的桌面应用程序。 </p>
-<p>3.Robotium(Android ) </p>
-<p>Robotium是一个开源的测试框架，用于开发功能性，系统，和验收测试场景。它与Selenium非常相似，除了Robotium只适用于Android。它注册在Apache License 2.0下。<br>因为它不但简单，而且又具有创建强大又可靠的自动化场景的能力，因而它在自动化测试社区广泛流行。<br>它采用运行时绑定到GUI组件。它安装了一个测试用例套件作为在Android设备或仿真器上的应用程序，并提供用于执行测试的真实环境。 </p>
-<p>优点： </p>
-<p>◆容易在最短的时间内编写测试脚本。<br>◆预装自动化app是可能的。<br>◆自动跟随当前activity。<br>◆由于运行时绑定到GUI组件，所以相比Appium，它的测试执行更快，更强大。<br>◆不访问代码或不知道app实现，也可以工作。<br>◆支持Activities、Dialogs、Toasts、Menus、Context Menus和其他Android SDK控件。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;自动化测试在产品测试上有着非常重要的作用。实现测试自动化有多种积极的方式，包括最大限度地减少测试执行时间；在关键的发布阶段，用更少的时间确保更大的覆盖范围；在产品开发阶段，可靠又重复性地运行以确保没有引进回归问题。最大限度地减少重复性回归测试循环时的人为错误和疏忽的风险。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="Android" scheme="http://www.craymc.com/tags/Android/"/>
     
   </entry>
   
