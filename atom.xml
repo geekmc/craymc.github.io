@@ -851,7 +851,7 @@ public static void main(String[] args) {
     <link href="http://www.craymc.com/2017/01/22/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
     <id>http://www.craymc.com/2017/01/22/工厂方法模式详解/</id>
     <published>2017-01-22T13:37:37.000Z</published>
-    <updated>2017-01-22T13:51:13.314Z</updated>
+    <updated>2017-01-22T14:11:16.054Z</updated>
     
     <content type="html"><![CDATA[<h3 id="工厂方法详解"><a href="#工厂方法详解" class="headerlink" title="工厂方法详解"></a>工厂方法详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
 <h4 id="定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。"><a href="#定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。" class="headerlink" title="定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。"></a>定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。</h4><hr>
@@ -973,6 +973,8 @@ public PenCore getPenCore() {
     
     </summary>
     
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
