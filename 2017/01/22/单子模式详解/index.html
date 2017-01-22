@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="CRAYMC">
-    <title>策略模式详解 - CRAYMC</title>
+    <title>单子模式详解 - CRAYMC</title>
     <meta name="author" content="craymc">
     
         <link rel="icon" href="/assets/images/bi_favicon .ico">
@@ -14,34 +14,34 @@
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="策略模式详解author：craymc
-定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。
-模式的结构与使用策略模式的结构包括三种角色：
+    <meta name="description" content="单子模式详解author：craymc
+定义： 保证一个类只有一个实例，并提供一个访问它的全局访问点。单子模式的优点单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。单子模式的使用场景当系统需要某个类只能有一个实例。
+下面代码实现了两种经典单子模式和线程安全的单子模式
+代码部分：懒汉式public class Singleton {
 
-策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。
-具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。
-上下文：上下文是依赖于">
+
+private Singleton() {">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="策略模式详解">
-<meta property="og:url" content="http://www.craymc.com/2017/01/17/策略模式详解/index.html">
+<meta property="og:title" content="单子模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/22/单子模式详解/index.html">
 <meta property="og:site_name" content="CRAYMC">
-<meta property="og:description" content="策略模式详解author：craymc
-定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。
-模式的结构与使用策略模式的结构包括三种角色：
+<meta property="og:description" content="单子模式详解author：craymc
+定义： 保证一个类只有一个实例，并提供一个访问它的全局访问点。单子模式的优点单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。单子模式的使用场景当系统需要某个类只能有一个实例。
+下面代码实现了两种经典单子模式和线程安全的单子模式
+代码部分：懒汉式public class Singleton {
 
-策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。
-具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。
-上下文：上下文是依赖于">
-<meta property="og:updated_time" content="2017-01-22T06:57:09.092Z">
+
+private Singleton() {">
+<meta property="og:updated_time" content="2017-01-22T13:51:36.239Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="策略模式详解">
-<meta name="twitter:description" content="策略模式详解author：craymc
-定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。
-模式的结构与使用策略模式的结构包括三种角色：
+<meta name="twitter:title" content="单子模式详解">
+<meta name="twitter:description" content="单子模式详解author：craymc
+定义： 保证一个类只有一个实例，并提供一个访问它的全局访问点。单子模式的优点单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。单子模式的使用场景当系统需要某个类只能有一个实例。
+下面代码实现了两种经典单子模式和线程安全的单子模式
+代码部分：懒汉式public class Singleton {
 
-策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。
-具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。
-上下文：上下文是依赖于">
+
+private Singleton() {">
     
     
     
@@ -218,13 +218,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            策略模式详解
+            单子模式详解
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Tue Jan 17 2017 22:19:03 GMT+0800">
+    <time itemprop="datePublished" content="Sun Jan 22 2017 21:38:44 GMT+0800">
 	
-		    1月17日, 2017年
+		    1月22日, 2017年
     	
     </time>
     
@@ -233,135 +233,62 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="策略模式详解"><a href="#策略模式详解" class="headerlink" title="策略模式详解"></a>策略模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h4 id="定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。"><a href="#定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。" class="headerlink" title="定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。"></a>定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。</h4><hr>
-<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>策略模式的结构包括三种角色：</p>
-<ul>
-<li>策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。</li>
-<li>具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。</li>
-<li>上下文：上下文是依赖于策略接口的类，既上下文包含有策略声明的变量。上下文中提供一个方法，该方法委托策略变量调用策略所实现的策略接口中的方法。</li>
-</ul>
-<hr>
-<a id="more"></a>
-<h4 id="策略模式的优点"><a href="#策略模式的优点" class="headerlink" title="策略模式的优点"></a>策略模式的优点</h4><ul>
-<li>上下文和具体策略是松耦关系。</li>
-<li>策略模式满足“开-闭原则”。当增加新策略时，不需要修改上下文类的代码，上下文就可以引用新的具体策略的实例。</li>
-</ul>
-<hr>
-<h4 id="策略模式的适用场景"><a href="#策略模式的适用场景" class="headerlink" title="策略模式的适用场景"></a>策略模式的适用场景</h4><ul>
-<li>一个类定义了多种行为，并且这些行为在这个类的方法中以多个条件语句的形式出现，那么可以使用策略模式避免在类中使用大量的条件语句。</li>
-<li>程序不希望暴露复杂的，与算法相关的数据结构，那么可以使用策略模式封装算法。</li>
-<li>需要使用一个算法的不同变体。</li>
-</ul>
-<hr>
-<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="策略："><a href="#策略：" class="headerlink" title="策略："></a>策略：</h5><pre><code>public interface ComputableStrategy {
-public abstract double computeSocre(double []a);
+            <h3 id="单子模式详解"><a href="#单子模式详解" class="headerlink" title="单子模式详解"></a>单子模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h2 id="定义：-保证一个类只有一个实例，并提供一个访问它的全局访问点。"><a href="#定义：-保证一个类只有一个实例，并提供一个访问它的全局访问点。" class="headerlink" title="定义： 保证一个类只有一个实例，并提供一个访问它的全局访问点。"></a>定义： 保证一个类只有一个实例，并提供一个访问它的全局访问点。</h2><h3 id="单子模式的优点"><a href="#单子模式的优点" class="headerlink" title="单子模式的优点"></a>单子模式的优点</h3><h2 id="单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。"><a href="#单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。" class="headerlink" title="单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。"></a>单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。</h2><h3 id="单子模式的使用场景"><a href="#单子模式的使用场景" class="headerlink" title="单子模式的使用场景"></a>单子模式的使用场景</h3><p>当系统需要某个类只能有一个实例。</p>
+<h3 id="下面代码实现了两种经典单子模式和线程安全的单子模式"><a href="#下面代码实现了两种经典单子模式和线程安全的单子模式" class="headerlink" title="下面代码实现了两种经典单子模式和线程安全的单子模式"></a>下面代码实现了两种经典单子模式和线程安全的单子模式</h3><hr>
+<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h5><pre><code>public class Singleton {
 
+
+private Singleton() {}  
+private static Singleton single=null;  
+//静态工厂方法   
+public static Singleton getInstance() {  
+     if (single == null) {    
+         single = new Singleton();  
+     }    
+    return single;  
+}  
+</code></pre><p>   }</p>
+<h5 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h5><pre><code>public class Singleton1 {
+
+
+   private Singleton1() {}  
+    private static final Singleton1 single = new Singleton1();  
+    //静态工厂方法   
+    public static Singleton1 getInstance() {  
+        return single;  
+    } 
 }
-</code></pre><h5 id="具体策略："><a href="#具体策略：" class="headerlink" title="具体策略："></a>具体策略：</h5><pre><code>public class StrategyOne implements ComputableStrategy {
+</code></pre><h5 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h5><pre><code>public class TestSingleton {  
+String name = null;  
 
-@Override
-public double computeSocre(double[] a) {
-        double score=0,sum=0;
-        for (int i = 0; i &lt; a.length; i++) {
-            sum=sum+a[i];
-        }
-        score=sum/a.length;
-    return score;
-}
+    private TestSingleton() {  
+}  
 
-}
+private static volatile TestSingleton instance = null;  
 
-public class StrategyTwo implements ComputableStrategy {
+public static TestSingleton getInstance() {  
+       if (instance == null) {    
+         synchronized (TestSingleton.class) {    
+            if (instance == null) {    
+               instance = new TestSingleton();   
+            }    
+         }    
+       }   
+       return instance;  
+}  
 
-@Override
-public double computeSocre(double[] a) {
-    double score=0,multi=1;
-    int n=a.length;
-    for (int i = 0; i &lt; a.length; i++) {
-        multi=multi*a[i];
-    }
-    score=Math.pow(multi, 1.0/n);
+public String getName() {  
+    return name;  
+}  
 
-    return score;
-}
+public void setName(String name) {  
+    this.name = name;  
+}  
 
-}
-
-import java.util.Arrays;
-
-public class StrategyThree implements ComputableStrategy{
-
-@Override
-public double computeSocre(double[] a) {
-    if(a.length&lt;=2){
-        return 0;
-    }
-    double score=0,sum=0;
-    Arrays.sort(a);
-    for (int i = 0; i &lt; a.length-1; i++) {
-        sum=sum+a[i];
-
-    }
-    score=sum/(a.length-2);
-    return score;
-}
-
-}
-</code></pre><h5 id="上下文："><a href="#上下文：" class="headerlink" title="上下文："></a>上下文：</h5><pre><code>public class GymnasticsGame {
-ComputableStrategy strategy;
-public void setStrategy(ComputableStrategy strategy){
- this.strategy=strategy;
-
-}
-public double getPersonScore(double []a){
-if(strategy!=null)
-{
-    return strategy.computeSocre(a);
-}else{
-    return 0;
-}    
-
-}
-
-}
-</code></pre><h5 id="模式使用："><a href="#模式使用：" class="headerlink" title="模式使用："></a>模式使用：</h5><pre><code>public class Application {
-    public static void main(String[] args) {
-        GymnasticsGame game=new GymnasticsGame();
-        game.setStrategy(new StrategyOne());
-        Person zhang=new Person();
-        zhang.setName(&quot;张三&quot;);
-        double []a={9.12,9.25,8.87,9.89};
-        Person li=new Person();
-        li.setName(&quot;李四&quot;);
-        double []b={9.12,9.25,8.87,9.89};
-        zhang.setScore(game.getPersonScore(a));
-        li.setScore(game.getPersonScore(b));
-        System.out.println(&quot;使用算术平均值方案：&quot;);
-        System.out.printf(&quot;最后得分：&quot;,zhang.getName(),zhang.getScore());
-
-
-
-
-    }
-}
-class Person{
-
-String name;
-double score;
-public String getName() {
-    return name;
-}
-public void setName(String name) {
-    this.name = name;
-}
-public double getScore() {
-    return score;
-}
-public void setScore(double score) {
-    this.score = score;
-}
-
+public void printInfo() {  
+    System.out.println(&quot;the name is &quot; + name);  
+}  
 
 } 
 </code></pre>
@@ -385,7 +312,7 @@ public void setScore(double score) {
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/装饰模式详解/"  data-tooltip="装饰模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/责任链模式详解/"  data-tooltip="责任链模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -393,7 +320,7 @@ public void setScore(double score) {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/观察者模式详解/" data-tooltip="观察者模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/迭代器详解/" data-tooltip="迭代器详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -409,17 +336,17 @@ public void setScore(double score) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/17/策略模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/单子模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/单子模式详解/&amp;title=单子模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/单子模式详解/&amp;title=单子模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -428,7 +355,7 @@ public void setScore(double score) {
 
 
         
-            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-策略模式详解" data-title="策略模式详解" data-url="http://www.craymc.com/2017/01/17/策略模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-单子模式详解" data-title="单子模式详解" data-url="http://www.craymc.com/2017/01/22/单子模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
         
     </div>
 </article>
@@ -449,7 +376,7 @@ public void setScore(double score) {
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/装饰模式详解/"  data-tooltip="装饰模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/责任链模式详解/"  data-tooltip="责任链模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -457,7 +384,7 @@ public void setScore(double score) {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/观察者模式详解/" data-tooltip="观察者模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/迭代器详解/" data-tooltip="迭代器详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -473,17 +400,17 @@ public void setScore(double score) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/17/策略模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/单子模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/单子模式详解/&amp;title=单子模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/单子模式详解/&amp;title=单子模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -501,17 +428,17 @@ public void setScore(double score) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/17/策略模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/单子模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/单子模式详解/&amp;title=单子模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/单子模式详解/&amp;title=单子模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>

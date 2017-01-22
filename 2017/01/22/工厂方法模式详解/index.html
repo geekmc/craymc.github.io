@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="CRAYMC">
-    <title>策略模式详解 - CRAYMC</title>
+    <title>工厂方法模式详解 - CRAYMC</title>
     <meta name="author" content="craymc">
     
         <link rel="icon" href="/assets/images/bi_favicon .ico">
@@ -14,34 +14,31 @@
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="策略模式详解author：craymc
-定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。
-模式的结构与使用策略模式的结构包括三种角色：
+    <meta name="description" content="工厂方法详解author：craymc
+定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。
+模式的接口和使用工厂方法模式的结构中包括四种角色：
 
-策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。
-具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。
-上下文：上下文是依赖于">
+抽象产品：抽象类或者接口，负责定义具体产品必须实现的方法。
+具体产品：具体产品是一个类，如果product是一个抽象类，那么具体产品是product的子类；如果product是一个接口，那么具体产品是实现p">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="策略模式详解">
-<meta property="og:url" content="http://www.craymc.com/2017/01/17/策略模式详解/index.html">
+<meta property="og:title" content="工厂方法模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/22/工厂方法模式详解/index.html">
 <meta property="og:site_name" content="CRAYMC">
-<meta property="og:description" content="策略模式详解author：craymc
-定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。
-模式的结构与使用策略模式的结构包括三种角色：
+<meta property="og:description" content="工厂方法详解author：craymc
+定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。
+模式的接口和使用工厂方法模式的结构中包括四种角色：
 
-策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。
-具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。
-上下文：上下文是依赖于">
-<meta property="og:updated_time" content="2017-01-22T06:57:09.092Z">
+抽象产品：抽象类或者接口，负责定义具体产品必须实现的方法。
+具体产品：具体产品是一个类，如果product是一个抽象类，那么具体产品是product的子类；如果product是一个接口，那么具体产品是实现p">
+<meta property="og:updated_time" content="2017-01-22T13:51:13.314Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="策略模式详解">
-<meta name="twitter:description" content="策略模式详解author：craymc
-定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。
-模式的结构与使用策略模式的结构包括三种角色：
+<meta name="twitter:title" content="工厂方法模式详解">
+<meta name="twitter:description" content="工厂方法详解author：craymc
+定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。
+模式的接口和使用工厂方法模式的结构中包括四种角色：
 
-策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。
-具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。
-上下文：上下文是依赖于">
+抽象产品：抽象类或者接口，负责定义具体产品必须实现的方法。
+具体产品：具体产品是一个类，如果product是一个抽象类，那么具体产品是product的子类；如果product是一个接口，那么具体产品是实现p">
     
     
     
@@ -218,13 +215,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            策略模式详解
+            工厂方法模式详解
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Tue Jan 17 2017 22:19:03 GMT+0800">
+    <time itemprop="datePublished" content="Sun Jan 22 2017 21:37:37 GMT+0800">
 	
-		    1月17日, 2017年
+		    1月22日, 2017年
     	
     </time>
     
@@ -233,137 +230,118 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="策略模式详解"><a href="#策略模式详解" class="headerlink" title="策略模式详解"></a>策略模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h4 id="定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。"><a href="#定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。" class="headerlink" title="定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。"></a>定义：定义一系列算法，把他们一个个封装起来，并且使得他们可以相互替换。本模式使得算法可独立使用它的客户而变化。</h4><hr>
-<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>策略模式的结构包括三种角色：</p>
+            <h3 id="工厂方法详解"><a href="#工厂方法详解" class="headerlink" title="工厂方法详解"></a>工厂方法详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h4 id="定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。"><a href="#定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。" class="headerlink" title="定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。"></a>定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。</h4><hr>
+<h4 id="模式的接口和使用"><a href="#模式的接口和使用" class="headerlink" title="模式的接口和使用"></a>模式的接口和使用</h4><p>工厂方法模式的结构中包括四种角色：</p>
 <ul>
-<li>策略：策略是一个接口，该接口定义若干个算法标识，既定义了若干个抽象方法。</li>
-<li>具体策略：具体策略是实现策略接口的类。具体策略实现策略接口所定义的抽象方法，既给出算法标识的具体算法。</li>
-<li>上下文：上下文是依赖于策略接口的类，既上下文包含有策略声明的变量。上下文中提供一个方法，该方法委托策略变量调用策略所实现的策略接口中的方法。</li>
+<li>抽象产品：抽象类或者接口，负责定义具体产品必须实现的方法。</li>
+<li>具体产品：具体产品是一个类，如果product是一个抽象类，那么具体产品是product的子类；如果product是一个接口，那么具体产品是实现product接口的类。</li>
+<li>构造者：一个接口或抽象类。构造者负责定义一个称作工厂方法的抽象方法，该方法返回具体产品类的实例。</li>
+<li>具体构造者：如果构造者是抽象类，具体构造者是构造者的子类如果构造者是接口，具体构造者是实现构造者的类。具体构造者重写工厂方法使该方法返回<br>具体产品的实例。 </li>
 </ul>
 <hr>
-<a id="more"></a>
-<h4 id="策略模式的优点"><a href="#策略模式的优点" class="headerlink" title="策略模式的优点"></a>策略模式的优点</h4><ul>
-<li>上下文和具体策略是松耦关系。</li>
-<li>策略模式满足“开-闭原则”。当增加新策略时，不需要修改上下文类的代码，上下文就可以引用新的具体策略的实例。</li>
+<h4 id="工厂方法模式的优点"><a href="#工厂方法模式的优点" class="headerlink" title="工厂方法模式的优点"></a>工厂方法模式的优点</h4><ul>
+<li>使用工厂方法可让用户的代码和某个特定的子类的代码解耦。</li>
+<li>工厂方法使用户不必知道它所使用的对象是怎样被创建的，只需知道该对象有哪些方法即可。</li>
+</ul>
+<h4 id="适合使用工厂方法模式的情景"><a href="#适合使用工厂方法模式的情景" class="headerlink" title="适合使用工厂方法模式的情景"></a>适合使用工厂方法模式的情景</h4><ul>
+<li>用户需要一个类的子类的实例，但不希望与该类的子类形成耦合。</li>
+<li>用户需要一个类的子类的实例，但用户不知道该类有哪些子类可用。</li>
 </ul>
 <hr>
-<h4 id="策略模式的适用场景"><a href="#策略模式的适用场景" class="headerlink" title="策略模式的适用场景"></a>策略模式的适用场景</h4><ul>
-<li>一个类定义了多种行为，并且这些行为在这个类的方法中以多个条件语句的形式出现，那么可以使用策略模式避免在类中使用大量的条件语句。</li>
-<li>程序不希望暴露复杂的，与算法相关的数据结构，那么可以使用策略模式封装算法。</li>
-<li>需要使用一个算法的不同变体。</li>
-</ul>
-<hr>
-<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="策略："><a href="#策略：" class="headerlink" title="策略："></a>策略：</h5><pre><code>public interface ComputableStrategy {
-public abstract double computeSocre(double []a);
-
+<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><h5 id="抽象代码"><a href="#抽象代码" class="headerlink" title="抽象代码"></a>抽象代码</h5><pre><code>public abstract class PenCore {
+String color;
+public abstract void wirteWord(String s);
 }
-</code></pre><h5 id="具体策略："><a href="#具体策略：" class="headerlink" title="具体策略："></a>具体策略：</h5><pre><code>public class StrategyOne implements ComputableStrategy {
+</code></pre><h5 id="具体代码"><a href="#具体代码" class="headerlink" title="具体代码"></a>具体代码</h5><pre><code>public class RedPencore extends PenCore {
+RedPencore(){
+    color=&quot;红色&quot;;
+}
+
 
 @Override
-public double computeSocre(double[] a) {
-        double score=0,sum=0;
-        for (int i = 0; i &lt; a.length; i++) {
-            sum=sum+a[i];
-        }
-        score=sum/a.length;
-    return score;
+public void wirteWord(String s) {
+        System.out.println(&quot;写出&quot;+color+&quot;的字:&quot;+s);
 }
+
 
 }
 
-public class StrategyTwo implements ComputableStrategy {
+public class BluePenCore extends PenCore {
+public BluePenCore() {
+    color=&quot;蓝色&quot;;
+}
 
 @Override
-public double computeSocre(double[] a) {
-    double score=0,multi=1;
-    int n=a.length;
-    for (int i = 0; i &lt; a.length; i++) {
-        multi=multi*a[i];
-    }
-    score=Math.pow(multi, 1.0/n);
-
-    return score;
+public void wirteWord(String s) {
+    System.out.println(&quot;写出&quot;+color+&quot;的字:&quot;+s);
 }
 
 }
 
-import java.util.Arrays;
+public class BlackPenCore  extends PenCore{
 
-public class StrategyThree implements ComputableStrategy{
+public BlackPenCore() {
+    color=&quot;黑色&quot;;
+}
 
 @Override
-public double computeSocre(double[] a) {
-    if(a.length&lt;=2){
-        return 0;
-    }
-    double score=0,sum=0;
-    Arrays.sort(a);
-    for (int i = 0; i &lt; a.length-1; i++) {
-        sum=sum+a[i];
-
-    }
-    score=sum/(a.length-2);
-    return score;
+public void wirteWord(String s) {
+    System.out.println(&quot;写出&quot;+color+&quot;的字：&quot;+s);
 }
 
 }
-</code></pre><h5 id="上下文："><a href="#上下文：" class="headerlink" title="上下文："></a>上下文：</h5><pre><code>public class GymnasticsGame {
-ComputableStrategy strategy;
-public void setStrategy(ComputableStrategy strategy){
- this.strategy=strategy;
+</code></pre><h5 id="构造者"><a href="#构造者" class="headerlink" title="构造者"></a>构造者</h5><pre><code>public abstract class BallPen {
+public BallPen() {
+    System.out.println(&quot;生产了一只装有&quot;+getPenCore().color+&quot;笔芯的圆珠笔&quot;);
+}
+public abstract PenCore getPenCore();
 
 }
-public double getPersonScore(double []a){
-if(strategy!=null)
-{
-    return strategy.computeSocre(a);
-}else{
-    return 0;
-}    
+</code></pre><h5 id="具体构造者"><a href="#具体构造者" class="headerlink" title="具体构造者"></a>具体构造者</h5><pre><code>public class RedBallPen extends BallPen{
+
+
+@Override
+public PenCore getPenCore() {
+
+    return new RedPencore();
+}
+
 
 }
 
+public class BlueBalPen extends BallPen{
+
+@Override
+public PenCore getPenCore() {
+
+    return new BluePenCore();
 }
-</code></pre><h5 id="模式使用："><a href="#模式使用：" class="headerlink" title="模式使用："></a>模式使用：</h5><pre><code>public class Application {
+
+}
+
+public class BlackBallPen extends BallPen{
+
+@Override
+public PenCore getPenCore() {
+    return new BlackPenCore();
+}
+
+}
+</code></pre><h5 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h5><pre><code>public class Application {
     public static void main(String[] args) {
-        GymnasticsGame game=new GymnasticsGame();
-        game.setStrategy(new StrategyOne());
-        Person zhang=new Person();
-        zhang.setName(&quot;张三&quot;);
-        double []a={9.12,9.25,8.87,9.89};
-        Person li=new Person();
-        li.setName(&quot;李四&quot;);
-        double []b={9.12,9.25,8.87,9.89};
-        zhang.setScore(game.getPersonScore(a));
-        li.setScore(game.getPersonScore(b));
-        System.out.println(&quot;使用算术平均值方案：&quot;);
-        System.out.printf(&quot;最后得分：&quot;,zhang.getName(),zhang.getScore());
-
-
-
-
+        PenCore penCore;
+        BallPen ballPen=new BlueBalPen();
+        penCore=ballPen.getPenCore();
+        penCore.wirteWord(&quot;hello  world&quot;);
+        ballPen=new RedBallPen();
+        penCore=ballPen.getPenCore();
+        penCore.wirteWord(&quot;HOW  ARE  YOU&quot;);
+        ballPen=new BlackBallPen();
+        penCore=ballPen.getPenCore();
+        penCore.wirteWord(&quot;OK&quot;);
     }
-}
-class Person{
-
-String name;
-double score;
-public String getName() {
-    return name;
-}
-public void setName(String name) {
-    this.name = name;
-}
-public double getScore() {
-    return score;
-}
-public void setScore(double score) {
-    this.score = score;
-}
-
-
-} 
+ }
 </code></pre>
             
                 
@@ -373,19 +351,12 @@ public void setScore(double score) {
     </div>
     <div class="post-footer main-content-wrap">
         
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br/>
-                
-    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
-
-            </div>
-        
         <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/装饰模式详解/"  data-tooltip="装饰模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/中介者模式详解/"  data-tooltip="中介者模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -393,7 +364,7 @@ public void setScore(double score) {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/观察者模式详解/" data-tooltip="观察者模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/装饰模式详解/" data-tooltip="装饰模式详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -409,17 +380,17 @@ public void setScore(double score) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/17/策略模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/工厂方法模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/工厂方法模式详解/&amp;title=工厂方法模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/工厂方法模式详解/&amp;title=工厂方法模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -428,7 +399,7 @@ public void setScore(double score) {
 
 
         
-            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-策略模式详解" data-title="策略模式详解" data-url="http://www.craymc.com/2017/01/17/策略模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-工厂方法模式详解" data-title="工厂方法模式详解" data-url="http://www.craymc.com/2017/01/22/工厂方法模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
         
     </div>
 </article>
@@ -449,7 +420,7 @@ public void setScore(double score) {
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/装饰模式详解/"  data-tooltip="装饰模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/中介者模式详解/"  data-tooltip="中介者模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -457,7 +428,7 @@ public void setScore(double score) {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/观察者模式详解/" data-tooltip="观察者模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/17/装饰模式详解/" data-tooltip="装饰模式详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -473,17 +444,17 @@ public void setScore(double score) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/17/策略模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/工厂方法模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/工厂方法模式详解/&amp;title=工厂方法模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/工厂方法模式详解/&amp;title=工厂方法模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -501,17 +472,17 @@ public void setScore(double score) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/17/策略模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/工厂方法模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/工厂方法模式详解/&amp;title=工厂方法模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/17/策略模式详解/&amp;title=策略模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/工厂方法模式详解/&amp;title=工厂方法模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>

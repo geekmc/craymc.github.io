@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="CRAYMC">
-    <title>命令模式详解 - CRAYMC</title>
+    <title>迭代器详解 - CRAYMC</title>
     <meta name="author" content="craymc">
     
         <link rel="icon" href="/assets/images/bi_favicon .ico">
@@ -14,19 +14,34 @@
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="设计模式——命令模式author：craymc命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。
-在命令模式中，当一个对象请求另一个对象调用其方法时，不和被请求对象直接打交道，而是把这种“请求”封装到一个称作“命令”的对象中，其封装手段是将“请求”封装在“命令”对象的一个方法中。命令模式的核心：使用命令对象来封装方法的调用，既将请求者的请求：“接收者调用方法”封装到命令">
+    <meta name="description" content="迭代器模式详解author：craymc
+定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。
+模式的结构和使用迭代器模式的结构中包括四种角色：
+
+集合：一个接口，规定了具体集合需要实现的操作。
+具有集合：具体集合是实现集合接口的类的实例，具体集合按着一定结构存储对象。具体集合应该当有一个方法，该方法返回一个针对该集合的具体迭代器。
+迭代器：一个接口，规定了遍历具体">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="命令模式详解">
-<meta property="og:url" content="http://www.craymc.com/2017/01/16/命令模式详解/index.html">
+<meta property="og:title" content="迭代器详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/22/迭代器详解/index.html">
 <meta property="og:site_name" content="CRAYMC">
-<meta property="og:description" content="设计模式——命令模式author：craymc命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。
-在命令模式中，当一个对象请求另一个对象调用其方法时，不和被请求对象直接打交道，而是把这种“请求”封装到一个称作“命令”的对象中，其封装手段是将“请求”封装在“命令”对象的一个方法中。命令模式的核心：使用命令对象来封装方法的调用，既将请求者的请求：“接收者调用方法”封装到命令">
-<meta property="og:updated_time" content="2017-01-22T06:56:23.254Z">
+<meta property="og:description" content="迭代器模式详解author：craymc
+定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。
+模式的结构和使用迭代器模式的结构中包括四种角色：
+
+集合：一个接口，规定了具体集合需要实现的操作。
+具有集合：具体集合是实现集合接口的类的实例，具体集合按着一定结构存储对象。具体集合应该当有一个方法，该方法返回一个针对该集合的具体迭代器。
+迭代器：一个接口，规定了遍历具体">
+<meta property="og:updated_time" content="2017-01-22T13:51:30.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="命令模式详解">
-<meta name="twitter:description" content="设计模式——命令模式author：craymc命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。
-在命令模式中，当一个对象请求另一个对象调用其方法时，不和被请求对象直接打交道，而是把这种“请求”封装到一个称作“命令”的对象中，其封装手段是将“请求”封装在“命令”对象的一个方法中。命令模式的核心：使用命令对象来封装方法的调用，既将请求者的请求：“接收者调用方法”封装到命令">
+<meta name="twitter:title" content="迭代器详解">
+<meta name="twitter:description" content="迭代器模式详解author：craymc
+定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。
+模式的结构和使用迭代器模式的结构中包括四种角色：
+
+集合：一个接口，规定了具体集合需要实现的操作。
+具有集合：具体集合是实现集合接口的类的实例，具体集合按着一定结构存储对象。具体集合应该当有一个方法，该方法返回一个针对该集合的具体迭代器。
+迭代器：一个接口，规定了遍历具体">
     
     
     
@@ -203,13 +218,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            命令模式详解
+            迭代器详解
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Mon Jan 16 2017 22:44:26 GMT+0800">
+    <time itemprop="datePublished" content="Sun Jan 22 2017 21:38:27 GMT+0800">
 	
-		    1月16日, 2017年
+		    1月22日, 2017年
     	
     </time>
     
@@ -218,66 +233,118 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h2 id="设计模式——命令模式"><a href="#设计模式——命令模式" class="headerlink" title="设计模式——命令模式"></a>设计模式——命令模式</h2><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><h3 id="命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。"><a href="#命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。" class="headerlink" title="命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。"></a>命令模式是关于怎样处理一个对象请求另一个对象调用其方法完成某项任务的一种模式。</h3><hr>
-<p>在命令模式中，当一个对象请求另一个对象调用其方法时，不和被请求对象直接打交道，而是把这种“请求”封装到一个称作“命令”的对象中，其封装手段是将“请求”封装在“命令”对象的一个方法中。<strong>命令模式的核心：</strong>使用命令对象来封装方法的调用，既将请求者的请求：“接收者调用方法”封装到命令对象的一个方法中，这样一来，当一个对象请求另一个对象调用方法来完成某项任务时，只需和命令对象交互，既让命令对象调用封装了“请求”的那个方法即可。</p>
-<h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>命令模式的结构中包括四种角色：</p>
+            <h3 id="迭代器模式详解"><a href="#迭代器模式详解" class="headerlink" title="迭代器模式详解"></a>迭代器模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。"><a href="#定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。" class="headerlink" title="定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。"></a>定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。</h3><hr>
+<h3 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h3><p>迭代器模式的结构中包括四种角色：</p>
 <ul>
-<li>接受者：接受者是一个类的实例，该实例负责执行与请求相关的操作。</li>
-<li>命令接口：命令是一个接口，规定了用来封装“请求”的若干个方法。</li>
-<li>具体命令：具体命令是实现命令接口类的实例。具体命令必须实现命令接口中的方法。</li>
-<li>请求者：请求者是一个包含命令接口变量的类的实例。请求者中的命令接口的变量可以存放任何具体的引用。请求者负责调用具体命令，让具体命令执行那些封装了“请求”的方法。</li>
+<li>集合：一个接口，规定了具体集合需要实现的操作。</li>
+<li>具有集合：具体集合是实现集合接口的类的实例，具体集合按着一定结构存储对象。具体集合应该当有一个方法，该方法返回一个针对该集合的具体迭代器。</li>
+<li>迭代器：一个接口，规定了遍历具体集合的方法。</li>
+<li>具体迭代器实现迭代器接口的类的实例。具体迭代器在实现迭代器接口所规定的遍历集合的方法时，要保证方法的首次调用将按着集合的数据结构找到该集合中的一个对象，立刻根据该集合的存储结构得到待遍历的后继对象的引用，并保证依次调用的方法可以遍历集合。</li>
 </ul>
 <hr>
-<a id="more"></a>
-<h4 id="命令模式的优点"><a href="#命令模式的优点" class="headerlink" title="命令模式的优点"></a>命令模式的优点</h4><p>  1.在命令模式中，请求者不直接与接收者交互，既请求者不包含接收者的引用，因此彻底消除了彼此之间的耦合。<br>  2.命令模式满足“开-闭原则”。如果增加新的具体命令和该命令的接收者，不必修改调用者的代码，调用者就可以使用新的命令对象；反之，如果增加新的调用者，不必修改现有的具体命令和接收者，新增加的调用者就可以使用已有的具体命令。<br>  3.由于请求者的请求被封装到了具体命令中，那么就可以将具体命令保存到持久化的媒介中，在需要的时候，重新执行这个命令。因此，使用命令模式可以记录日志</p>
-<h2 id="4-使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。"><a href="#4-使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。" class="headerlink" title="  4.使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。"></a>  4.使用命令模式可以对请求者的“请求”进行排队。每个请求都各自对应一个具体命令，因此可以按一定顺序执行这些具体命令。</h2><h4 id="适合使用命令模式的场景"><a href="#适合使用命令模式的场景" class="headerlink" title="适合使用命令模式的场景"></a>适合使用命令模式的场景</h4><ul>
-<li>程序需要在不同的时刻指定，排列和执行请求</li>
-<li>程序需要提供撤销操作</li>
-<li>程序需要支持宏操作</li>
+<h3 id="迭代器模式的优点"><a href="#迭代器模式的优点" class="headerlink" title="迭代器模式的优点"></a>迭代器模式的优点</h3><ul>
+<li>用户使用迭代器访问集合中的对象，而不需要知道这些对象在集合中是如何表示及存储的。</li>
+<li>用户可以同时使用多个迭代器遍历一个集合。</li>
 </ul>
 <hr>
-<h5 id="代码描述："><a href="#代码描述：" class="headerlink" title="代码描述："></a>代码描述：</h5><h6 id="接受者："><a href="#接受者：" class="headerlink" title="接受者："></a>接受者：</h6><pre><code>public class ComapanyArmy {
-public void sneakAttack(){
-   System.out.println(&quot;我们知道如何完成任务&quot;);
-  }
-  }
-</code></pre><h6 id="命令接口："><a href="#命令接口：" class="headerlink" title="命令接口："></a>命令接口：</h6><pre><code>public interface Command {
-public abstract void execute();
+<h3 id="适合使用迭代器模式的情景"><a href="#适合使用迭代器模式的情景" class="headerlink" title="适合使用迭代器模式的情景"></a>适合使用迭代器模式的情景</h3><ul>
+<li>让用户访问一个集合中是对象，但不想暴露对象在集合中的存储结构。</li>
+<li>希望对遍历不同的集合提供一个统一的接口。</li>
+</ul>
+<hr>
+<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><pre><code>import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.TreeSet;
+
+public class UseSet {
+LinkedList&lt;Student&gt;list;
+Hashtable&lt;String, Student&gt;table;
+TreeSet&lt;Student&gt;tree;
+UseSet(){
+    list=new LinkedList&lt;Student&gt;();
+    tree=new TreeSet&lt;Student&gt;();
+    table=new Hashtable&lt;String,Student&gt;();
+}
+public void addStudent(Student stu){
+    list.add(stu);
+    update();
+
+}
+public  void lookStudent(String n) {
+        Student stu=table.get(n);
+        String number=stu.getNumber();
+        String name=stu.getName();
+        double score=stu.getSorce();
+        System.out.println(&quot;学号：&quot;+number+&quot;姓名:&quot;+name+&quot;分数：&quot;+score);
+
+}
+public void printStudentByScore(){
+    Iterator&lt;Student&gt;iterator=tree.iterator();
+    while(iterator.hasNext()){
+        Student stu=iterator.next();
+        String number=stu.getNumber();
+        String name=stu.getName();
+        double sorce=stu.getSorce();
+        System.out.println(&quot;学号：&quot;+number+&quot;姓名：&quot;+name+&quot;分数：&quot;+sorce);
     }
-</code></pre><h6 id="具体命令："><a href="#具体命令：" class="headerlink" title="具体命令："></a>具体命令：</h6><pre><code>public class ConcreteCommand implements Command {
+}
+private void update() {
+        tree.clear();
+        Iterator&lt;Student&gt;iterator=list.iterator();
+        while(iterator.hasNext()){
+            Student stu=iterator.next();
+            String number=stu.getNumber();
+            table.put(number, stu);
+            tree.add(stu);
+        }
+}
+</code></pre><p>   }</p>
+<p>   public class Student implements Comparable{<br>    String number,name;<br>    double sorce=0;<br>    private int x=10;</p>
+<pre><code>public Student() {
+    super();
+    // TODO Auto-generated constructor stub
+}
 
-ComapanyArmy army;//含有接收者的引用
-
-ConcreteCommand(ComapanyArmy army) {
-    this.army = army;
+public Student(String number, String name, double sorce) {
+    super();
+    this.number = number;
+    this.name = name;
+    this.sorce = sorce;
 }
 
 @Override
-public void execute() {
-    army.sneakAttack();
-
+public int compareTo(Object o) {
+    Student st=(Student)o;
+    if(Math.abs(this.sorce-st.sorce)&lt;=1/10000)
+         return 1;
+    return (int)(1000*(this.sorce-st.sorce));
 }
 
-}
-</code></pre><h6 id="请求者："><a href="#请求者：" class="headerlink" title="请求者："></a>请求者：</h6><pre><code>public class ArmySuperior {
-Command command;//用来存放具体命令的引用
-public void setCommand(Command command){
-    this.command=command;
-}
-public void startExecuteCommand(){
-    command.execute();
+public String getNumber() {
+    return number;
 }
 
+public String getName() {
+    return name;
 }
-</code></pre><h6 id="模式使用："><a href="#模式使用：" class="headerlink" title="模式使用："></a>模式使用：</h6><pre><code>public class Application {
 
+public double getSorce() {
+    return sorce;
+}
+</code></pre><p>   }</p>
+<pre><code>public class Application {
 public static void main(String[] args) {
-    ComapanyArmy tz=new ComapanyArmy();
-    Command c=new ConcreteCommand(tz);
-    ArmySuperior ld=new ArmySuperior();
-    ld.setCommand(c);
-    ld.startExecuteCommand();
+UseSet useSet=new UseSet();
+useSet.addStudent(new Student(&quot;001&quot;, &quot;cc&quot;, 76.9));
+String n=&quot;001&quot;;
+System.out.println(&quot;查找学号为：&quot;+n+&quot;的学生：&quot;);
+useSet.lookStudent(n);
+System.out.println(&quot;将学生按成绩排列:&quot;);
+useSet.printStudentByScore();
 }
+
 }
 </code></pre>
             
@@ -300,7 +367,7 @@ public static void main(String[] args) {
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/观察者模式详解/"  data-tooltip="观察者模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/单子模式详解/"  data-tooltip="单子模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -308,7 +375,7 @@ public static void main(String[] args) {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/Java设计模式系列详解/" data-tooltip="Java设计模式系列详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/中介者模式详解/" data-tooltip="中介者模式详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -324,17 +391,17 @@ public static void main(String[] args) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/命令模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/迭代器详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/命令模式详解/&amp;title=命令模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/迭代器详解/&amp;title=迭代器详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/命令模式详解/&amp;title=命令模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/迭代器详解/&amp;title=迭代器详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -343,7 +410,7 @@ public static void main(String[] args) {
 
 
         
-            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-命令模式详解" data-title="命令模式详解" data-url="http://www.craymc.com/2017/01/16/命令模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-迭代器详解" data-title="迭代器详解" data-url="http://www.craymc.com/2017/01/22/迭代器详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
         
     </div>
 </article>
@@ -364,7 +431,7 @@ public static void main(String[] args) {
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/观察者模式详解/"  data-tooltip="观察者模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/单子模式详解/"  data-tooltip="单子模式详解">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -372,7 +439,7 @@ public static void main(String[] args) {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/16/Java设计模式系列详解/" data-tooltip="Java设计模式系列详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/中介者模式详解/" data-tooltip="中介者模式详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -388,17 +455,17 @@ public static void main(String[] args) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/命令模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/迭代器详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/命令模式详解/&amp;title=命令模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/迭代器详解/&amp;title=迭代器详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/命令模式详解/&amp;title=命令模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/迭代器详解/&amp;title=迭代器详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -416,17 +483,17 @@ public static void main(String[] args) {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/16/命令模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/迭代器详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/命令模式详解/&amp;title=命令模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/迭代器详解/&amp;title=迭代器详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/16/命令模式详解/&amp;title=命令模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/迭代器详解/&amp;title=迭代器详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>

@@ -1,3 +1,3 @@
-http://www.craymc.com/2017/01/17/装饰模式详解/
-http://www.craymc.com/2017/01/17/策略模式详解/
-http://www.craymc.com/2017/01/16/观察者模式详解/
+http://www.craymc.com/2017/01/22/适配器模式详解/
+http://www.craymc.com/2017/01/22/外观模式详解/
+http://www.craymc.com/2017/01/22/责任链模式详解/

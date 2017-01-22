@@ -1,0 +1,569 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>外观模式详解 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="外观模式详解author：craymc
+定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
+模式的结构和使用外观模式的结构中包括两种角色：
+
+子系统：子系统是若干个类的集合，这些类的实例协同合作作为用户提供所需要的功能，子系统中任何类都不包括外观类的实例引用。
+外观：外观是一个类，该类包含子系统中全部或部分类的实例引用，当用户想要和子系统中">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="外观模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/22/外观模式详解/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="外观模式详解author：craymc
+定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
+模式的结构和使用外观模式的结构中包括两种角色：
+
+子系统：子系统是若干个类的集合，这些类的实例协同合作作为用户提供所需要的功能，子系统中任何类都不包括外观类的实例引用。
+外观：外观是一个类，该类包含子系统中全部或部分类的实例引用，当用户想要和子系统中">
+<meta property="og:updated_time" content="2017-01-22T13:51:52.999Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="外观模式详解">
+<meta name="twitter:description" content="外观模式详解author：craymc
+定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
+模式的结构和使用外观模式的结构中包括两种角色：
+
+子系统：子系统是若干个类的集合，这些类的实例协同合作作为用户提供所需要的功能，子系统中任何类都不包括外观类的实例引用。
+外观：外观是一个类，该类包含子系统中全部或部分类的实例引用，当用户想要和子系统中">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            外观模式详解
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Jan 22 2017 21:41:27 GMT+0800">
+	
+		    1月22日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="外观模式详解"><a href="#外观模式详解" class="headerlink" title="外观模式详解"></a>外观模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。"><a href="#定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。" class="headerlink" title="定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。"></a>定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</h3><hr>
+<h3 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h3><p>外观模式的结构中包括两种角色：</p>
+<ul>
+<li>子系统：子系统是若干个类的集合，这些类的实例协同合作作为用户提供所需要的功能，子系统中任何类都不包括外观类的实例引用。</li>
+<li>外观：外观是一个类，该类包含子系统中全部或部分类的实例引用，当用户想要和子系统中的若干类的实例打交道时，可以代替地和子系统的外观类的实例打交道。</li>
+</ul>
+<hr>
+<h3 id="外观模式的优点"><a href="#外观模式的优点" class="headerlink" title="外观模式的优点"></a>外观模式的优点</h3><ul>
+<li>使客户和子系统中的类无耦合，并且使子系统使用起来更加方便。</li>
+<li>外观只是提供了一个更加简洁的界面，并不影响用户直接使用子系统中的类。</li>
+<li>子系统中任何类对其方法的内容进行修改，不影响外观类的代码。</li>
+</ul>
+<hr>
+<h3 id="使用外观模式的情景"><a href="#使用外观模式的情景" class="headerlink" title="使用外观模式的情景"></a>使用外观模式的情景</h3><ul>
+<li>对于一个复杂的子系统，需要为用户提供一个单的交互操作。</li>
+<li>不希望客户代码和子系统中的类有耦合，以便提高子系统的独立性和可移植性。</li>
+<li>当整个系统需要构建一个层次结构的子系统，不希望这些子系统相互直接的交互。</li>
+</ul>
+<hr>
+<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="子系统："><a href="#子系统：" class="headerlink" title="子系统："></a>子系统：</h5><pre><code>import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class ReadFile { 
+    public  String readFileContent(String fileName){
+        StringBuffer str=new StringBuffer();
+        try {
+            FileReader inOne=new FileReader(fileName);
+            BufferedReader inTwo=new BufferedReader(inOne);
+            String s=null;
+            while((s=inTwo.readLine())!=null){
+                str.append(s);
+                str.append(&quot;\n&quot;);
+            }
+            inOne.close();
+            inTwo.close();
+        } catch (Exception e) {
+        }
+        return new String(str);
+
+    }
+}
+import java.util.regex.Matcher;
+java.util.regex.Pattern;
+
+public class AnalyzeInformation {
+public String getSavedContent(String content,String deleteContent){
+    Pattern p;
+    Matcher m;
+    p=Pattern.compile(deleteContent);
+    m=p.matcher(content);
+    String savedContent=m.replaceAll(&quot;&quot;);
+    return savedContent;
+
+}
+
+}
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.StringReader;
+
+public class WriteFile {
+
+public void writeToFile(String fileName,String content){
+    StringBuffer str=new StringBuffer();
+    try {
+        StringReader inOne=new StringReader(content);
+        BufferedReader inTwo=new BufferedReader(inOne);
+        FileWriter outOne=new FileWriter(fileName);
+        BufferedWriter outTwo=new BufferedWriter(outOne);
+        String s=null;
+        while((s=inTwo.readLine())!=null){
+            outTwo.write(s);
+            outTwo.newLine();
+            outTwo.flush();
+        }
+        inOne.close();
+        inTwo.close();
+        outOne.close();
+        outTwo.close();
+    } catch (Exception e) {
+        // TODO: handle exception
+    }
+
+
+}
+
+}
+</code></pre><h5 id="外观"><a href="#外观" class="headerlink" title="外观"></a>外观</h5><pre><code>public class ReadAndWirteFacade {
+private ReadFile readFile;
+private WriteFile writeFile;
+private AnalyzeInformation analyzeInformation;
+public ReadAndWirteFacade() {
+    readFile=new ReadFile();
+    analyzeInformation=new AnalyzeInformation();
+    writeFile=new WriteFile();
+}
+public void doOption(String readFileName,String delContent,String savedFileName){
+    String content=readFile.readFileContent(readFileName);
+    System.out.println(&quot;读取文件&quot;+readFileName+&quot;的内容&quot;);
+    System.out.println(content);
+    String savedContent=analyzeInformation.getSavedContent(content, delContent);
+    writeFile.writeToFile(savedFileName, savedContent);
+    System.out.println(&quot;保存到文件&quot;+savedContent+&quot;中的内容&quot;);
+    System.out.println(savedContent);
+
+}
+
+}
+</code></pre><h5 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h5><pre><code>public class Application {
+    public static void main(String[] args) {
+        ReadAndWirteFacade clientFacade;
+        clientFacade=new ReadAndWirteFacade();
+        String readFileName=&quot;index.html&quot;;
+        String delConten=&quot;&lt;[^&gt;]*&gt;&quot;;
+        String savedFileName=&quot;save.txt&quot;;
+        clientFacade.doOption(readFileName, delConten, savedFileName);
+public class Application {
+    public static void main(String[] args) {
+        ReadAndWirteFacade clientFacade;
+        clientFacade=new ReadAndWirteFacade();
+        String readFileName=&quot;index.html&quot;;
+        String delConten=&quot;&lt;[^&gt;]*&gt;&quot;;
+        String savedFileName=&quot;save.txt&quot;;
+        clientFacade.doOption(readFileName, delConten, savedFileName);
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/适配器模式详解/"  data-tooltip="适配器模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/责任链模式详解/" data-tooltip="责任链模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/外观模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/外观模式详解/&amp;title=外观模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/外观模式详解/&amp;title=外观模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-外观模式详解" data-title="外观模式详解" data-url="http://www.craymc.com/2017/01/22/外观模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/适配器模式详解/"  data-tooltip="适配器模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/责任链模式详解/" data-tooltip="责任链模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/外观模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/外观模式详解/&amp;title=外观模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/外观模式详解/&amp;title=外观模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/外观模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/外观模式详解/&amp;title=外观模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/外观模式详解/&amp;title=外观模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

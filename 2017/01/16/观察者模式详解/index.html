@@ -14,28 +14,28 @@
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="设计模式——观察者模式概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
+    <meta name="description" content="设计模式——观察者模式author：craymc概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
 
 主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。
 观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。
-具体主题：具体主题是实现主题接口类的">
+具体主题：">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="观察者模式详解">
 <meta property="og:url" content="http://www.craymc.com/2017/01/16/观察者模式详解/index.html">
 <meta property="og:site_name" content="CRAYMC">
-<meta property="og:description" content="设计模式——观察者模式概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
+<meta property="og:description" content="设计模式——观察者模式author：craymc概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
 
 主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。
 观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。
-具体主题：具体主题是实现主题接口类的">
-<meta property="og:updated_time" content="2017-01-16T14:57:23.969Z">
+具体主题：">
+<meta property="og:updated_time" content="2017-01-22T06:56:39.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="观察者模式详解">
-<meta name="twitter:description" content="设计模式——观察者模式概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
+<meta name="twitter:description" content="设计模式——观察者模式author：craymc概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。模式的结构与使用观察者模式的结构中包括四种角色：
 
 主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。
 观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。
-具体主题：具体主题是实现主题接口类的">
+具体主题：">
     
     
     
@@ -227,7 +227,7 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="设计模式——观察者模式"><a href="#设计模式——观察者模式" class="headerlink" title="设计模式——观察者模式"></a>设计模式——观察者模式</h3><h2 id="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"><a href="#概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。" class="headerlink" title="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"></a><strong>概念：</strong>定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。</h2><h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>观察者模式的结构中包括四种角色：</p>
+            <h3 id="设计模式——观察者模式"><a href="#设计模式——观察者模式" class="headerlink" title="设计模式——观察者模式"></a>设计模式——观察者模式</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><h2 id="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"><a href="#概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。" class="headerlink" title="概念：定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。"></a><strong>概念：</strong>定义对象间的一种一对多的依赖关系，当一个对象的状态发生变化时，所有依赖他的对象都得到通知并被自动更新。</h2><h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>观察者模式的结构中包括四种角色：</p>
 <ul>
 <li>主题：主题是一个接口，该接口规定了具体主题需要实现的方法，比如，添加，删除观察者以及通知观察者更新数据的方法。</li>
 <li>观察者：观察者是一个接口，该接口规定了具体观察者用来更新数据的方法。</li>
