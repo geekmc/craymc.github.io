@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.craymc.com/"/>
-  <updated>2017-01-22T13:52:06.805Z</updated>
+  <updated>2017-01-23T15:21:38.064Z</updated>
   <id>http://www.craymc.com/</id>
   
   <author>
@@ -14,6 +14,78 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>原型模式详解</title>
+    <link href="http://www.craymc.com/2017/01/23/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/23/原型模式详解/</id>
+    <published>2017-01-23T15:14:43.000Z</published>
+    <updated>2017-01-23T15:21:38.064Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原型模式详解"><a href="#原型模式详解" class="headerlink" title="原型模式详解"></a>原型模式详解</h2><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"><a href="#定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。" class="headerlink" title="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"></a>定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。</h3><hr>
+<h3 id="原型模式的优点"><a href="#原型模式的优点" class="headerlink" title="原型模式的优点"></a>原型模式的优点</h3><ul>
+<li>当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。</li>
+<li>可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。</li>
+<li>可以在运行时创建新的对象，而无须创建一系列类和继承结构。</li>
+<li>可以动态地添加，删除原型复制品。</li>
+</ul>
+<hr>
+<h3 id="原型模式的适用场景"><a href="#原型模式的适用场景" class="headerlink" title="原型模式的适用场景"></a>原型模式的适用场景</h3><ul>
+<li>程序需要从一个对象出发，得到若干个和其状态相同，并可独立变化其状态的对象时。</li>
+<li>当对象的创建需要独立于它的构造过程和表示时。</li>
+</ul>
+<hr>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>在某些情况下，可能不希望反复使用类的构造方法创建许多对象，而是希望用该类创建一个对象后，以该对象为原型得到该对象的若干个复制品。也就是说，将一个对象定义为原型对象，要求该原型对象提供一个方法，使该原型对象调用此方法可以复制一个和自己有完全相同状态的同类型对象，既该方法“克隆”原型对象得到一个新对象。<strong>核心：</strong>原型模式是从一个对象出发得到一个和自己有相同状态的新对象的成熟模式，该模式的关键是将一个对象定义为原型，并为其提供复制自己方法。</p>
+<hr>
+<h3 id="在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。"><a href="#在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。" class="headerlink" title="在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。"></a><strong>在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。</strong></h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;原型模式详解&quot;&gt;&lt;a href=&quot;#原型模式详解&quot; class=&quot;headerlink&quot; title=&quot;原型模式详解&quot;&gt;&lt;/a&gt;原型模式详解&lt;/h2&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>生成器模式详解</title>
+    <link href="http://www.craymc.com/2017/01/23/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/23/生成器模式详解/</id>
+    <published>2017-01-23T15:14:16.000Z</published>
+    <updated>2017-01-23T15:20:30.117Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原型模式详解"><a href="#原型模式详解" class="headerlink" title="原型模式详解"></a>原型模式详解</h2><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"><a href="#定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。" class="headerlink" title="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"></a>定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。</h3><hr>
+<h3 id="原型模式的优点"><a href="#原型模式的优点" class="headerlink" title="原型模式的优点"></a>原型模式的优点</h3><ul>
+<li>当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。</li>
+<li>可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。</li>
+<li>可以在运行时创建新的对象，而无须创建一系列类和继承结构。</li>
+<li>可以动态地添加，删除原型复制品。</li>
+</ul>
+<hr>
+<h3 id="原型模式的适用场景"><a href="#原型模式的适用场景" class="headerlink" title="原型模式的适用场景"></a>原型模式的适用场景</h3><ul>
+<li>程序需要从一个对象出发，得到若干个和其状态相同，并可独立变化其状态的对象时。</li>
+<li>当对象的创建需要独立于它的构造过程和表示时。</li>
+</ul>
+<hr>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>在某些情况下，可能不希望反复使用类的构造方法创建许多对象，而是希望用该类创建一个对象后，以该对象为原型得到该对象的若干个复制品。也就是说，将一个对象定义为原型对象，要求该原型对象提供一个方法，使该原型对象调用此方法可以复制一个和自己有完全相同状态的同类型对象，既该方法“克隆”原型对象得到一个新对象。<strong>核心：</strong>原型模式是从一个对象出发得到一个和自己有相同状态的新对象的成熟模式，该模式的关键是将一个对象定义为原型，并为其提供复制自己方法。</p>
+<hr>
+<h3 id="在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。"><a href="#在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。" class="headerlink" title="在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。"></a><strong>在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。</strong></h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;原型模式详解&quot;&gt;&lt;a href=&quot;#原型模式详解&quot; class=&quot;headerlink&quot; title=&quot;原型模式详解&quot;&gt;&lt;/a&gt;原型模式详解&lt;/h2&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>适配器模式详解</title>
@@ -2004,79 +2076,6 @@ public static void main(String[] args) {
     
     
       <category term="生活" scheme="http://www.craymc.com/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>3种方式在Linux下配置网卡</title>
-    <link href="http://www.craymc.com/2016/01/23/3%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%9C%A8Linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1/"/>
-    <id>http://www.craymc.com/2016/01/23/3种方式在Linux下配置网卡/</id>
-    <published>2016-01-23T05:59:05.000Z</published>
-    <updated>2016-07-20T10:47:18.970Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>1.    配置第一块网卡，并设置为静态，要求模式为nat模式
-
-a.图形化：用setup去调用图形化设置
-</code></pre><p>PS：eth0(相当于数组)DHCP为（＊）说明未配置，点击空格进行配置<br>    配置思路：192.168.71..0</p>
-<a id="more"></a>
-<pre><code>b.修改配置文件：
-
-c.临时分配：    IP：192.168.91.1／24
-</code></pre><p>2</p>
-<pre><code>2.配置完成后
-</code></pre><p>   开启服务<br>service network  start<br>b.<br>   vim /etc/sysconfig/network-scripts/ifcfg-eth0</p>
-<pre><code>PS:填三行，改两处
-
-none=static;    onboot=yes
-        NETMASK;GETWAY;
-</code></pre><p>改写完成后，service network restart<br>c.    </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;1.    配置第一块网卡，并设置为静态，要求模式为nat模式
-
-a.图形化：用setup去调用图形化设置
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;PS：eth0(相当于数组)DHCP为（＊）说明未配置，点击空格进行配置&lt;br&gt;    配置思路：192.168.71..0&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="http://www.craymc.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python在eclipse下配置编码问题</title>
-    <link href="http://www.craymc.com/2015/12/23/python%E5%9C%A8eclipse%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/"/>
-    <id>http://www.craymc.com/2015/12/23/python在eclipse下配置编码问题/</id>
-    <published>2015-12-23T10:08:45.000Z</published>
-    <updated>2016-07-20T10:47:18.974Z</updated>
-    
-    <content type="html"><![CDATA[<p>Eclipse的设置</p>
-<p>window-&gt;preferences-&gt;general-&gt;editors-&gt;text editors-&gt;spelling-&gt;encoding-&gt;UTF-8，编辑器的编码格式</p>
-<p>window-&gt;preferences-&gt;workspace-&gt;text file encoding-&gt;UTF-8</p>
-<p>打开eclipse安装目录-&gt;eclipse.ini，末行加上”-Dfile.encoding=UTF-8”<br><a id="more"></a></p>
-<p>文件编码</p>
-<p>py文件记得保存成UTF-8，文件首行加上”#coding=utf-8”   ，这一句话可控制代码中可输入中文字符</p>
-<p>run时设置</p>
-<p>run–&gt;run configurations-&gt;python run-&gt;Common-&gt; Encoding -&gt;UTF-8   ，这个应该是运行时的可解决中文乱码问题。更改空白模块默认显示# -<em>- coding: utf-8 -</em>-</p>
-<p>如果想每次新建一个空模块时自动添加”# -<em>- coding: utf-8 -</em>-”   这样的一句话，可以通过window–Preferences–Pydev–Editor–Template–Empty，然后点击“Edit”按钮，把我们要添加的语句加进去就可以了，将事先默认的语句去掉，改写为：# -<em>- coding: utf-8 -</em>-  这样的一句话,然后你再新建一个空白模块，再也不需要每次都要复制那个编码语句了</p>
-<p>当在建立的python项目时，输入的中文太细，可以通过</p>
-<p>Window &gt; Preferences&gt;General&gt;Appearance&gt;Color and Fonts中的第一个来设置，Basic里面的TextFonts设置大小即可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Eclipse的设置&lt;/p&gt;
-&lt;p&gt;window-&amp;gt;preferences-&amp;gt;general-&amp;gt;editors-&amp;gt;text editors-&amp;gt;spelling-&amp;gt;encoding-&amp;gt;UTF-8，编辑器的编码格式&lt;/p&gt;
-&lt;p&gt;window-&amp;gt;preferences-&amp;gt;workspace-&amp;gt;text file encoding-&amp;gt;UTF-8&lt;/p&gt;
-&lt;p&gt;打开eclipse安装目录-&amp;gt;eclipse.ini，末行加上”-Dfile.encoding=UTF-8”&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="python" scheme="http://www.craymc.com/tags/python/"/>
     
   </entry>
   

@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="CRAYMC">
-    <title>适配器模式详解 - CRAYMC</title>
+    <title>原型模式详解 - CRAYMC</title>
     <meta name="author" content="craymc">
     
         <link rel="icon" href="/assets/images/bi_favicon .ico">
@@ -14,34 +14,43 @@
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="适配器模式详解author：craymc
-定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
-模式的结构与使用对象适配器模式的结构中包括三种角色：
+    <meta name="description" content="原型模式详解author：craymc
+定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。
+原型模式的优点
+当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。
+可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。
+可以在运行时创建新的对象，而无须创建一系列类和继承结构。
+可以动态地添加，删除原型复制品。
 
-目标： 目标是一个接口，该接口是客户想要使用的接口。
-被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。
-适配器：适配器是一个类，该类实现了目标接口并">
+
+原">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="适配器模式详解">
-<meta property="og:url" content="http://www.craymc.com/2017/01/22/适配器模式详解/index.html">
+<meta property="og:title" content="原型模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/23/原型模式详解/index.html">
 <meta property="og:site_name" content="CRAYMC">
-<meta property="og:description" content="适配器模式详解author：craymc
-定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
-模式的结构与使用对象适配器模式的结构中包括三种角色：
+<meta property="og:description" content="原型模式详解author：craymc
+定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。
+原型模式的优点
+当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。
+可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。
+可以在运行时创建新的对象，而无须创建一系列类和继承结构。
+可以动态地添加，删除原型复制品。
 
-目标： 目标是一个接口，该接口是客户想要使用的接口。
-被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。
-适配器：适配器是一个类，该类实现了目标接口并">
-<meta property="og:updated_time" content="2017-01-22T13:52:06.805Z">
+
+原">
+<meta property="og:updated_time" content="2017-01-23T15:21:38.064Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="适配器模式详解">
-<meta name="twitter:description" content="适配器模式详解author：craymc
-定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
-模式的结构与使用对象适配器模式的结构中包括三种角色：
+<meta name="twitter:title" content="原型模式详解">
+<meta name="twitter:description" content="原型模式详解author：craymc
+定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。
+原型模式的优点
+当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。
+可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。
+可以在运行时创建新的对象，而无须创建一系列类和继承结构。
+可以动态地添加，删除原型复制品。
 
-目标： 目标是一个接口，该接口是客户想要使用的接口。
-被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。
-适配器：适配器是一个类，该类实现了目标接口并">
+
+原">
     
     
     
@@ -218,13 +227,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            适配器模式详解
+            原型模式详解
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Sun Jan 22 2017 21:42:33 GMT+0800">
+    <time itemprop="datePublished" content="Mon Jan 23 2017 23:14:43 GMT+0800">
 	
-		    1月22日, 2017年
+		    1月23日, 2017年
     	
     </time>
     
@@ -233,104 +242,23 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="适配器模式详解"><a href="#适配器模式详解" class="headerlink" title="适配器模式详解"></a>适配器模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h4 id="定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。"><a href="#定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。" class="headerlink" title="定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。"></a>定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</h4><hr>
-<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>对象适配器模式的结构中包括三种角色：</p>
-<ul>
-<li>目标： 目标是一个接口，该接口是客户想要使用的接口。</li>
-<li>被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。</li>
-<li>适配器：适配器是一个类，该类实现了目标接口并包含有被适配者的引用，既适配器的职责是对被适配者接口（抽象类）与目标接口进行适配。</li>
+            <h2 id="原型模式详解"><a href="#原型模式详解" class="headerlink" title="原型模式详解"></a>原型模式详解</h2><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"><a href="#定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。" class="headerlink" title="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"></a>定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。</h3><hr>
+<h3 id="原型模式的优点"><a href="#原型模式的优点" class="headerlink" title="原型模式的优点"></a>原型模式的优点</h3><ul>
+<li>当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。</li>
+<li>可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。</li>
+<li>可以在运行时创建新的对象，而无须创建一系列类和继承结构。</li>
+<li>可以动态地添加，删除原型复制品。</li>
 </ul>
 <hr>
-<h4 id="适配器的适配程度"><a href="#适配器的适配程度" class="headerlink" title="适配器的适配程度"></a>适配器的适配程度</h4><p>1.完全适配<br>如果目标接口中的方法数目与被适配者接口的方法数目相等，那么适配器可将被适配者接口与目标接口进行完全适配。<br>2.不完全适配<br>如果目标接口中的方法数目少于被适配者接口的方法数目，那么适配器只能将被适配者接口与目标接口进行部分适配。<br>3.剩余适配<br>如果目标接口中的方法数目大于被适配者接口的方法数目，那么适配器可将被适配者接口与目标接口进行完全适配，但必须将目标多余的办法给出用户允许的默认实现。</p>
-<h4 id="适配器模式的优点"><a href="#适配器模式的优点" class="headerlink" title="适配器模式的优点"></a>适配器模式的优点</h4><ul>
-<li>目标和被适配者是完全解耦的关系。</li>
-<li>适配器模式满足“开-闭原则”。当添加一个实现adapter接口的新类时，不必修改adapter，adapter就能对这个新类的实例进行适配。</li>
+<h3 id="原型模式的适用场景"><a href="#原型模式的适用场景" class="headerlink" title="原型模式的适用场景"></a>原型模式的适用场景</h3><ul>
+<li>程序需要从一个对象出发，得到若干个和其状态相同，并可独立变化其状态的对象时。</li>
+<li>当对象的创建需要独立于它的构造过程和表示时。</li>
 </ul>
 <hr>
-<h4 id="适配器模式的使用场景"><a href="#适配器模式的使用场景" class="headerlink" title="适配器模式的使用场景"></a>适配器模式的使用场景</h4><h2 id="一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。"><a href="#一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。" class="headerlink" title=" 一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。"></a> 一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。</h2><h5 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h5><h6 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h6><pre><code>public interface ThreeElectricOutlet {
-public abstract void connectElectricCurrent();
-}
-</code></pre><h6 id="被适配者："><a href="#被适配者：" class="headerlink" title="被适配者："></a>被适配者：</h6><pre><code>public interface TwoElectricOutlet {
-
-public abstract void connectElectricCurrent();
-
-}
-</code></pre><h6 id="适配器："><a href="#适配器：" class="headerlink" title="适配器："></a>适配器：</h6><pre><code>public class TreeElectricAdapter implements ThreeElectricOutlet {
-
-TwoElectricOutlet outlet;
-
-
-public TreeElectricAdapter(TwoElectricOutlet outlet) {
-    super();
-    this.outlet = outlet;
-}
-
-
-@Override
-public void connectElectricCurrent() {
-    outlet.connectElectricCurrent();
-}
-
-}
-</code></pre><h6 id="模式使用："><a href="#模式使用：" class="headerlink" title="模式使用："></a>模式使用：</h6><pre><code>public class Application {
-        public static void main(String[] args) {
-            ThreeElectricOutlet outlet;
-            Wash w=new Wash();
-            outlet=w;
-            System.out.println(&quot;使用三相插座：&quot;);
-            outlet.connectElectricCurrent();
-            TV t=new TV();
-            TreeElectricAdapter adapter=new TreeElectricAdapter(t);
-            outlet=adapter;
-            System.out.println(&quot;使用三相插座&quot;);
-            outlet.connectElectricCurrent();
-        }
-}
-class Wash implements ThreeElectricOutlet{
-String name;
-Wash(){
-    name=&quot;黄河洗衣机&quot;;
-}
-
-
-public Wash(String s) {
-        name=s;
-}
-
-
-@Override
-public void connectElectricCurrent() {
-        turnOn();
-}
-
-
-public void turnOn() {
-    System.out.println(name+&quot;starting.....&quot;);
-}
-}
-class TV implements TwoElectricOutlet{
-String name;
-TV(){
-    name=&quot;长江电视&quot;;
-
-}
-public TV(String s) {
-    name = s;
-}
-
-
-@Override
-public void connectElectricCurrent() {
-        turnOn();
-}
-public void turnOn() {
-    System.out.println(name+&quot;开始播放节目&quot;);
-}
-
-
-} 
-</code></pre>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>在某些情况下，可能不希望反复使用类的构造方法创建许多对象，而是希望用该类创建一个对象后，以该对象为原型得到该对象的若干个复制品。也就是说，将一个对象定义为原型对象，要求该原型对象提供一个方法，使该原型对象调用此方法可以复制一个和自己有完全相同状态的同类型对象，既该方法“克隆”原型对象得到一个新对象。<strong>核心：</strong>原型模式是从一个对象出发得到一个和自己有相同状态的新对象的成熟模式，该模式的关键是将一个对象定义为原型，并为其提供复制自己方法。</p>
+<hr>
+<h3 id="在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。"><a href="#在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。" class="headerlink" title="在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。"></a><strong>在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。</strong></h3>
             
                 
 
@@ -351,7 +279,7 @@ public void turnOn() {
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/23/生成器模式详解/"  data-tooltip="生成器模式详解">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -359,7 +287,7 @@ public void turnOn() {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/外观模式详解/" data-tooltip="外观模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/23/生成器模式详解/" data-tooltip="生成器模式详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -375,17 +303,17 @@ public void turnOn() {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/适配器模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/23/原型模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/适配器模式详解/&amp;title=适配器模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/23/原型模式详解/&amp;title=原型模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/适配器模式详解/&amp;title=适配器模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/23/原型模式详解/&amp;title=原型模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -394,7 +322,7 @@ public void turnOn() {
 
 
         
-            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-适配器模式详解" data-title="适配器模式详解" data-url="http://www.craymc.com/2017/01/22/适配器模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-原型模式详解" data-title="原型模式详解" data-url="http://www.craymc.com/2017/01/23/原型模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
         
     </div>
 </article>
@@ -415,7 +343,7 @@ public void turnOn() {
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/23/生成器模式详解/"  data-tooltip="生成器模式详解">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -423,7 +351,7 @@ public void turnOn() {
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/外观模式详解/" data-tooltip="外观模式详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/23/生成器模式详解/" data-tooltip="生成器模式详解">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -439,17 +367,17 @@ public void turnOn() {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/适配器模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/23/原型模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/适配器模式详解/&amp;title=适配器模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/23/原型模式详解/&amp;title=原型模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/适配器模式详解/&amp;title=适配器模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/23/原型模式详解/&amp;title=原型模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -467,17 +395,17 @@ public void turnOn() {
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/22/适配器模式详解/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/23/原型模式详解/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/适配器模式详解/&amp;title=适配器模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/23/原型模式详解/&amp;title=原型模式详解">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/22/适配器模式详解/&amp;title=适配器模式详解">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/23/原型模式详解/&amp;title=原型模式详解">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>

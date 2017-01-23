@@ -1,10 +1,3 @@
+http://www.craymc.com/2017/01/23/原型模式详解/
+http://www.craymc.com/2017/01/23/生成器模式详解/
 http://www.craymc.com/2017/01/22/适配器模式详解/
-http://www.craymc.com/2017/01/22/外观模式详解/
-http://www.craymc.com/2017/01/22/责任链模式详解/
-http://www.craymc.com/2017/01/22/单子模式详解/
-http://www.craymc.com/2017/01/22/迭代器详解/
-http://www.craymc.com/2017/01/22/中介者模式详解/
-http://www.craymc.com/2017/01/22/工厂方法模式详解/
-http://www.craymc.com/2017/01/17/装饰模式详解/
-http://www.craymc.com/2017/01/17/策略模式详解/
-http://www.craymc.com/2017/01/16/观察者模式详解/
