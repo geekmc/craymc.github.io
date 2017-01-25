@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.craymc.com/"/>
-  <updated>2017-01-23T15:21:38.064Z</updated>
+  <updated>2017-01-25T13:50:32.529Z</updated>
   <id>http://www.craymc.com/</id>
   
   <author>
@@ -14,6 +14,340 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>桥接模式详解</title>
+    <link href="http://www.craymc.com/2017/01/25/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/25/桥接模式详解/</id>
+    <published>2017-01-25T12:11:29.000Z</published>
+    <updated>2017-01-25T13:50:32.529Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="桥接模式详解"><a href="#桥接模式详解" class="headerlink" title="桥接模式详解"></a>桥接模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。"><a href="#定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。" class="headerlink" title="定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。"></a>定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。</h3><hr>
+<h4 id="理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。"><a href="#理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。" class="headerlink" title="理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。"></a>理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。</h4><h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>桥接模式包括四种角色：</p>
+<ul>
+<li>抽象：是一个抽象类，该抽象类含有implementor声明的变量，既维护一个implemnentor类型对象。</li>
+<li>实现者：实现者角色是一个接口，该接口中的方法不一定与abstract类中的方法一致。implementor接口负责定义基本操作，而abstract类负责定义基于这些基本操作的较高层次的操作。</li>
+<li>细化抽象：是抽象角色的一个子类，该子类在重写抽象角色中的抽象方法时，在给出一些必要的操作后，将委托所维护implementor类型对象调用相应的方法。</li>
+<li>具体实现者：是实现implementor接口的类。</li>
+</ul>
+<hr>
+<h3 id="桥接模式的优点"><a href="#桥接模式的优点" class="headerlink" title="桥接模式的优点"></a>桥接模式的优点</h3><ul>
+<li>桥接模式分离实现与抽象，使抽象和实现可以独立的扩展。当修改实现的代码时，不影响抽象的代码，反之也一样。</li>
+<li>满足开-闭模式。抽象和实现者处于同层次，使系统可独立地扩展者两个层次。增加新的具体实现者，不需要修改细化抽象，反之增加新的细化抽象也不需要修改具体实现。</li>
+</ul>
+<hr>
+<h3 id="适合桥接模式的情景"><a href="#适合桥接模式的情景" class="headerlink" title="适合桥接模式的情景"></a>适合桥接模式的情景</h3><ul>
+<li>不想让抽象和某些重要的实现代码是固定的绑定关系，这部分实现可运行时动态决定。</li>
+<li>抽象和实现者都可以继承的方式独立地扩充而互不影响，程序在运行期间可能需要动态的将一个抽象的子类的实例与一个实现者的子类的实例进行组合。</li>
+<li>希望对实现者层次代码的修改对抽象层不产生影响，既抽象层的代码不必重新编译，反之亦然。</li>
+</ul>
+<hr>
+<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><hr>
+<h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><p>   public abstract class ArchitectureCore {<br>    BuildingDesign design;<br>    double unitPrice;<br>    public abstract double giveCost();</p>
+<pre><code>}
+</code></pre><h4 id="实现者"><a href="#实现者" class="headerlink" title="实现者"></a>实现者</h4><pre><code>public interface BuildingDesign {
+    public double computerArea();
+}
+</code></pre><h4 id="细化抽象"><a href="#细化抽象" class="headerlink" title="细化抽象"></a>细化抽象</h4><pre><code>public class BuildingCost extends ArchitectureCore{
+public BuildingCost(BuildingDesign design,double unitPrice) {
+        this.design=design;
+        this.unitPrice=unitPrice;
+}
+
+
+
+@Override
+public double giveCost() {
+    double area=design.computerArea();
+    return area*unitPrice;
+}
+
+}
+</code></pre><h4 id="具体实现者"><a href="#具体实现者" class="headerlink" title="具体实现者"></a>具体实现者</h4><pre><code>public class HouseDesign implements BuildingDesign{
+double width,length;
+int floorNumber;
+
+
+public HouseDesign(double width, double length, int floorNumber) {
+    this.width = width;
+    this.length = length;
+    this.floorNumber = floorNumber;
+}
+
+
+@Override
+public double computerArea() {
+
+    return width*length*floorNumber;
+}
+
+}
+</code></pre><h4 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h4><pre><code>public class Application {
+public static void main(String[] args) {
+    double width=63,height=30;
+    int floorNumber=8;
+    double unitPrice=6867.38;
+    BuildingDesign design=new HouseDesign(width, height, floorNumber);
+    System.out.println(&quot;宽&quot;+width+&quot;米，高&quot;+height+&quot;米，层数为：&quot;+floorNumber);
+    ArchitectureCore cost=new BuildingCost(design, unitPrice);
+    double price=cost.giveCost();
+    System.out.printf(&quot;每平方米造价为：&quot;+unitPrice+&quot;元的商业楼的建设成本：%.2f\n&quot;,price);
+    width=50;
+    height=28;
+    floorNumber=6;
+    unitPrice=2687.88;
+    design=new HouseDesign(width, height, floorNumber);
+    System.out.printf(&quot;宽&quot;+width+&quot;米，高&quot;+height+&quot;米，层数为&quot;+floorNumber);
+
+    cost=new BuildingCost(design, unitPrice);
+    price=cost.giveCost();
+    System.out.printf(&quot;每平方米造价&quot;+unitPrice+&quot;元的住宅楼的建设成本%.2f\n&quot;,price);
+
+}
+
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;桥接模式详解&quot;&gt;&lt;a href=&quot;#桥接模式详解&quot; class=&quot;headerlink&quot; title=&quot;桥接模式详解&quot;&gt;&lt;/a&gt;桥接模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>组合模式详解</title>
+    <link href="http://www.craymc.com/2017/01/25/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/25/组合模式详解/</id>
+    <published>2017-01-25T12:08:18.000Z</published>
+    <updated>2017-01-25T14:12:30.936Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="组合模式详解"><a href="#组合模式详解" class="headerlink" title="组合模式详解"></a>组合模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。"><a href="#定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。" class="headerlink" title="定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。"></a>定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。</h3><hr>
+<h3 id="理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。"><a href="#理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。" class="headerlink" title="理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。"></a>理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。</h3><hr>
+<h3 id="组合模式包括三种角色："><a href="#组合模式包括三种角色：" class="headerlink" title="组合模式包括三种角色："></a>组合模式包括三种角色：</h3><ul>
+<li>抽象组件：是一个接口（抽象类），该接口（抽象类）定义了个体对象和组合对象需要实现的关于操作其子节点的方法，比如add(),remove(),以及getChild()等方法。抽象组件也可以定义个体对象和组合对象用于操作其自身的方法，比如isLeaf（）方法等。</li>
+<li>Composite节点：实现component接口类的实例，composite节点不仅实现component接口，而且可以含有其他composite节点或leaf节点的引用。</li>
+<li>Leaf节点：实现component接口类的实例，leaf节点实现component接口，不可以含有其他composite节点或leaf节点的引用，因此，叶节点在实现component接口有关操作子节点的方法时，可以让方法抛出一个异常，也可以实现为空操作。</li>
+</ul>
+<hr>
+<h3 id="组合模式的优点"><a href="#组合模式的优点" class="headerlink" title="组合模式的优点"></a>组合模式的优点</h3><ul>
+<li>组合模式中包含个体对象和组合对象，并形成树形结构，使用户可以方便地处理个体对象和组合对象。</li>
+<li>组合对象和个体对象实现了相同的接口，用户一般无须区分个体对象和组合对象。</li>
+<li>当增加新的composite节点和Leaf节点时，用户的重要代码不需要作出修改。</li>
+</ul>
+<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><hr>
+<h4 id="抽象组件"><a href="#抽象组件" class="headerlink" title="抽象组件"></a>抽象组件</h4><pre><code>import java.util.Iterator;
+
+public interface MilitaryPerson {
+    public void add(MilitaryPerson person);
+    public void remove(MilitaryPerson person);
+    public MilitaryPerson getChild(int index);
+    public Iterator&lt;MilitaryPerson&gt; getAllChildren();
+    public boolean isleaf();
+    public double getSalary();
+    public void setSalary(double salary);
+}
+</code></pre><h4 id="composite节点"><a href="#composite节点" class="headerlink" title="composite节点"></a>composite节点</h4><pre><code>import java.util.Iterator;
+import java.util.LinkedList;
+
+public class MilitaryOfficer implements MilitaryPerson {
+            LinkedList&lt;MilitaryPerson&gt; list;
+            String name;
+            double salary;
+
+
+public MilitaryOfficer( String name,
+        double salary) {
+    list=new LinkedList&lt;MilitaryPerson&gt;();
+    this.name = name;
+    this.salary = salary;
+}
+
+@Override
+public void add(MilitaryPerson person) {
+    list.add(person);
+
+}
+
+@Override
+public void remove(MilitaryPerson person) {
+        list.remove(person);
+}
+
+@Override
+public MilitaryPerson getChild(int index) {
+    return list.get(index);
+}
+
+@Override
+public Iterator&lt;MilitaryPerson&gt; getAllChildren() {
+    return list.iterator();
+}
+
+@Override
+public boolean isleaf() {
+    return false;
+}
+
+@Override
+public double getSalary() {
+    return salary;
+}
+
+@Override
+public void setSalary(double salary) {
+    this.salary=salary;
+}
+
+
+}
+</code></pre><h4 id="Leaf节点"><a href="#Leaf节点" class="headerlink" title="Leaf节点"></a>Leaf节点</h4><pre><code>import java.util.Iterator;
+
+public class MilitarySoldier implements MilitaryPerson {
+       double salary;
+       String name;
+
+public MilitarySoldier(double salary, String name) {
+    this.salary = salary;
+    this.name = name;
+}
+
+@Override
+public void add(MilitaryPerson person) {
+
+}
+
+@Override
+public void remove(MilitaryPerson person) {
+
+}
+
+@Override
+public MilitaryPerson getChild(int index) {
+    return null;
+}
+
+@Override
+public Iterator&lt;MilitaryPerson&gt; getAllChildren() {
+    return null;
+}
+
+@Override
+public boolean isleaf() {
+    return true;
+}
+
+@Override
+public double getSalary() {
+    return salary;
+}
+
+@Override
+public void setSalary(double salary) {
+    this.salary=salary;
+}
+
+}
+</code></pre><h4 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h4><pre><code>import java.util.Iterator;
+
+public class ComputerSalary {
+    public static double computerSalary(MilitaryPerson person){
+         double sum=0;
+         if(person.isleaf()==true){
+        sum=sum+person.getSalary();
+    }
+    if(person.isleaf()==false){
+        sum=sum+person.getSalary();
+        Iterator&lt;MilitaryPerson&gt;iterator=person.getAllChildren();
+        while(iterator.hasNext()){
+            MilitaryPerson p=iterator.next();
+            sum=sum+computerSalary(p);
+        }
+
+    }
+
+
+    return sum;
+
+
+
+
+}
+}
+
+public class Application {
+public static void main(String[] args) {
+    MilitaryPerson 连长=new MilitaryOfficer( &quot;连长&quot;, 5000);
+    MilitaryPerson 排长1=new MilitaryOfficer(&quot;一排长&quot;, 4000);
+    MilitaryPerson 排长2=new MilitaryOfficer(&quot;二排长&quot;, 4000);
+
+    MilitaryPerson 班长11=new MilitaryOfficer(&quot;一班长&quot;, 2000);
+    MilitaryPerson 班长12=new MilitaryOfficer(&quot;二班长&quot;, 2000);
+    MilitaryPerson 班长13=new MilitaryOfficer(&quot;三班长&quot;, 2000);
+
+    MilitaryPerson 班长21=new MilitaryOfficer(&quot;一班长&quot;, 2000);
+    MilitaryPerson 班长22=new MilitaryOfficer(&quot;二班长&quot;, 2000);
+    MilitaryPerson 班长23=new MilitaryOfficer(&quot;三班长&quot;, 2000);
+
+    MilitaryPerson 班长31=new MilitaryOfficer(&quot;一班长&quot;, 2000);
+    MilitaryPerson 班长32=new MilitaryOfficer(&quot;二班长&quot;, 2000);
+    MilitaryPerson 班长33=new MilitaryOfficer(&quot;三班长&quot;, 2000);
+
+    MilitaryPerson [] 士兵=new MilitarySoldier[600];
+    for (int i = 0; i &lt; 士兵.length; i++) {
+        士兵[i]=new MilitarySoldier(1000, &quot;小兵&quot;);
+
+    }
+    连长.add(排长1);
+    连长.add(排长2);
+    排长1.add(班长11);
+    排长1.add(班长12);
+    排长1.add(班长13);
+
+    排长2.add(班长21);
+    排长2.add(班长22);
+    排长2.add(班长23);
+
+    for (int i = 0; i &lt;=9; i++) {
+        班长11.add(士兵[i]);
+        班长12.add(士兵[i+10]);
+        班长13.add(士兵[i+20]);
+
+        班长21.add(士兵[i+30]);
+        班长22.add(士兵[i+40]);
+        班长23.add(士兵[i+50]);
+
+        班长31.add(士兵[i+60]);
+        班长32.add(士兵[i+70]);
+        班长33.add(士兵[i+80]);
+    }
+    System.out.println(&quot;一班的军饷：&quot;+ComputerSalary.computerSalary(班长11));
+    System.out.println(&quot;一排的军饷:&quot;+ComputerSalary.computerSalary(排长1));
+    System.out.println(&quot;全连的军饷:&quot;+ComputerSalary.computerSalary(连长));
+
+
+
+
+}
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;组合模式详解&quot;&gt;&lt;a href=&quot;#组合模式详解&quot; class=&quot;headerlink&quot; title=&quot;组合模式详解&quot;&gt;&lt;/a&gt;组合模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>原型模式详解</title>
@@ -2007,75 +2341,6 @@ public static void main(String[] args) {
     
     
       <category term="Kali" scheme="http://www.craymc.com/tags/Kali/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git问题集-git-生成SSH</title>
-    <link href="http://www.craymc.com/2016/04/22/git%E9%97%AE%E9%A2%98%E9%9B%86-git-%E7%94%9F%E6%88%90SSH/"/>
-    <id>http://www.craymc.com/2016/04/22/git问题集-git-生成SSH/</id>
-    <published>2016-04-22T01:06:01.000Z</published>
-    <updated>2016-07-20T10:47:18.973Z</updated>
-    
-    <content type="html"><![CDATA[<p>第一步：</p>
-<p>打开gitbash输入：ls -al ~/.ssh</p>
-<p>Check the directory listing to see if you already have a public SSH key. By default, the filenames of the public keys are one of the following:</p>
-<p>id_dsa.pub</p>
-<p>id_ecdsa.pub</p>
-<p>id_ed25519.pub</p>
-<p>id_rsa.pub</p>
-<a id="more"></a>
-<p>第二步：ssh-keygen -t rsa -b 4096 -C “your_email@example.com”</p>
-<h1 id="Creates-a-new-ssh-key-using-the-provided-email-as-a-label"><a href="#Creates-a-new-ssh-key-using-the-provided-email-as-a-label" class="headerlink" title="Creates a new ssh key, using the provided email as a label"></a>Creates a new ssh key, using the provided email as a label</h1><p>#Generating public/private rsa key pair.</p>
-<p>②：接下来一直回车</p>
-<p>③出现：# Creates a new ssh key, using the provided email as a label</p>
-<p>#Generating public/private rsa key pair.</p>
-<p>第三步：添加代理</p>
-<h1 id="start-the-ssh-agent-in-the-backgroundssh-agent-s-Agent-pid-59566"><a href="#start-the-ssh-agent-in-the-backgroundssh-agent-s-Agent-pid-59566" class="headerlink" title="start the ssh-agent in the backgroundssh-agent -s#Agent pid 59566"></a>start the ssh-agent in the backgroundssh-agent -s#Agent pid 59566</h1><p>#</p>
-<h1 id="start-the-ssh-agent-in-the-backgroundeval-ssh-agent-s-Agent-pid-59566"><a href="#start-the-ssh-agent-in-the-backgroundeval-ssh-agent-s-Agent-pid-59566" class="headerlink" title="start the ssh-agent in the backgroundeval $(ssh-agent -s)#Agent pid 59566"></a>start the ssh-agent in the backgroundeval $(ssh-agent -s)#Agent pid 59566</h1><p>ssh-add ~/.ssh/id_rsa</p>
-<p>第四步：把SSHKEY添加到你的账户</p>
-<p>用公钥。先在GitHub上注册一个用户，然后进入account-setting ，把id_rsa.pub的内容复制进去就可以了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;第一步：&lt;/p&gt;
-&lt;p&gt;打开gitbash输入：ls -al ~/.ssh&lt;/p&gt;
-&lt;p&gt;Check the directory listing to see if you already have a public SSH key. By default, the filenames of the public keys are one of the following:&lt;/p&gt;
-&lt;p&gt;id_dsa.pub&lt;/p&gt;
-&lt;p&gt;id_ecdsa.pub&lt;/p&gt;
-&lt;p&gt;id_ed25519.pub&lt;/p&gt;
-&lt;p&gt;id_rsa.pub&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="git" scheme="http://www.craymc.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2016第一篇</title>
-    <link href="http://www.craymc.com/2016/01/23/2016%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
-    <id>http://www.craymc.com/2016/01/23/2016第一篇/</id>
-    <published>2016-01-23T06:11:48.000Z</published>
-    <updated>2016-07-20T10:47:18.970Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>新年伊始，在忙完了考试和实训后，终于有了时间来写下这一篇迟来的新年文章。
-</code></pre><a id="more"></a>
-<pre><code>回顾一下过去的一年，生活上跟以前没有什么变化，一如既往；在学习上了解了一些知识，拓宽了知识广度，做了一个重大的决定，希望自己能够实现。在12月份的时候参加了“开源中国”的年度盛典，亲眼目睹了“鸟哥”的那猥琐的面容，也因此认识了华为的兰姐姐，在场于那些前辈们，沟通了许多话题，阿里的沈老师给自己提供了很多有用的建议，总之，这次涨姿势了！
-新的一年中，想得要增强一下代码的量度，也能学到更多的知识分享的博客，与大家共享！
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;新年伊始，在忙完了考试和实训后，终于有了时间来写下这一篇迟来的新年文章。
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-      <category term="生活" scheme="http://www.craymc.com/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
