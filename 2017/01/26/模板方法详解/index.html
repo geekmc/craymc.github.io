@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>模板方法详解 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="模板方法详解author：craymc
+###　定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。理解： 类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="模板方法详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/26/模板方法详解/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="模板方法详解author：craymc
+###　定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。理解： 类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此">
+<meta property="og:updated_time" content="2017-01-26T14:06:42.081Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模板方法详解">
+<meta name="twitter:description" content="模板方法详解author：craymc
+###　定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。理解： 类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            模板方法详解
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Jan 26 2017 22:04:55 GMT+0800">
+	
+		    1月26日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="模板方法详解"><a href="#模板方法详解" class="headerlink" title="模板方法详解"></a>模板方法详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h2 id="定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。"><a href="#定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。" class="headerlink" title="###　定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。"></a>###　定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。</h2><h4 id="理解：-类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。"><a href="#理解：-类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。" class="headerlink" title="理解： 类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。"></a>理解： 类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。</h4><h4 id="核心：模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象-类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。"><a href="#核心：模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象-类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。" class="headerlink" title="核心：模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象 类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。"></a><strong>核心：</strong>模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象 类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。</h4><h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>模板方法模式包括两种角色：</p>
+<ul>
+<li>抽象模板：抽象模板是一个抽象类。抽象模板定义了若干个方法来表示一个算法的各个步骤，这些方法中有抽象方法也有非抽象方法，其中的抽象方法称作<br>原语操作。更重要的一点是，抽象模板中还定义了一个称作模板方法的方法，该方法不仅包含有抽象模板中表示算法步骤的方法调用，而且也可以包含有定义在抽象模板中的其他对象方法调用，既模板方法定义了算法骨架。</li>
+<li>具体模板：具体模板是抽象模板的子类，实现抽象模板中的原语操作。</li>
+</ul>
+<hr>
+<h4 id="模板方法模式的优点："><a href="#模板方法模式的优点：" class="headerlink" title="模板方法模式的优点："></a>模板方法模式的优点：</h4><ul>
+<li>可以通过在抽象模板定义模板方法给出成熟的算法步骤，同时又不限制步骤的细节，具体模板实现算法细节不会改变整个算法的骨架。</li>
+<li>在抽象模板模式中，可以通过钩子方法对 某些步骤进行挂钩，具体模板通过钩子可以选择算法骨架中的某些步骤。</li>
+</ul>
+<hr>
+<h4 id="适合模板方法模式的场景："><a href="#适合模板方法模式的场景：" class="headerlink" title="适合模板方法模式的场景："></a>适合模板方法模式的场景：</h4><ul>
+<li>设计者需要给出一个算法的固定步骤，并将某些步骤的具体实现留给子类来实现。</li>
+<li>需要对代码进行重构，将各个子类公共行为提取出来集中到一个共同的父类中以避免代码重复。</li>
+</ul>
+<hr>
+<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="抽象模板"><a href="#抽象模板" class="headerlink" title="抽象模板"></a>抽象模板</h5><pre><code> import java.io.File;
+
+public abstract class AbstractTemplate {  
+   File[]allFile;
+   File dir;
+   public AbstractTemplate(File dir) {
+    this.dir = dir;
+    }
+   public final void showFileName(){
+    allFile=dir.listFiles();
+    sort();
+    printFiles();
+    }
+   public abstract void printFiles();
+   public abstract void sort();
+
+}
+</code></pre><h5 id="具体模板"><a href="#具体模板" class="headerlink" title="具体模板"></a>具体模板</h5><pre><code>import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class ConcreteTemplatel extends AbstractTemplate {
+
+
+   public ConcreteTemplatel(File dir) {
+    super(dir);
+    }
+
+    @Override
+    public void printFiles() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            long time=allFile[i].lastModified();
+            Date date=new Date();
+            SimpleDateFormat matter=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+            String name=allFile[i].getName();
+            int k=i+1;
+            System.out.println(k+&quot; &quot;+name+&quot;(&quot;+name+&quot;)&quot;);
+    }
+
+}
+
+    @Override
+    public void sort() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            for (int j = i+1; j &lt; allFile.length; j++) {
+                if(allFile[j].lastModified()&lt;allFile[i].lastModified()){
+                    File file=allFile[j];
+                    allFile[j]=allFile[i];
+                    allFile[i]=file;
+            }
+        }
+    }
+
+}
+}
+
+import java.io.File;
+
+public class ConcreteTemplate2  extends AbstractTemplate{
+
+    public ConcreteTemplate2(File dir) {
+    super(dir);
+    }
+
+    @Override
+    public void printFiles() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            long fileSize=allFile[i].length();
+            String name=allFile[i].getName();
+            int k=i+1;
+            System.out.println(k+&quot; &quot;+name+&quot;(&quot;+fileSize+&quot;字节&quot;);
+        }
+}
+
+    @Override
+    public void sort() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            for (int j = i+1; j &lt; allFile.length; j++) {
+                if(allFile[j].length()&lt;allFile[i].length()){
+                    File file=allFile[j];
+                    allFile[j]=allFile[i];
+                    allFile[i]=file;
+            }
+        }
+    }
+}
+
+}
+</code></pre><h5 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h5><pre><code>import java.io.File;
+
+public class Application {
+    public static void main(String[] args) {
+            File dir=new File(&quot;路径&quot;);
+            AbstractTemplate template=new ConcreteTemplatel(dir);
+            System.out.println(dir.getPath()+&quot;目录下的文件：&quot;);
+            template.showFileName();
+            template=new ConcreteTemplate2(dir);
+            System.out.println(dir.getPath()+&quot;目录下的文件：&quot;);
+            template.showFileName();
+
+
+    }
+}
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/26/状态模式详解/"  data-tooltip="状态模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/25/桥接模式详解/" data-tooltip="桥接模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/26/模板方法详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/模板方法详解/&amp;title=模板方法详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/模板方法详解/&amp;title=模板方法详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-模板方法详解" data-title="模板方法详解" data-url="http://www.craymc.com/2017/01/26/模板方法详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/26/状态模式详解/"  data-tooltip="状态模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/25/桥接模式详解/" data-tooltip="桥接模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/26/模板方法详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/模板方法详解/&amp;title=模板方法详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/模板方法详解/&amp;title=模板方法详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/26/模板方法详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/模板方法详解/&amp;title=模板方法详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/模板方法详解/&amp;title=模板方法详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

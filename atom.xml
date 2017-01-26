@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.craymc.com/"/>
-  <updated>2017-01-25T13:50:32.529Z</updated>
+  <updated>2017-01-26T14:07:09.794Z</updated>
   <id>http://www.craymc.com/</id>
   
   <author>
@@ -14,6 +14,276 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>状态模式详解</title>
+    <link href="http://www.craymc.com/2017/01/26/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/26/状态模式详解/</id>
+    <published>2017-01-26T14:05:31.000Z</published>
+    <updated>2017-01-26T14:07:09.794Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="状态模式详解"><a href="#状态模式详解" class="headerlink" title="状态模式详解"></a>状态模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。"><a href="#定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。" class="headerlink" title="定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。"></a>定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。</h3><hr>
+<h4 id="理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。"><a href="#理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。" class="headerlink" title="理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。"></a>理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。<strong>核心：</strong>状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。</h4><hr>
+<h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>状态模式包括三种角色：</p>
+<ul>
+<li>环境：环境是一个类，该类含有抽象状态声明的变量，可以引用任何具体状态类的实例。用户对该环境类的实例在某种状态下的行为感兴趣。</li>
+<li>抽象状态：抽象状态是一个接口或抽象类。抽象状态中定义了与环境的一个特定状态相关的若干个方法。</li>
+<li>具体状态：具体状态是实现抽象状态的类。</li>
+</ul>
+<hr>
+<h4 id="状态切换"><a href="#状态切换" class="headerlink" title="状态切换"></a>状态切换</h4><h2 id="环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。"><a href="#环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。" class="headerlink" title="环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。"></a>环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。</h2><h4 id="状态模式的优点"><a href="#状态模式的优点" class="headerlink" title="状态模式的优点"></a>状态模式的优点</h4><ul>
+<li>使用一个类封装对象的一种状态，很容易增加 新的状态。</li>
+<li>在状态模式中，环境中不必出现大量的条件判断语句。环境实例所呈现的状态变得更加清晰，容易理解。</li>
+<li>使用状态模式可以让用户程序很方便地切换环境实例状态。</li>
+<li>使用状态模式不会让环境的实例中出现内部状态不一致的情况。</li>
+<li>当前对象没有实例变量时，环境的各个实例可以共享一个状态对象。</li>
+</ul>
+<hr>
+<h4 id="适合使用状态模式的情景"><a href="#适合使用状态模式的情景" class="headerlink" title="适合使用状态模式的情景"></a>适合使用状态模式的情景</h4><ul>
+<li>一个对象的行为依赖于它的状态，并且它必须在运行时根据状态改变它的行为。</li>
+<li>需要编写大量的条件分支语句来决定一个操作的行为，而且这些条件恰好表示对象的一种状态。</li>
+</ul>
+<hr>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><h5 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h5><pre><code>public class Thermometer {
+  TempreatureState state;
+   public void showMessage(){
+    System.out.println(&quot;****&quot;);
+    state.showTemperature();
+    System.out.println(&quot;*****&quot;);
+}
+public void setState(TempreatureState state){
+    this.state=state;
+}
+
+}
+</code></pre><h5 id="抽象状态"><a href="#抽象状态" class="headerlink" title="抽象状态"></a>抽象状态</h5><pre><code>public interface TempreatureState {
+public void showTemperature();
+
+ }
+</code></pre><h5 id="具体状态"><a href="#具体状态" class="headerlink" title="具体状态"></a>具体状态</h5><pre><code>public class LowState implements TempreatureState {
+  double n=0;
+
+
+  public LowState(double n) {
+    if(n&lt;=0)
+    this.n = n;
+   }
+
+
+@Override
+public void showTemperature() {
+        System.out.println(&quot;现在的温度是&quot;+n+&quot;属于低温度&quot;);
+}
+
+}
+
+public class MiddleState implements TempreatureState{
+double n=15;
+
+
+
+public MiddleState(int n) {
+    if(n&gt;0&amp;&amp;n&lt;26)
+    this.n = n;
+}
+
+
+
+@Override
+public void showTemperature() {
+    System.out.println(&quot;现在是温度是&quot;+n+&quot;属于正常温度&quot;);
+}
+
+}
+
+
+public class HeightState implements TempreatureState{
+   double n=39;
+
+
+   public HeightState(double n) {
+    if(n&gt;39)
+    this.n = n;
+    }
+
+
+    @Override
+    public void showTemperature() {
+    System.out.println(&quot;现在温度是&quot;+n+&quot;属于高温&quot;);
+     }
+
+}
+</code></pre><h5 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h5><pre><code>public class Application {
+    public static void main(String[] args) {
+
+            TempreatureState state=new LowState(-12);
+            Thermometer thermometer=new Thermometer();
+
+            thermometer.setState(state);
+            thermometer.showMessage();
+
+            state=new MiddleState(20);
+            thermometer.setState(state);
+            thermometer.showMessage();
+
+            state=new HeightState(39);
+            thermometer.setState(state);
+            thermometer.showMessage();
+    }
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;状态模式详解&quot;&gt;&lt;a href=&quot;#状态模式详解&quot; class=&quot;headerlink&quot; title=&quot;状态模式详解&quot;&gt;&lt;/a&gt;状态模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>模板方法详解</title>
+    <link href="http://www.craymc.com/2017/01/26/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/01/26/模板方法详解/</id>
+    <published>2017-01-26T14:04:55.000Z</published>
+    <updated>2017-01-26T14:06:42.081Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="模板方法详解"><a href="#模板方法详解" class="headerlink" title="模板方法详解"></a>模板方法详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h2 id="定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。"><a href="#定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。" class="headerlink" title="###　定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。"></a>###　定义：定义一个操作中算法的骨架，而将一些步骤延迟到子类中。模板方法使子类可用不改变一个算法的结构即可重定义该算法的某些特定步骤。</h2><h4 id="理解：-类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。"><a href="#理解：-类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。" class="headerlink" title="理解： 类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。"></a>理解： 类中的方法用以表明该类的实例所具有的行为，一个类可以有许多方法，而且类中的实例方法也可以调用该类中的其他若干个方法。在编写类的时候，可能需要将类的许多方法集成到一个实例方法中，既用一个实例方法封装若干方法的调用，以此表示一个算法的骨架，也就是说，调用该实例方法相当于按着一定顺序执行若干个方法。</h4><h4 id="核心：模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象-类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。"><a href="#核心：模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象-类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。" class="headerlink" title="核心：模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象 类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。"></a><strong>核心：</strong>模板方法是关于怎样将若干个方法集成到一个方法中，以便于形成一个解决问题的算法骨架。模板方法模式的关键是在一个抽象 类中定义一个算法的骨架，既将若干个方法集成到一个方法中，并称该方法为一个模板方法，或简称为模板。模板方法所调用的其他方法通常为抽象的方法，这些抽象方法相当于算法骨架中的各个步骤，这些步骤的实现可以由子类进行重构去完成。</h4><h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>模板方法模式包括两种角色：</p>
+<ul>
+<li>抽象模板：抽象模板是一个抽象类。抽象模板定义了若干个方法来表示一个算法的各个步骤，这些方法中有抽象方法也有非抽象方法，其中的抽象方法称作<br>原语操作。更重要的一点是，抽象模板中还定义了一个称作模板方法的方法，该方法不仅包含有抽象模板中表示算法步骤的方法调用，而且也可以包含有定义在抽象模板中的其他对象方法调用，既模板方法定义了算法骨架。</li>
+<li>具体模板：具体模板是抽象模板的子类，实现抽象模板中的原语操作。</li>
+</ul>
+<hr>
+<h4 id="模板方法模式的优点："><a href="#模板方法模式的优点：" class="headerlink" title="模板方法模式的优点："></a>模板方法模式的优点：</h4><ul>
+<li>可以通过在抽象模板定义模板方法给出成熟的算法步骤，同时又不限制步骤的细节，具体模板实现算法细节不会改变整个算法的骨架。</li>
+<li>在抽象模板模式中，可以通过钩子方法对 某些步骤进行挂钩，具体模板通过钩子可以选择算法骨架中的某些步骤。</li>
+</ul>
+<hr>
+<h4 id="适合模板方法模式的场景："><a href="#适合模板方法模式的场景：" class="headerlink" title="适合模板方法模式的场景："></a>适合模板方法模式的场景：</h4><ul>
+<li>设计者需要给出一个算法的固定步骤，并将某些步骤的具体实现留给子类来实现。</li>
+<li>需要对代码进行重构，将各个子类公共行为提取出来集中到一个共同的父类中以避免代码重复。</li>
+</ul>
+<hr>
+<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="抽象模板"><a href="#抽象模板" class="headerlink" title="抽象模板"></a>抽象模板</h5><pre><code> import java.io.File;
+
+public abstract class AbstractTemplate {  
+   File[]allFile;
+   File dir;
+   public AbstractTemplate(File dir) {
+    this.dir = dir;
+    }
+   public final void showFileName(){
+    allFile=dir.listFiles();
+    sort();
+    printFiles();
+    }
+   public abstract void printFiles();
+   public abstract void sort();
+
+}
+</code></pre><h5 id="具体模板"><a href="#具体模板" class="headerlink" title="具体模板"></a>具体模板</h5><pre><code>import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class ConcreteTemplatel extends AbstractTemplate {
+
+
+   public ConcreteTemplatel(File dir) {
+    super(dir);
+    }
+
+    @Override
+    public void printFiles() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            long time=allFile[i].lastModified();
+            Date date=new Date();
+            SimpleDateFormat matter=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+            String name=allFile[i].getName();
+            int k=i+1;
+            System.out.println(k+&quot; &quot;+name+&quot;(&quot;+name+&quot;)&quot;);
+    }
+
+}
+
+    @Override
+    public void sort() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            for (int j = i+1; j &lt; allFile.length; j++) {
+                if(allFile[j].lastModified()&lt;allFile[i].lastModified()){
+                    File file=allFile[j];
+                    allFile[j]=allFile[i];
+                    allFile[i]=file;
+            }
+        }
+    }
+
+}
+}
+
+import java.io.File;
+
+public class ConcreteTemplate2  extends AbstractTemplate{
+
+    public ConcreteTemplate2(File dir) {
+    super(dir);
+    }
+
+    @Override
+    public void printFiles() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            long fileSize=allFile[i].length();
+            String name=allFile[i].getName();
+            int k=i+1;
+            System.out.println(k+&quot; &quot;+name+&quot;(&quot;+fileSize+&quot;字节&quot;);
+        }
+}
+
+    @Override
+    public void sort() {
+        for (int i = 0; i &lt; allFile.length; i++) {
+            for (int j = i+1; j &lt; allFile.length; j++) {
+                if(allFile[j].length()&lt;allFile[i].length()){
+                    File file=allFile[j];
+                    allFile[j]=allFile[i];
+                    allFile[i]=file;
+            }
+        }
+    }
+}
+
+}
+</code></pre><h5 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h5><pre><code>import java.io.File;
+
+public class Application {
+    public static void main(String[] args) {
+            File dir=new File(&quot;路径&quot;);
+            AbstractTemplate template=new ConcreteTemplatel(dir);
+            System.out.println(dir.getPath()+&quot;目录下的文件：&quot;);
+            template.showFileName();
+            template=new ConcreteTemplate2(dir);
+            System.out.println(dir.getPath()+&quot;目录下的文件：&quot;);
+            template.showFileName();
+
+
+    }
+}
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;模板方法详解&quot;&gt;&lt;a href=&quot;#模板方法详解&quot; class=&quot;headerlink&quot; title=&quot;模板方法详解&quot;&gt;&lt;/a&gt;模板方法详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
+    
+    </summary>
+    
+    
+      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>桥接模式详解</title>
@@ -2255,92 +2525,6 @@ public static void main(String[] args) {
     
     
       <category term="Java" scheme="http://www.craymc.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kali Linux安装-硬盘安装、虚拟机安装</title>
-    <link href="http://www.craymc.com/2016/07/15/Kali-Linux%E5%AE%89%E8%A3%85-%E7%A1%AC%E7%9B%98%E5%AE%89%E8%A3%85%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/"/>
-    <id>http://www.craymc.com/2016/07/15/Kali-Linux安装-硬盘安装、虚拟机安装/</id>
-    <published>2016-07-15T11:04:31.000Z</published>
-    <updated>2016-07-20T10:47:18.971Z</updated>
-    
-    <content type="html"><![CDATA[<p>##第二课时<br>软件版本：1.1.0<br>安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）<br>安装支持设备：u盘移动，手机，电脑</p>
-<p>1.硬盘安装方式<br>进入安装界面<br>      live  体验<br>      live usb persistence  制作u盘无密码移动版<br>      live usb encrypted persistence  制作u盘有密码移动版<br>      install 直接安装<br>      graphical install 图形化安装</p>
-<p>2.docker(容器)<br>      <a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="external">https://www.kali.org/news/official-kali-linux-docker-images/</a> kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)</p>
-<pre><code>https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
-</code></pre><hr>
-<a id="more"></a>
-<p>1.虚拟机安装<br>    vmware workstation<br>    virtualbox<br>    官方vm镜像文件：<br>     <a href="https://www.offensive-security.com/kali-linux-vmware-arm-image-download/" target="_blank" rel="external">https://www.offensive-security.com/kali-linux-vmware-arm-image-download/</a><br>     win8系统安装虚拟机注意：要卸载微软的kb3045999补丁 卸载方法：打开命令提示符cd/到c盘再powershell再打入get-hotfix -id KB3045999回车打入wusa /uninstall /kb:3045999成功卸载</p>
-<pre><code>安装tools:
-</code></pre><p>先在虚拟机上安装附加模块，在打开哪个镜像，选择里面的vboxlinuxadditions.run拷贝出来用终端打开，先列出目录ls,再查询现有的权限ls -l，在赋予执行权限chmod +x 文件（x表示可执行），再看下文件是否是绿色ls -l，再运行./文件<br>，重启reboot</p>
-<p>2.持久加密usb安装</p>
-<p>模式：<br>1、live(amd64)可以通过启动U盘来运行kali linux。缺点：不可以安装新的软件包或更新修改；<br>2、Live USB P/EP(加密的持久USB启动光盘)。<br>DOCKER?<br>虚拟机安装<br>vmware workstation<br>Virtualbox<br>win8安装virtualbox，需要卸载一个补丁,要用到powershell，cmd下执行powershell，然后<br>poewershell<br>get-hotfix -id KB3045999</p>
-<p>wusa /uninstall /kb:3045999  按回车键，卸载</p>
-<p>虚拟机安装kali linux设置内存最好是2G，最大可以设置成4G</p>
-<hr>
-<p>安装kali linux操作系统<br>Graphical install   //选择字母界面安装kali linux操作系统</p>
-<p>chinese(Simplified)  中文（简体）</p>
-<p>中国</p>
-<p>汉语</p>
-<p>请输入系统的主机名: Kali</p>
-<p>域名：      //如果这里有域名可以在下面填写,如果木有域名则自己按继续</p>
-<p>输入root账号密码 </p>
-<p>向导-使用整个硬盘</p>
-<p>SCSII (0,0,0)(sda)- 85.9GB ATA VBOX HARDDISK</p>
-<p>√ 讲所有每个文件放在同一个分区中（推荐新手使用）<br>×将/home、/usr、/var和/tmp都分别放在单独的分区</p>
-<p>分区设定结构并将修改写入硬盘</p>
-<p>将改动写入硬盘吗？  是</p>
-<p>将CRUB 启动引导基安装到主引导记录（MBR）上么？  是</p>
-<p>安装完成    继续</p>
-<hr>
-<p>root@kali:~# apt-get install linux-headers-$(uname -r)    //更新系统并显示linux操作系统内核版本号<br>Reading package lists … Done<br>Building dependency tree<br>Reading state information… Done<br>Linux-headers-3.18.0-kalil-586 is already the newesr version.<br>0 upgrade, 0 newly installed, 0 to remove and 163 not upgraded.</p>
-<p>root@kali:~# apt-get update</p>
-<p>root@kali:~# uname -r      //uname用来获取电脑和操作系统的相关信息,显示linux操作系统内核版本号<br>3.18.0-kalil-586</p>
-<p>root@kali:~/Desktop# ls      //打印出当前目录的清单<br>VBocLinuxAdditions.run</p>
-<p>root@kali:~/Desktop# ls -l     //列出文件的详细信息，如创建者，创建时间，文件的读写权限列表等等<br>tottal 6972<br>-rw-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run</p>
-<p>root@kali:~/Desktop# chmod +x VBocLinuxAdditions.run                 赋予执行权限</p>
-<p>root@kali:~/Desktop# ls -l<br>tottal 6972<br>-rwxr-r–r 1 root root 7136717 may 13 12:12 VBocLinuxAdditions.run      赋予权限且”VBocLinuxAdditions.run”变成绿色</p>
-<p>root@kali:~/Desktop# ./VBocLinuxAdditions.run       运行VBocLinuxAdditions.run</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;##第二课时&lt;br&gt;软件版本：1.1.0&lt;br&gt;安装方法：光盘，镜像，u盘（工具：unetbootin 要求：u盘至少4个g）&lt;br&gt;安装支持设备：u盘移动，手机，电脑&lt;/p&gt;
-&lt;p&gt;1.硬盘安装方式&lt;br&gt;进入安装界面&lt;br&gt;      live  体验&lt;br&gt;      live usb persistence  制作u盘无密码移动版&lt;br&gt;      live usb encrypted persistence  制作u盘有密码移动版&lt;br&gt;      install 直接安装&lt;br&gt;      graphical install 图形化安装&lt;/p&gt;
-&lt;p&gt;2.docker(容器)&lt;br&gt;      &lt;a href=&quot;https://www.kali.org/news/official-kali-linux-docker-images/&quot;&gt;https://www.kali.org/news/official-kali-linux-docker-images/&lt;/a&gt; kali docker image(kali官方提供的docker镜像里面不包含任何软件工具)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;https://github.com/offensive-secunity/kali-linux-docker kali官方放在docker的脚本（要求自己做的kali镜像）
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-    
-    </summary>
-    
-    
-      <category term="Kali" scheme="http://www.craymc.com/tags/Kali/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kali 使用教程笔记</title>
-    <link href="http://www.craymc.com/2016/05/13/Kali%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
-    <id>http://www.craymc.com/2016/05/13/Kali使用教程笔记/</id>
-    <published>2016-05-13T01:10:28.000Z</published>
-    <updated>2016-07-20T10:47:18.971Z</updated>
-    
-    <content type="html"><![CDATA[<p>课时1 Kali Linux渗透测试介绍<br>    安全问题的根源<br>        优点：分工明确，工作效率高。<br>        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。<br>        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。<br>   安全目标<br>        先于攻击者发现和防止漏洞出现<br>        攻击型：以攻击者的思维发现漏洞、攻击系统。<br>        防护型:投入巨大，会有遗漏，不够全面，收效不高。<br>    渗透测试<br>        尝试破解系统防御机制，发现系统弱点<br>        从攻击者的角度思考，测量安全防护的有效性<br>        证明问题存在，而不是破坏<br>        道德约束、法律<br>        不局限于一台机器出现的问题，而着眼漏洞对整个系统的影响与危害<br><a id="more"></a><br>    渗透测试标准<br>        PETS (<a href="http://www.pentest-standard.org" target="_blank" rel="external">http://www.pentest-standard.org</a>)<br>        前期交互（客户沟通，确定渗透测试范围，对应用系统渗透任务划分，包括支撑整个系统的各种软件组件）<br>        情报收集（收集目标系统信息，被动收集与主动探测）<br>        威胁建模（根据收集到的信息，确定最有效，最有可能成功的攻击途径）<br>        漏洞分析（通过系统软件版本分析，系统应用漏洞分析写出漏洞利用代码）<br>        渗透攻击阶段（并不像想象中那么顺利，目标系统有防护系统）<br>        后渗透测试阶段（以一台被渗透机器为跳板，进一步渗透整个系统）<br>        渗透测试报告（向客户和其他同事证明系统可以被控制，描述发现、利用过程，以及如何解决）<br>    渗透测试项目<br>        测试范围（整个应用系统）<br>        客户授权（允许攻击还是只是渗透都取决于客户的授权）<br>        渗透测试方法<br>        是否允许社会工程学攻击<br>        是否允许DOS攻击<br>    渗透测试误区<br>        扫描器就是一切（不能忽略业务逻辑的漏洞。自动化技术扫描工具有他的适用范围，对业务逻辑的漏洞也是无能为力。扫描器是辅助工具）<br>    KALI<br>        字面意思“黑色”，音译“咖利”，印度神话中最为黑暗和暴虐的黑色地母。<br>        Kali Linux中的Kali用意估计取自“黑色”的意思。<br>    Kali Linux<br>        基于Debian的发行版本，在其基础上添加了许多信息安全工具，用于渗透测试和安全审计<br>        所有Linux发行版本都遵循的FHS标准目录结构（BT pentest目录中工具分类困难，工具难以更新）<br>        定制内核（主要解决无线渗透测试出现各种错误的问题）<br>        支持ARM、手机平台（NetHunter）<br>        Open Source Free-Offensive Security<br>    Kali Linux策略</p>
-<pre><code>Root用户策略（不同于普通Linux系统小心翼翼的使用方式）
-网络服务策略（默认关闭所有网络服务，自启动脚本默认关闭）
-更新升级策略（Debian + KALI官方）
-</code></pre><p>实践是最好的老师，Kali很强大，但不是全部。这只是关于渗透测试的起点。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;课时1 Kali Linux渗透测试介绍&lt;br&gt;    安全问题的根源&lt;br&gt;        优点：分工明确，工作效率高。&lt;br&gt;        缺点：从业人员对系统没有整体的认识，对安全认识较为片面。&lt;br&gt;        最大威胁是人，人都会犯错，安全问题不能100%绝对根除。&lt;br&gt;   安全目标&lt;br&gt;        先于攻击者发现和防止漏洞出现&lt;br&gt;        攻击型：以攻击者的思维发现漏洞、攻击系统。&lt;br&gt;        防护型:投入巨大，会有遗漏，不够全面，收效不高。&lt;br&gt;    渗透测试&lt;br&gt;        尝试破解系统防御机制，发现系统弱点&lt;br&gt;        从攻击者的角度思考，测量安全防护的有效性&lt;br&gt;        证明问题存在，而不是破坏&lt;br&gt;        道德约束、法律&lt;br&gt;        不局限于一台机器出现的问题，而着眼漏洞对整个系统的影响与危害&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="Kali" scheme="http://www.craymc.com/tags/Kali/"/>
     
   </entry>
   

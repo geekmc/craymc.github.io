@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>状态模式详解 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="状态模式详解author：craymc
+定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。
+理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="状态模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/26/状态模式详解/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="状态模式详解author：craymc
+定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。
+理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来">
+<meta property="og:updated_time" content="2017-01-26T14:07:09.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="状态模式详解">
+<meta name="twitter:description" content="状态模式详解author：craymc
+定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。
+理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            状态模式详解
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Jan 26 2017 22:05:31 GMT+0800">
+	
+		    1月26日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="状态模式详解"><a href="#状态模式详解" class="headerlink" title="状态模式详解"></a>状态模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。"><a href="#定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。" class="headerlink" title="定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。"></a>定义：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。</h3><hr>
+<h4 id="理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。"><a href="#理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。" class="headerlink" title="理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。核心：状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。"></a>理解：一个对象的状态依赖于它的变量的取值情况，对象在不同的运行环境中，可能具有不同的状态。在许多情况下，对象调用方法所产生的行为效果依赖于它当时的状态。<strong>核心：</strong>状态模式的关键是将对象的状态封装成为独立的类，对象调用方法时，可以委托当前对象所具有的状态调用相应的方法，使当前对象看起来好像修改了它的类。</h4><hr>
+<h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>状态模式包括三种角色：</p>
+<ul>
+<li>环境：环境是一个类，该类含有抽象状态声明的变量，可以引用任何具体状态类的实例。用户对该环境类的实例在某种状态下的行为感兴趣。</li>
+<li>抽象状态：抽象状态是一个接口或抽象类。抽象状态中定义了与环境的一个特定状态相关的若干个方法。</li>
+<li>具体状态：具体状态是实现抽象状态的类。</li>
+</ul>
+<hr>
+<h4 id="状态切换"><a href="#状态切换" class="headerlink" title="状态切换"></a>状态切换</h4><h2 id="环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。"><a href="#环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。" class="headerlink" title="环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。"></a>环境实例在某种状态下执行一个方法后，可能导致该实例的状态发生变化。程序通过使用状态模式可方便地将环境实例从一个状态切换为另一个状态。当一个环境实例有确定的若干个状态时，可以由环境实例本身负责状态的切换，该环境实例可以含有所有状态的引用，并提供设置改变状态的方法。</h2><h4 id="状态模式的优点"><a href="#状态模式的优点" class="headerlink" title="状态模式的优点"></a>状态模式的优点</h4><ul>
+<li>使用一个类封装对象的一种状态，很容易增加 新的状态。</li>
+<li>在状态模式中，环境中不必出现大量的条件判断语句。环境实例所呈现的状态变得更加清晰，容易理解。</li>
+<li>使用状态模式可以让用户程序很方便地切换环境实例状态。</li>
+<li>使用状态模式不会让环境的实例中出现内部状态不一致的情况。</li>
+<li>当前对象没有实例变量时，环境的各个实例可以共享一个状态对象。</li>
+</ul>
+<hr>
+<h4 id="适合使用状态模式的情景"><a href="#适合使用状态模式的情景" class="headerlink" title="适合使用状态模式的情景"></a>适合使用状态模式的情景</h4><ul>
+<li>一个对象的行为依赖于它的状态，并且它必须在运行时根据状态改变它的行为。</li>
+<li>需要编写大量的条件分支语句来决定一个操作的行为，而且这些条件恰好表示对象的一种状态。</li>
+</ul>
+<hr>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><h5 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h5><pre><code>public class Thermometer {
+  TempreatureState state;
+   public void showMessage(){
+    System.out.println(&quot;****&quot;);
+    state.showTemperature();
+    System.out.println(&quot;*****&quot;);
+}
+public void setState(TempreatureState state){
+    this.state=state;
+}
+
+}
+</code></pre><h5 id="抽象状态"><a href="#抽象状态" class="headerlink" title="抽象状态"></a>抽象状态</h5><pre><code>public interface TempreatureState {
+public void showTemperature();
+
+ }
+</code></pre><h5 id="具体状态"><a href="#具体状态" class="headerlink" title="具体状态"></a>具体状态</h5><pre><code>public class LowState implements TempreatureState {
+  double n=0;
+
+
+  public LowState(double n) {
+    if(n&lt;=0)
+    this.n = n;
+   }
+
+
+@Override
+public void showTemperature() {
+        System.out.println(&quot;现在的温度是&quot;+n+&quot;属于低温度&quot;);
+}
+
+}
+
+public class MiddleState implements TempreatureState{
+double n=15;
+
+
+
+public MiddleState(int n) {
+    if(n&gt;0&amp;&amp;n&lt;26)
+    this.n = n;
+}
+
+
+
+@Override
+public void showTemperature() {
+    System.out.println(&quot;现在是温度是&quot;+n+&quot;属于正常温度&quot;);
+}
+
+}
+
+
+public class HeightState implements TempreatureState{
+   double n=39;
+
+
+   public HeightState(double n) {
+    if(n&gt;39)
+    this.n = n;
+    }
+
+
+    @Override
+    public void showTemperature() {
+    System.out.println(&quot;现在温度是&quot;+n+&quot;属于高温&quot;);
+     }
+
+}
+</code></pre><h5 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h5><pre><code>public class Application {
+    public static void main(String[] args) {
+
+            TempreatureState state=new LowState(-12);
+            Thermometer thermometer=new Thermometer();
+
+            thermometer.setState(state);
+            thermometer.showMessage();
+
+            state=new MiddleState(20);
+            thermometer.setState(state);
+            thermometer.showMessage();
+
+            state=new HeightState(39);
+            thermometer.setState(state);
+            thermometer.showMessage();
+    }
+}
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/26/模板方法详解/" data-tooltip="模板方法详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/26/状态模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/状态模式详解/&amp;title=状态模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/状态模式详解/&amp;title=状态模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-状态模式详解" data-title="状态模式详解" data-url="http://www.craymc.com/2017/01/26/状态模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/26/模板方法详解/" data-tooltip="模板方法详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/26/状态模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/状态模式详解/&amp;title=状态模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/状态模式详解/&amp;title=状态模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/26/状态模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/状态模式详解/&amp;title=状态模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/26/状态模式详解/&amp;title=状态模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

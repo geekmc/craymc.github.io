@@ -1,3 +1,3 @@
+http://www.craymc.com/2017/01/26/状态模式详解/
+http://www.craymc.com/2017/01/26/模板方法详解/
 http://www.craymc.com/2017/01/25/桥接模式详解/
-http://www.craymc.com/2017/01/25/组合模式详解/
-http://www.craymc.com/2017/01/23/原型模式详解/
