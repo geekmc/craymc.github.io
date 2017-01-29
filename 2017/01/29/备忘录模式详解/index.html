@@ -1,0 +1,636 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>备忘录模式详解 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="author：craymc###　定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。
+核心：备忘录模式是关于怎么保存对象状态的成熟模">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="备忘录模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/29/备忘录模式详解/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="author：craymc###　定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。
+核心：备忘录模式是关于怎么保存对象状态的成熟模">
+<meta property="og:updated_time" content="2017-01-29T04:13:37.223Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="备忘录模式详解">
+<meta name="twitter:description" content="author：craymc###　定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。
+核心：备忘录模式是关于怎么保存对象状态的成熟模">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            备忘录模式详解
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Jan 29 2017 12:10:34 GMT+0800">
+	
+		    1月29日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><h2 id="定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。"><a href="#定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。" class="headerlink" title="###　定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。"></a>###　定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。</h2><h4 id="理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。"><a href="#理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。" class="headerlink" title="理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。"></a>理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。</h4><hr>
+<h4 id="核心：备忘录模式是关于怎么保存对象状态的成熟模式，其关键是提供一个备忘录对象，该备忘录负责存储一个对象的状态，程序可以在磁盘或内存中保存这个备忘录，这样一来，程序就可以根据对象的备忘录将该对象恢复到备忘录中所存储的状态。"><a href="#核心：备忘录模式是关于怎么保存对象状态的成熟模式，其关键是提供一个备忘录对象，该备忘录负责存储一个对象的状态，程序可以在磁盘或内存中保存这个备忘录，这样一来，程序就可以根据对象的备忘录将该对象恢复到备忘录中所存储的状态。" class="headerlink" title="核心：备忘录模式是关于怎么保存对象状态的成熟模式，其关键是提供一个备忘录对象，该备忘录负责存储一个对象的状态，程序可以在磁盘或内存中保存这个备忘录，这样一来，程序就可以根据对象的备忘录将该对象恢复到备忘录中所存储的状态。"></a><strong>核心：</strong>备忘录模式是关于怎么保存对象状态的成熟模式，其关键是提供一个备忘录对象，该备忘录负责存储一个对象的状态，程序可以在磁盘或内存中保存这个备忘录，这样一来，程序就可以根据对象的备忘录将该对象恢复到备忘录中所存储的状态。</h4><hr>
+<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>备忘录模式包括三种角色：</p>
+<ul>
+<li>原发者：需要在某个时刻保存其状态的对象。原发者负责创建备忘录，然后原发者使用该备忘录记录自己的状态。当原发者需要恢复某个时刻的状态时，它通过获得相应备忘录中的数据来恢复那个时刻的状态。</li>
+<li>备忘录：负责存储原发者状态的对象，创建备忘录的类和创建原发者的类在同一个包中的类是实例才可以访问备忘录中的数据。</li>
+<li>负责人：负责保管保存备忘录的对象。负责人如果需要将备忘录保存到磁盘，负责人可以使用对象流将备忘录写入文件。</li>
+</ul>
+<hr>
+<h4 id="备忘录的优点"><a href="#备忘录的优点" class="headerlink" title="备忘录的优点"></a>备忘录的优点</h4><ul>
+<li>备忘录模式使用备忘录可以把原发者的内部状态保存起来，使只有恨“亲密的”对象可以访问备忘录中的数据。</li>
+<li>备忘录模式强调了类设计单一责任原则，既将状态的刻画和保存分开。</li>
+</ul>
+<hr>
+<h4 id="使用备忘录模式的场景"><a href="#使用备忘录模式的场景" class="headerlink" title="使用备忘录模式的场景"></a>使用备忘录模式的场景</h4><ul>
+<li>必须保存一个对象在某一时刻的全部或部分状态，以便在需要的时刻恢复该对象先前的状态。</li>
+<li>一个对象不想通过提供public权限的，且想让其他对象得到自己的内部状态。</li>
+</ul>
+<hr>
+<h5 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h5><h6 id="原发者"><a href="#原发者" class="headerlink" title="原发者"></a>原发者</h6><pre><code>import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
+public class ReaderPhrase {
+    long readPosition;
+    File file;
+    RandomAccessFile in;
+    String phrase=null;
+    public ReaderPhrase(File file) {
+        this.file = file;
+        try {
+        in=new RandomAccessFile(file, &quot;r&quot;);
+
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+public Memento createMemento(){
+    Memento mem=new Memento();
+    mem.setPositionState(readPosition);
+    return mem;
+}
+public void restoreFromMemento(Memento mem){
+    readPosition=mem.getPositionState();
+}
+public String readLine(){
+    try {
+        in.seek(readPosition);
+        if(phrase!=null){
+            byte b[]=phrase.getBytes(&quot;iso-8859-1&quot;);
+            phrase=new String(b);
+        }
+        readPosition=in.getFilePointer();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return phrase;
+}
+public void closeRead(){
+    try {
+        in.close();
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+}
+
+}
+</code></pre><h6 id="备忘录"><a href="#备忘录" class="headerlink" title="备忘录"></a>备忘录</h6><pre><code>public class Memento implements java.io.Serializable{
+        private long state;
+        void setPositionState(long state){
+        this.state=state;
+        }
+        long getPositionState(){
+        return state;
+        }
+
+}
+</code></pre><h6 id="负责人"><a href="#负责人" class="headerlink" title="负责人"></a>负责人</h6><pre><code>import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class Caretaker {
+File file;
+private Memento memento=null;
+public Caretaker() {
+        file=new File(&quot;&quot;);
+}
+public Memento getMemento(){
+    if(file.exists()){
+        try {
+            FileInputStream in=new FileInputStream(&quot;&quot;);
+            ObjectInputStream inObject = null;
+            try {
+                inObject = new ObjectInputStream(in);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            try {
+                try {
+                    memento=(Memento) inObject.readObject();
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+    return memento;
+}
+public void saveMemento(Memento memento) {
+    FileOutputStream out = null;
+    try {
+        out = new FileOutputStream(&quot;&quot;);
+    } catch (FileNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    try {
+        ObjectOutputStream outObject=new ObjectOutputStream(out);
+        outObject.writeObject(memento);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+
+}
+
+}
+</code></pre><h6 id="模式的使用"><a href="#模式的使用" class="headerlink" title="模式的使用"></a>模式的使用</h6><pre><code>import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Scanner;
+
+
+public class Application {
+    public static void main(String[] args) {
+        Scanner reader=new Scanner(System.in);
+        ReaderPhrase readerPhrase=new ReaderPhrase(new File(&quot;&quot;));
+        File favorPhrase=new File(&quot;&quot;);
+        RandomAccessFile out =null;
+        try {
+            out= new RandomAccessFile(favorPhrase, &quot;rw&quot;);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(&quot;Y or N&quot;);
+        String answer=reader.nextLine();
+        if(answer.startsWith(&quot;y&quot;)||answer.startsWith(&quot;Y&quot;)){
+            Caretaker caretaker=new Caretaker();
+            Memento memento=caretaker.getMemento();
+            if(memento!=null)
+                readerPhrase.restoreFromMemento(memento);
+        }
+            String phrase=null;
+            while((phrase=readerPhrase.readLine())!=null){
+                System.out.println(phrase);
+                System.out.println();
+                answer=reader.nextLine();
+                if(answer.startsWith(&quot;y&quot;)||answer.startsWith(&quot;Y&quot;)){
+                    try {
+                        out.seek(favorPhrase.length());
+                        byte []b=phrase.getBytes();
+                        out.write(b);
+                        out.writeChar(&apos;\n&apos;);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(&quot;Y or Y&quot;);
+                    answer=reader.nextLine();
+                    if(answer.startsWith(&quot;y&quot;)||answer.startsWith(&quot;Y&quot;))
+                        continue;
+                    else{
+                        readerPhrase.closeRead();
+                        Caretaker caretaker=new Caretaker();
+                        caretaker.saveMemento(readerPhrase.createMemento());
+
+                        try {
+                                out.close();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        System.exit(0);;
+                    }
+                }
+                System.out.println(&quot;OK&quot;);
+            }
+}
+}
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/解释器模式详解/"  data-tooltip="解释器模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/享元模式详解/" data-tooltip="享元模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/备忘录模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/备忘录模式详解/&amp;title=备忘录模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/备忘录模式详解/&amp;title=备忘录模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-备忘录模式详解" data-title="备忘录模式详解" data-url="http://www.craymc.com/2017/01/29/备忘录模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/解释器模式详解/"  data-tooltip="解释器模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/享元模式详解/" data-tooltip="享元模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/备忘录模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/备忘录模式详解/&amp;title=备忘录模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/备忘录模式详解/&amp;title=备忘录模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/备忘录模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/备忘录模式详解/&amp;title=备忘录模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/备忘录模式详解/&amp;title=备忘录模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

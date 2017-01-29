@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>桥接模式 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="桥接模式详解author：craymc
+[author：craymc][anchor-id]
+定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。
+理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。模式的结构和使用桥接模式包括四">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="桥接模式">
+<meta property="og:url" content="http://www.craymc.com/2017/01/29/桥接模式/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="桥接模式详解author：craymc
+[author：craymc][anchor-id]
+定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。
+理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。模式的结构和使用桥接模式包括四">
+<meta property="og:updated_time" content="2017-01-29T04:14:55.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="桥接模式">
+<meta name="twitter:description" content="桥接模式详解author：craymc
+[author：craymc][anchor-id]
+定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。
+理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。模式的结构和使用桥接模式包括四">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            桥接模式
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Jan 29 2017 12:09:22 GMT+0800">
+	
+		    1月29日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="桥接模式详解"><a href="#桥接模式详解" class="headerlink" title="桥接模式详解"></a>桥接模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<p>[author：craymc][anchor-id]</p>
+<h3 id="定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。"><a href="#定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。" class="headerlink" title="定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。"></a>定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。</h3><hr>
+<h4 id="理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。"><a href="#理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。" class="headerlink" title="理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。"></a>理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。</h4><h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>桥接模式包括四种角色：</p>
+<ul>
+<li>抽象：是一个抽象类，该抽象类含有implementor声明的变量，既维护一个implemnentor类型对象。</li>
+<li>实现者：实现者角色是一个接口，该接口中的方法不一定与abstract类中的方法一致。implementor接口负责定义基本操作，而abstract类负责定义基于这些基本操作的较高层次的操作。</li>
+<li>细化抽象：是抽象角色的一个子类，该子类在重写抽象角色中的抽象方法时，在给出一些必要的操作后，将委托所维护implementor类型对象调用相应的方法。</li>
+<li>具体实现者：是实现implementor接口的类。</li>
+</ul>
+<hr>
+<h3 id="桥接模式的优点"><a href="#桥接模式的优点" class="headerlink" title="桥接模式的优点"></a>桥接模式的优点</h3><ul>
+<li>桥接模式分离实现与抽象，使抽象和实现可以独立的扩展。当修改实现的代码时，不影响抽象的代码，反之也一样。</li>
+<li>满足开-闭模式。抽象和实现者处于同层次，使系统可独立地扩展者两个层次。增加新的具体实现者，不需要修改细化抽象，反之增加新的细化抽象也不需要修改具体实现。</li>
+</ul>
+<hr>
+<h3 id="适合桥接模式的情景"><a href="#适合桥接模式的情景" class="headerlink" title="适合桥接模式的情景"></a>适合桥接模式的情景</h3><ul>
+<li>不想让抽象和某些重要的实现代码是固定的绑定关系，这部分实现可运行时动态决定。</li>
+<li>抽象和实现者都可以继承的方式独立地扩充而互不影响，程序在运行期间可能需要动态的将一个抽象的子类的实例与一个实现者的子类的实例进行组合。</li>
+<li>希望对实现者层次代码的修改对抽象层不产生影响，既抽象层的代码不必重新编译，反之亦然。</li>
+</ul>
+<hr>
+<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><hr>
+<h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><p>   public abstract class ArchitectureCore {<br>    BuildingDesign design;<br>    double unitPrice;<br>    public abstract double giveCost();</p>
+<pre><code>}
+</code></pre><h4 id="实现者"><a href="#实现者" class="headerlink" title="实现者"></a>实现者</h4><pre><code>public interface BuildingDesign {
+    public double computerArea();
+}
+</code></pre><h4 id="细化抽象"><a href="#细化抽象" class="headerlink" title="细化抽象"></a>细化抽象</h4><pre><code>public class BuildingCost extends ArchitectureCore{
+public BuildingCost(BuildingDesign design,double unitPrice) {
+        this.design=design;
+        this.unitPrice=unitPrice;
+}
+
+
+
+@Override
+public double giveCost() {
+    double area=design.computerArea();
+    return area*unitPrice;
+}
+
+}
+</code></pre><h4 id="具体实现者"><a href="#具体实现者" class="headerlink" title="具体实现者"></a>具体实现者</h4><pre><code>public class HouseDesign implements BuildingDesign{
+double width,length;
+int floorNumber;
+
+
+public HouseDesign(double width, double length, int floorNumber) {
+    this.width = width;
+    this.length = length;
+    this.floorNumber = floorNumber;
+}
+
+
+@Override
+public double computerArea() {
+
+    return width*length*floorNumber;
+}
+
+}
+</code></pre><h4 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h4><pre><code>public class Application {
+public static void main(String[] args) {
+    double width=63,height=30;
+    int floorNumber=8;
+    double unitPrice=6867.38;
+    BuildingDesign design=new HouseDesign(width, height, floorNumber);
+    System.out.println(&quot;宽&quot;+width+&quot;米，高&quot;+height+&quot;米，层数为：&quot;+floorNumber);
+    ArchitectureCore cost=new BuildingCost(design, unitPrice);
+    double price=cost.giveCost();
+    System.out.printf(&quot;每平方米造价为：&quot;+unitPrice+&quot;元的商业楼的建设成本：%.2f\n&quot;,price);
+    width=50;
+    height=28;
+    floorNumber=6;
+    unitPrice=2687.88;
+    design=new HouseDesign(width, height, floorNumber);
+    System.out.printf(&quot;宽&quot;+width+&quot;米，高&quot;+height+&quot;米，层数为&quot;+floorNumber);
+
+    cost=new BuildingCost(design, unitPrice);
+    price=cost.giveCost();
+    System.out.printf(&quot;每平方米造价&quot;+unitPrice+&quot;元的住宅楼的建设成本%.2f\n&quot;,price);
+
+}
+
+}
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/访问者模式详解/"  data-tooltip="访问者模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/代理模式详解/" data-tooltip="代理模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/桥接模式/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/桥接模式/&amp;title=桥接模式">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/桥接模式/&amp;title=桥接模式">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-桥接模式" data-title="桥接模式" data-url="http://www.craymc.com/2017/01/29/桥接模式/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/访问者模式详解/"  data-tooltip="访问者模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/代理模式详解/" data-tooltip="代理模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/桥接模式/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/桥接模式/&amp;title=桥接模式">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/桥接模式/&amp;title=桥接模式">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/桥接模式/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/桥接模式/&amp;title=桥接模式">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/桥接模式/&amp;title=桥接模式">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

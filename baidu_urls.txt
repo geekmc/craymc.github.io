@@ -1,3 +1,4 @@
-http://www.craymc.com/2017/01/26/状态模式详解/
-http://www.craymc.com/2017/01/26/模板方法详解/
-http://www.craymc.com/2017/01/25/桥接模式详解/
+http://www.craymc.com/2017/01/29/解释器模式详解/
+http://www.craymc.com/2017/01/29/备忘录模式详解/
+http://www.craymc.com/2017/01/29/享元模式详解/
+http://www.craymc.com/2017/01/29/访问者模式详解/

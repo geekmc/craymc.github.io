@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>代理模式详解 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="代理模式详解author：craymc
+定义：为其他对象提供一种代理以控制对这个对象的访问。
+理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。
+代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="代理模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/29/代理模式详解/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="代理模式详解author：craymc
+定义：为其他对象提供一种代理以控制对这个对象的访问。
+理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。
+代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当">
+<meta property="og:updated_time" content="2017-01-29T04:15:25.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代理模式详解">
+<meta name="twitter:description" content="代理模式详解author：craymc
+定义：为其他对象提供一种代理以控制对这个对象的访问。
+理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。
+代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            代理模式详解
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Jan 29 2017 12:08:58 GMT+0800">
+	
+		    1月29日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="代理模式详解"><a href="#代理模式详解" class="headerlink" title="代理模式详解"></a>代理模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h4 id="定义：为其他对象提供一种代理以控制对这个对象的访问。"><a href="#定义：为其他对象提供一种代理以控制对这个对象的访问。" class="headerlink" title="定义：为其他对象提供一种代理以控制对这个对象的访问。"></a>定义：为其他对象提供一种代理以控制对这个对象的访问。</h4><hr>
+<h4 id="理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。"><a href="#理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。" class="headerlink" title="理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。"></a>理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。</h4><hr>
+<h4 id="代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。"><a href="#代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。" class="headerlink" title="代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。"></a>代理的特点是：<strong>它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。</strong></h4><hr>
+<h4 id="代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。"><a href="#代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。" class="headerlink" title="代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。"></a>代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。</h4><hr>
+<h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>代理模式包括三种角色</p>
+<ul>
+<li>抽象主题：是一个接口，该接口是对象和它的代理所共用的接口。</li>
+<li>实际主题：实际主题是实现抽象主题接口的类。实际主题的实例是代理角色实例所要代理的对象。</li>
+<li>代理：代理是实现抽象主题接口的类。代理含有主题接口声明的变量，该变量用来存放realSubject角色的实例引用，这样一来，代理的实例就可以控制对它所包含的realSubject角色的实例访问，既可以控制对它所代理对象的访问。</li>
+</ul>
+<hr>
+<p>####　代理模式的优点</p>
+<ul>
+<li>代理模式可以屏蔽用户真正请求的对象，使用户程序和真正的对象之间解耦。</li>
+<li><p>使用代理来担当哪些创建耗时的对象的替身。</p>
+<h4 id="适合代理模式的场景"><a href="#适合代理模式的场景" class="headerlink" title="适合代理模式的场景"></a>适合代理模式的场景</h4></li>
+<li><p>程序可能不希望用户直接访问该对象，而是提供一个特殊的对象以控制当前对象的访问</p>
+</li>
+<li>如果一个对象需要很长时间才能加载完成。</li>
+<li>如果对象位于远程主机上，需要为用户提供访问该远程对象的能力。</li>
+</ul>
+<hr>
+<h5 id="代码模式"><a href="#代码模式" class="headerlink" title="代码模式"></a>代码模式</h5><h6 id="抽象主题"><a href="#抽象主题" class="headerlink" title="抽象主题"></a>抽象主题</h6><pre><code>public interface Geometry {
+    public double getArea();
+
+}
+</code></pre><h6 id="具体模板"><a href="#具体模板" class="headerlink" title="具体模板"></a>具体模板</h6><pre><code>public class Triangle implements Geometry{
+ double sideA,sideB,sideC,area;
+
+
+public Triangle(double sideA, double sideB, double sideC) {
+    this.sideA = sideA;
+    this.sideB = sideB;
+    this.sideC = sideC;
+}
+
+
+@Override
+public double getArea() {
+    double p=(sideA+sideB+sideC)/2.0;
+    area=Math.sqrt(p*(p-sideA)*(p-sideB)*(p-sideC));
+    return area;
+}
+
+}
+</code></pre><h6 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h6><pre><code>public class TriangleProxy implements Geometry{
+double sideA,sideB,sideC;
+Triangle Triangle;
+public void setABC(double a,double b,double c){
+    sideA=a;
+    sideB=b;
+    sideC=c;
+}
+@Override
+public double getArea() {
+    if(sideA+sideB&gt;sideC&amp;&amp;sideA+sideC&gt;sideB&amp;&amp;sideB+sideC&gt;sideA){
+        Triangle=new Triangle(sideA, sideB, sideC);
+        double area=Triangle.getArea();
+        return area;
+    }else{
+        return -1;
+    }
+}
+
+}
+</code></pre><h6 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h6><pre><code>import java.util.Scanner;
+
+public class Application {
+    public static void main(String[] args) {
+        Scanner reader=new Scanner(System.in);
+        System.out.println(&quot;请输入按个数&quot;);
+        double a=-1,b=-1,c=-1;
+        a=reader.nextDouble();
+        b=reader.nextDouble();
+        c=reader.nextDouble();
+        TriangleProxy proxy=new TriangleProxy();
+        proxy.setABC(a, b, c);
+        double area=proxy.getArea();
+        System.out.println(&quot;面积是：&quot;+area);
+    }
+}
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/桥接模式/"  data-tooltip="桥接模式">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/26/状态模式详解/" data-tooltip="状态模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/代理模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/代理模式详解/&amp;title=代理模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/代理模式详解/&amp;title=代理模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-代理模式详解" data-title="代理模式详解" data-url="http://www.craymc.com/2017/01/29/代理模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/桥接模式/"  data-tooltip="桥接模式">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/26/状态模式详解/" data-tooltip="状态模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/代理模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/代理模式详解/&amp;title=代理模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/代理模式详解/&amp;title=代理模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/代理模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/代理模式详解/&amp;title=代理模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/代理模式详解/&amp;title=代理模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

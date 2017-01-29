@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="CRAYMC">
+    <title>享元模式详解 - CRAYMC</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="享元模式author：craymc
+定义：运用共享技术有效地支持大量细粒度的对象。
+理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。
+模式的结构和使用享元模式包括三种角色：
+
+享元接口：是一个接口，该接口定义了享元对外公开其内部数据的方法，以及享元接收外部数据的方法。
+具体享元">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="享元模式详解">
+<meta property="og:url" content="http://www.craymc.com/2017/01/29/享元模式详解/index.html">
+<meta property="og:site_name" content="CRAYMC">
+<meta property="og:description" content="享元模式author：craymc
+定义：运用共享技术有效地支持大量细粒度的对象。
+理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。
+模式的结构和使用享元模式包括三种角色：
+
+享元接口：是一个接口，该接口定义了享元对外公开其内部数据的方法，以及享元接收外部数据的方法。
+具体享元">
+<meta property="og:updated_time" content="2017-01-29T04:14:09.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="享元模式详解">
+<meta name="twitter:description" content="享元模式author：craymc
+定义：运用共享技术有效地支持大量细粒度的对象。
+理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。
+模式的结构和使用享元模式包括三种角色：
+
+享元接口：是一个接口，该接口定义了享元对外公开其内部数据的方法，以及享元接收外部数据的方法。
+具体享元">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">CRAYMC</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://www.gitbook.com/@geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">GitBook</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:shenyu@shenyu.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            享元模式详解
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Jan 29 2017 12:10:15 GMT+0800">
+	
+		    1月29日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h3 id="定义：运用共享技术有效地支持大量细粒度的对象。"><a href="#定义：运用共享技术有效地支持大量细粒度的对象。" class="headerlink" title="定义：运用共享技术有效地支持大量细粒度的对象。"></a>定义：运用共享技术有效地支持大量细粒度的对象。</h3><hr>
+<h4 id="理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。"><a href="#理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。" class="headerlink" title="理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。"></a>理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。</h4><hr>
+<h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>享元模式包括三种角色：</p>
+<ul>
+<li>享元接口：是一个接口，该接口定义了享元对外公开其内部数据的方法，以及享元接收外部数据的方法。</li>
+<li>具体享元：实现享元接口的类，该类的实例称为享元对象，或简称享元。具体享元类的成员变量为享元对象的应用程序无法更改享元的内部状态，只有这样才能使得享元对象在系统中被共享。因为享元对象是用来共享的，所以不能允许用户各自地使用具体享元类来创建的对象显然是不同的，所以，具体享元类的构造方法必须是private的，其目的是不允许用户程序直接使用具体享元类创建享元对象，创建和管理享元对象由享元工厂负责。</li>
+<li>享元工厂：享元工厂是一个类，该类的实例负责创建和管理享元对象，用户或其他对象必须请求享元工厂为它得到一个享元对象，当用户程序或其他若干个对象向享元对象，用户或其他对象必须请求享元对象，当用户程序或其他若干个对象向享元对象提供给请求者，否则就创建一个享元对象添加到散列表中，同时将该享元对象提供给请求者。显然，当若干个用户或对象请求享元工厂提供一个享元对象时，第一个用户获得该享元对象的时间可能慢一些，但是后继的用户会较快地获得这个享元对象。可以使用单列模式来设计享元工厂，既让系统中只有一个享元工厂的实例。另外，为了让享元工厂能生成享元对象，需要将具体享元类作为享元工厂的内部类。</li>
+</ul>
+<hr>
+<h4 id="享元模式的优点"><a href="#享元模式的优点" class="headerlink" title="享元模式的优点"></a>享元模式的优点</h4><ul>
+<li>使用享元可以节省内存的开销，特别适合处理大量细粒度对象，这些对象的许多属性值是相同的，而且一旦创建则不容许修改。</li>
+<li>享元模式中的享元可以使用方法的参数接收外部状态中的数据，但外部状态数据不会干扰到享元中的内部数据，这就使享元可以在不同的环境中被共享。</li>
+</ul>
+<hr>
+<h4 id="适合享元模式的场景"><a href="#适合享元模式的场景" class="headerlink" title="适合享元模式的场景"></a>适合享元模式的场景</h4><ul>
+<li>一个应用程序使用大量的对象，这些对象之间部分属性本质上是相同的，这时应使用享元来封装相同的部分。</li>
+<li>对象的多数状态都可变为外部状态，就可以考虑将这样对象作为系统中的享元来使用。</li>
+</ul>
+<hr>
+<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><h5 id="享元接口"><a href="#享元接口" class="headerlink" title="享元接口"></a>享元接口</h5><pre><code>public interface Flyweight {
+    public double getHeight();
+    public double getWidth();
+    public double getLength();
+    public void printMess(String mess);
+}
+</code></pre><h5 id="享元工厂与具体享元"><a href="#享元工厂与具体享元" class="headerlink" title="享元工厂与具体享元"></a>享元工厂与具体享元</h5><pre><code>import java.util.HashMap;
+
+public class FlyweightFactory {
+        private HashMap&lt;String, Flyweight&gt; hashMap;
+        static FlyweightFactory factory=new FlyweightFactory();
+        private FlyweightFactory(){
+            hashMap=new HashMap&lt;String,Flyweight&gt;();
+        }
+        public static FlyweightFactory getFactory(){
+            return factory;
+        }
+        public synchronized Flyweight getFlyweight(String key){
+            if(hashMap.containsKey(key))
+                return hashMap.get(key);
+            else{
+                    double width=0,height=0,length=0;
+                    String []str=key.split(&quot;#&quot;);
+                    width=Double.parseDouble(str[0]);
+                    height=Double.parseDouble(str[1]);
+                    length=Double.parseDouble(str[2]);
+                    Flyweight ft= new ConcreFlyweight(width, height, length);
+                    hashMap.put(key, ft);
+                    return ft;
+                }
+}
+class ConcreFlyweight implements Flyweight{
+
+    private double width;
+    private double height;
+    private double length;
+
+
+    private ConcreFlyweight(double width, double height, double length) {
+    this.width = width;
+    this.height = height;
+    this.length = length;
+    }
+
+    @Override
+    public double getHeight() {
+
+        return height;
+    }
+
+    @Override
+    public double getWidth() {
+
+        return width;
+    }
+
+    @Override
+    public double getLength() {
+
+    return length;
+    }
+
+    @Override
+    public void printMess(String mess) {
+        System.out.println(mess);
+        System.out.println(&quot;宽度：&quot;+width);
+        System.out.println(&quot;高度：&quot;+height);
+        System.out.println(&quot;长度：&quot;+length);
+    }
+}
+}
+</code></pre><h5 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h5><pre><code>public class Car {
+    Flyweight flyweight;
+    String name,color;
+    int power;
+    public Car(Flyweight flyweight, String name, String color, int power) {
+    super();
+    this.flyweight = flyweight;
+    this.name = name;
+    this.color = color;
+    this.power = power;
+    }
+    public void print(){
+        System.out.println(&quot;名称：&quot;+name);
+        System.out.println(&quot;颜色：&quot;+color);
+        System.out.println(&quot;功率：&quot;+power);
+        System.out.println(&quot;宽度：&quot;+flyweight.getWidth());
+        System.out.println(&quot;高度:&quot;+flyweight.getHeight());
+        System.out.println(&quot;长度:&quot;+flyweight.getLength());
+    }
+
+}
+
+public class Application {
+
+    public static void main(String[] args) {
+
+        FlyweightFactory factory=FlyweightFactory.getFactory();
+
+        double width=1.82,height=1.47,length=5.12;
+
+        String key=&quot;&quot;+width+&quot;#&quot;+height+&quot;#&quot;+length;
+
+        Flyweight flyweight=factory.getFlyweight(key);
+
+        Car audiA6One=new Car(flyweight, &quot;奥迪&quot;, &quot;黑色&quot;, 128);
+
+        Car audiA6Two=new Car(flyweight, &quot;奥迪&quot;, &quot;灰色&quot;, 160);
+
+        audiA6One.print();
+        audiA6Two.print();
+
+        width=1.77;
+        height=1.45;
+        length=4.63;
+
+        key=&quot;&quot;+width+&quot;#&quot;+height+&quot;#&quot;+length;
+
+        flyweight=factory.getFlyweight(key);
+
+        Car audiA4One=new Car(flyweight, &quot;A4&quot;, &quot;蓝色&quot;, 126);
+        Car audiA4Two=new Car(flyweight, &quot;A4&quot;, &quot;红色&quot;, 138);
+
+        flyweight.printMess(&quot;名称：奥迪A6：颜色：蓝色 功率：126&quot;);
+        flyweight.printMess(&quot;名称：A4 颜色：红色 功率：138&quot;);
+
+
+    }
+
+}
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java设计模式/">Java设计模式</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/备忘录模式详解/"  data-tooltip="备忘录模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/访问者模式详解/" data-tooltip="访问者模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/享元模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/享元模式详解/&amp;title=享元模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/享元模式详解/&amp;title=享元模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-享元模式详解" data-title="享元模式详解" data-url="http://www.craymc.com/2017/01/29/享元模式详解/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/备忘录模式详解/"  data-tooltip="备忘录模式详解">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/29/访问者模式详解/" data-tooltip="访问者模式详解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/享元模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/享元模式详解/&amp;title=享元模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/享元模式详解/&amp;title=享元模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/01/29/享元模式详解/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/享元模式详解/&amp;title=享元模式详解">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/01/29/享元模式详解/&amp;title=享元模式详解">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>我有一颗巨人的心 :-)</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>
