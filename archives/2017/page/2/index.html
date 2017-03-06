@@ -171,6 +171,49 @@
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
                         
+                                <a class="link-unstyled" href="/2017/01/25/桥接模式详解/">桥接模式详解</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Wed Jan 25 2017 20:11:29 GMT+0800">
+	
+		    1月25日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>
+                            桥接模式详解author：craymc
+定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。
+理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。模式的结构和使用桥接模式包括四种角色：
+
+抽象：是一个抽象类，该抽象类含有imple<br>
+                    
+                    
+                        
+                            <a href="/2017/01/25/桥接模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                        </p>
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
                                 <a class="link-unstyled" href="/2017/01/25/组合模式详解/">组合模式详解</a>
                         
                     </h1>
@@ -324,14 +367,15 @@
                 </div>
                 <div class="postShorten-excerpt" itemprop="articleBody">
                     
-                        <p>
-                            适配器模式详解author：craymc
-定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
-模式的结构与使用对象适配器模式的结构中包括三种角色：
-
-目标： 目标是一个接口，该接口是客户想要使用的接口。
-被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。
-适配器：适配器是一个类，该类实现了目标接口并<br>
+                        <h3 id="适配器模式详解"><a href="#适配器模式详解" class="headerlink" title="适配器模式详解"></a>适配器模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
+<h4 id="定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。"><a href="#定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。" class="headerlink" title="定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。"></a>定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</h4><hr>
+<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>对象适配器模式的结构中包括三种角色：</p>
+<ul>
+<li>目标： 目标是一个接口，该接口是客户想要使用的接口。</li>
+<li>被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。</li>
+<li>适配器：适配器是一个类，该类实现了目标接口并包含有被适配者的引用，既适配器的职责是对被适配者接口（抽象类）与目标接口进行适配。</li>
+</ul>
+<hr>
                     
                     
                         
@@ -339,8 +383,6 @@
                             
                         
                     
-                    
-                        </p>
                     
                 </div>
             </div>
@@ -557,50 +599,6 @@ private Singleton() {<br>
                     
                         
                             <a href="/2017/01/22/中介者模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/01/22/工厂方法模式详解/">工厂方法模式详解</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jan 22 2017 21:37:37 GMT+0800">
-	
-		    1月22日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            工厂方法详解author：craymc
-定义：定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。
-模式的接口和使用工厂方法模式的结构中包括四种角色：
-
-抽象产品：抽象类或者接口，负责定义具体产品必须实现的方法。
-具体产品：具体产品是一个类，如果product是一个抽象类，那么具体产品是product的子类；如果product是一个接口，那么具体产品是实现p<br>
-                    
-                    
-                        
-                            <a href="/2017/01/22/工厂方法模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
                             
                         
                     
