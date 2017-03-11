@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.craymc.com/"/>
-  <updated>2017-03-06T05:26:09.877Z</updated>
+  <updated>2017-03-11T06:41:01.437Z</updated>
   <id>http://www.craymc.com/</id>
   
   <author>
@@ -14,6 +14,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>win8.1下vc6.0的安装详解</title>
+    <link href="http://www.craymc.com/2017/03/11/win8-1%E4%B8%8Bvc6-0%E7%9A%84%E5%AE%89%E8%A3%85%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.craymc.com/2017/03/11/win8-1下vc6-0的安装详解/</id>
+    <published>2017-03-11T06:38:26.000Z</published>
+    <updated>2017-03-11T06:41:01.437Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="本文主要为大家解答一下如何在win8-1下安装vc6-0的相关步骤和容易出现的问题"><a href="#本文主要为大家解答一下如何在win8-1下安装vc6-0的相关步骤和容易出现的问题" class="headerlink" title="本文主要为大家解答一下如何在win8.1下安装vc6.0的相关步骤和容易出现的问题"></a>本文主要为大家解答一下如何在win8.1下安装vc6.0的相关步骤和容易出现的问题</h4><hr>
+<p>1.首先，提供一个下载的地址：<a href="http://pan.baidu.com/s/1gfMI9gv，下载之后安装，要先将" target="_blank" rel="external">http://pan.baidu.com/s/1gfMI9gv，下载之后安装，要先将</a> MSDEV.EXE 重命名为 MSDEV3.EXE或者4.5都行就是改变一下MSDEV.EXE他的名字即可。</p>
+<p>2.在 VC6.0 的快捷方式或开始菜单上单击鼠标右键，选择“属性”：</p>
+<p>3.在弹出的对话框中，将兼容模式修改为Windows XP SP3 或 SP2，并设置为“以管理员的身份运行”；<br><a id="more"></a></p>
+<p>4.由于MSDEV.EXE 是 VC6.0 的主程序，位于 VC6.0 的安装目录下，可以在属性面板中快速找到 MSDEV.EXE（在属性中找到“快捷方式”，在快捷方式下找到“打开文件位置”）；</p>
+<p>5.重命名完成后，还要修改快捷方式指向的目标文件，具体修改方法参照第四步；</p>
+<p>6.启动VC6.0，如果报错，关闭后再次启动，一般就正常了。成功启动一次后，以后就可以正常运行了；</p>
+<p>7.按照以上步骤完成，开始进行一个测试程序“hello world”，如果程序编写正确且出现<strong>错误 Compiling… Error spawning cl.exe 1.obj - 1 error(s), 0 warning(s）</strong>则需要进行以下修改：<br>            ①.打开vc界面 点击VC“TOOLS（工具）”—&gt;“Option（选择）” —&gt;“Directories（目录）”重新设置“Excutable Fils、Include Files、 Library Files、Source Files”的路径</p>
+<pre><code>②.executatble files: 
+    C:\Program Files\Microsoft Visual Studio\Common\MSDev98\Bin 
+    C:\Program Files\Microsoft Visual Studio\VC98\BIN 
+    C:\Program Files\Microsoft Visual Studio\Common\TOOLS 
+    C:\Program Files\Microsoft Visual Studio\Common\TOOLS\WINNT 
+
+③：include files: 
+    C:\Program Files\Microsoft Visual Studio\VC98\INCLUDE 
+    C:\Program Files\Microsoft Visual Studio\VC98\MFC\INCLUDE 
+    C:\Program Files\Microsoft Visual Studio\VC98\ATL\INCLUDE 
+
+④：library files: 
+    C:\Program Files\Microsoft Visual Studio\VC98\LIB 
+    C:\Program Files\Microsoft Visual Studio\VC98\MFC\LIB 
+
+
+⑤：source files: 
+    C:\Program Files\Microsoft Visual Studio\VC98\MFC\SRC 
+    C:\Program Files\Microsoft Visual Studio\VC98\MFC\INCLUDE 
+    C:\Program Files\Microsoft Visual Studio\VC98\ATL\INCLUDE 
+    C:\Program Files\Microsoft Visual Studio\VC98\CRT\SRC
+</code></pre><p>8.如果你的安装包了没有CRT\SRC，这里为大家提供以下下载地址：<a href="https://pan.baidu.com/s/1bo9JqCB" target="_blank" rel="external">https://pan.baidu.com/s/1bo9JqCB</a>  CRT</p>
+<h2 id="9-出现这种情况一般是由于路径设置的问题引起的，这里默认为C盘，具体应该参照你自己安装vc6-0的路径进行替换。"><a href="#9-出现这种情况一般是由于路径设置的问题引起的，这里默认为C盘，具体应该参照你自己安装vc6-0的路径进行替换。" class="headerlink" title="9.出现这种情况一般是由于路径设置的问题引起的，这里默认为C盘，具体应该参照你自己安装vc6.0的路径进行替换。"></a>9.出现这种情况一般是由于路径设置的问题引起的，这里默认为C盘，具体应该参照你自己安装vc6.0的路径进行替换。</h2><p>正常情况下安装上述步骤进行就可以正常运行了，如果你出现了其他情况，请留言。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;本文主要为大家解答一下如何在win8-1下安装vc6-0的相关步骤和容易出现的问题&quot;&gt;&lt;a href=&quot;#本文主要为大家解答一下如何在win8-1下安装vc6-0的相关步骤和容易出现的问题&quot; class=&quot;headerlink&quot; title=&quot;本文主要为大家解答一下如何在win8.1下安装vc6.0的相关步骤和容易出现的问题&quot;&gt;&lt;/a&gt;本文主要为大家解答一下如何在win8.1下安装vc6.0的相关步骤和容易出现的问题&lt;/h4&gt;&lt;hr&gt;
+&lt;p&gt;1.首先，提供一个下载的地址：&lt;a href=&quot;http://pan.baidu.com/s/1gfMI9gv，下载之后安装，要先将&quot;&gt;http://pan.baidu.com/s/1gfMI9gv，下载之后安装，要先将&lt;/a&gt; MSDEV.EXE 重命名为 MSDEV3.EXE或者4.5都行就是改变一下MSDEV.EXE他的名字即可。&lt;/p&gt;
+&lt;p&gt;2.在 VC6.0 的快捷方式或开始菜单上单击鼠标右键，选择“属性”：&lt;/p&gt;
+&lt;p&gt;3.在弹出的对话框中，将兼容模式修改为Windows XP SP3 或 SP2，并设置为“以管理员的身份运行”；&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="软件安装" scheme="http://www.craymc.com/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+    
+  </entry>
   
   <entry>
     <title>基于ssh框架的员工管理系统的总结</title>
@@ -906,11 +960,12 @@ public static void main(String[] args) {
     <link href="http://www.craymc.com/2017/01/29/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
     <id>http://www.craymc.com/2017/01/29/代理模式详解/</id>
     <published>2017-01-29T04:08:58.000Z</published>
-    <updated>2017-01-29T04:15:25.520Z</updated>
+    <updated>2017-03-11T06:42:41.058Z</updated>
     
     <content type="html"><![CDATA[<h3 id="代理模式详解"><a href="#代理模式详解" class="headerlink" title="代理模式详解"></a>代理模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
 <h4 id="定义：为其他对象提供一种代理以控制对这个对象的访问。"><a href="#定义：为其他对象提供一种代理以控制对这个对象的访问。" class="headerlink" title="定义：为其他对象提供一种代理以控制对这个对象的访问。"></a>定义：为其他对象提供一种代理以控制对这个对象的访问。</h4><hr>
 <h4 id="理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。"><a href="#理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。" class="headerlink" title="理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。"></a>理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。</h4><hr>
+<a id="more"></a>
 <h4 id="代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。"><a href="#代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。" class="headerlink" title="代理的特点是：它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。"></a>代理的特点是：<strong>它与所代理的对象实现了相同的接口，代理和它所代理的对象向用户公开了相同的方法，当用户请求代理调用这样的方法时，代理可能需要验证某些信息或检查它所代理的对象是否可用，当代理确认它所代理的对象能调用相同的方法时，就把实际的方法调用委派给他它所代理的对象，既让所代理的对象调用同样的方法。</strong></h4><hr>
 <h4 id="代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。"><a href="#代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。" class="headerlink" title="代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。"></a>代理模式是为对象提供一个代理，代理可以控制对它所代理对象的访问。</h4><hr>
 <h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>代理模式包括三种角色</p>
@@ -994,7 +1049,9 @@ public class Application {
     
     <summary type="html">
     
-      &lt;h3 id=&quot;代理模式详解&quot;&gt;&lt;a href=&quot;#代理模式详解&quot; class=&quot;headerlink&quot; title=&quot;代理模式详解&quot;&gt;&lt;/a&gt;代理模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
+      &lt;h3 id=&quot;代理模式详解&quot;&gt;&lt;a href=&quot;#代理模式详解&quot; class=&quot;headerlink&quot; title=&quot;代理模式详解&quot;&gt;&lt;/a&gt;代理模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;headerlink&quot; title=&quot;author：craymc&quot;&gt;&lt;/a&gt;&lt;strong&gt;author：craymc&lt;/strong&gt;&lt;/h5&gt;&lt;hr&gt;
+&lt;h4 id=&quot;定义：为其他对象提供一种代理以控制对这个对象的访问。&quot;&gt;&lt;a href=&quot;#定义：为其他对象提供一种代理以控制对这个对象的访问。&quot; class=&quot;headerlink&quot; title=&quot;定义：为其他对象提供一种代理以控制对这个对象的访问。&quot;&gt;&lt;/a&gt;定义：为其他对象提供一种代理以控制对这个对象的访问。&lt;/h4&gt;&lt;hr&gt;
+&lt;h4 id=&quot;理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。&quot;&gt;&lt;a href=&quot;#理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。&quot; class=&quot;headerlink&quot; title=&quot;理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。&quot;&gt;&lt;/a&gt;理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。&lt;/h4&gt;&lt;hr&gt;
     
     </summary>
     
@@ -2296,221 +2353,6 @@ useSet.printStudentByScore();
     <summary type="html">
     
       &lt;h3 id=&quot;迭代器模式详解&quot;&gt;&lt;a href=&quot;#迭代器模式详解&quot; class=&quot;headerlink&quot; title=&quot;迭代器模式详解&quot;&gt;&lt;/a&gt;迭代器模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>中介者模式详解</title>
-    <link href="http://www.craymc.com/2017/01/22/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/22/中介者模式详解/</id>
-    <published>2017-01-22T13:38:12.000Z</published>
-    <updated>2017-01-22T13:51:24.415Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="中介者模式详解"><a href="#中介者模式详解" class="headerlink" title="中介者模式详解"></a>中介者模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h3 id="定义：用一个中介对象来封装一系列的对象交互，中介者使各对象不需要显示地相互引用，而使其耦合松散，而且可以独立地改变他们之间的交互。"><a href="#定义：用一个中介对象来封装一系列的对象交互，中介者使各对象不需要显示地相互引用，而使其耦合松散，而且可以独立地改变他们之间的交互。" class="headerlink" title="定义：用一个中介对象来封装一系列的对象交互，中介者使各对象不需要显示地相互引用，而使其耦合松散，而且可以独立地改变他们之间的交互。"></a>定义：用一个中介对象来封装一系列的对象交互，中介者使各对象不需要显示地相互引用，而使其耦合松散，而且可以独立地改变他们之间的交互。</h3><hr>
-<h3 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h3><p>中介者模式的结构中包含四种角色：</p>
-<ul>
-<li>中介者：中介者是一个接口，该接口定义了用于同时对象之间进行通信的方法。</li>
-<li>具体中介者：具体中介者是实现中介者接口的类。具体中介者需要包含所有具体同事的引用，并通过实现中介者接口中的方法来满足具体同事之间的通信请求。</li>
-<li>同事：一个接口，规定了具体同事需要实现的方法。</li>
-<li>具体同事：实现同事接口的类，具体同事需要包含具体中介者的引用，一个具体同事需要和其他同事交互时，只需要将自己的请求通知给它所包含的具体中介者即可</li>
-</ul>
-<hr>
-<h3 id="中介者模式的优点"><a href="#中介者模式的优点" class="headerlink" title="中介者模式的优点"></a>中介者模式的优点</h3><ul>
-<li>可以避免许多的对象为了之间的通信而相互先是引用，否则，不仅系统难于维护，而且也使其他系统难以复用这些对象。</li>
-<li>可以通过中介者将原本分布于多个对象之间的交互行为集中在一起。当这些对象之间需要改变之间的通信行为时，只需使用一个具体中介者即可，不必修改各个具体同事的代码，既这些同事可被重用。</li>
-<li>具体中介者使得各个具体同事之间是如何交互的细节，是系统比较清楚地知道整个系统中的同事是如何交互的。</li>
-<li>当一些对象想相互通信，但又无法相互包含对方的引用，那么使用中介者模式就可以使这些对象相互通信。</li>
-</ul>
-<hr>
-<h3 id="中介者模式的适用场景"><a href="#中介者模式的适用场景" class="headerlink" title="中介者模式的适用场景"></a>中介者模式的适用场景</h3><ul>
-<li>许多对象以复杂的方式交互，所导致的依赖关系时系统难以理解和维护。</li>
-<li>一个对象引用其他很多对象，导致难以复用的情况。</li>
-</ul>
-<hr>
-<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><h4 id="同事："><a href="#同事：" class="headerlink" title="同事："></a>同事：</h4><pre><code>public interface Colleage {
-public void giveMess(String[] mess);
-public void receiverMess(String mess);
-public void setName(String name);
-public String getName();
-}
-</code></pre><h4 id="具体中介者："><a href="#具体中介者：" class="headerlink" title="具体中介者："></a>具体中介者：</h4><pre><code>public class ConcreteMediator {
-ColleagueA colleageA;
-ColleageB colleageB;
-ColleageC colleageC;
-public void registerColleagueA(ColleagueA colleagueA)
-{
-    this.colleageA=colleagueA;
-}
-public void registerColleagueB(ColleageB colleagueB)
-{
-    this.colleageB=colleagueB;
-}
-public void registerColleagueC(ColleageC colleagueC)
-{
-    this.colleageC=colleagueC;
-}
-
-public void deliverMess(Colleage colleage,String []mess){
-    if(colleage==colleageA){
-        if(mess.length&gt;=2){
-            colleageB.receiverMess(colleage.getName()+mess[0]);
-            colleageC.receiverMess(colleage.getName()+mess[1]);
-        }else if(colleage==colleageB){
-            if(mess.length&gt;=2){
-                colleageA.receiverMess(colleage.getName()+mess[0]);
-                colleageC.receiverMess(colleage.getName()+mess[1]);
-            }
-
-        }else if(colleage==colleageC){
-            if(mess.length&gt;=2){
-                colleageA.receiverMess(colleage.getName()+mess[0]);
-                colleageB.receiverMess(colleage.getName()+mess[1]);
-            }
-        }
-    }
-}
-
-
-}
-</code></pre><h4 id="具体同事："><a href="#具体同事：" class="headerlink" title="具体同事："></a>具体同事：</h4><pre><code>public class ColleagueA implements Colleage{
-
-ConcreteMediator mediator;//中介者
-String name;
-
-public ColleagueA(ConcreteMediator mediator) {
-    this.mediator = mediator;
-    mediator.registerColleagueA(this);
-}
-
-@Override
-public void giveMess(String[] mess) {
-    mediator.deliverMess(this, mess);
-}
-
-@Override
-public void receiverMess(String mess) {
-        System.out.println(name+&quot;收到信息&quot;);
-        System.out.println(&quot;\t&quot;+mess);
-}
-
-@Override
-public void setName(String name) {
-    this.name=name;
-}
-
-@Override
-public String getName() {
-    return name;
-}
-
-}
-
-
-public class ColleageB implements Colleage{
-
-    ConcreteMediator mediator;
-    String name;
-
-
-public ColleageB(ConcreteMediator mediator) {
-     this.mediator = mediator;
-     mediator.registerColleagueB(this);
-}
-
-
-public void receiverMess(String mess) {
-        System.out.println(name+&quot;收到信息&quot;);
-        System.out.println(&quot;\t&quot;+mess);
-}
-
-
-@Override
-public void giveMess(String[] mess) {
-    mediator.deliverMess(this, mess);
-}
-
-
-@Override
-public void setName(String name) {
-    this.name=name;
-
-}
-
-
-@Override
-public String getName() {
-    return name;
-}
-
-}
-
-public class ColleageC implements Colleage{
-ConcreteMediator mediator;
-String name;
-
-
-public ColleageC(ConcreteMediator mediator) {
-    this.mediator = mediator;
-    mediator.registerColleagueC(this);
-}
-
-public void receiverMess(String mess) {
-        System.out.println(name+&quot;收到的信息&quot;);
-        System.out.println(&quot;\t&quot;+mess);
-}
-
-@Override
-public void giveMess(String[] mess) {
-    mediator.deliverMess(this, mess);
-}
-
-@Override
-public void setName(String name) {
-    this.name=name;
-}
-
-@Override
-public String getName() {
-    // TODO Auto-generated method stub
-    return null;
-}
-
-}
-</code></pre><h4 id="模式的使用："><a href="#模式的使用：" class="headerlink" title="模式的使用："></a>模式的使用：</h4><pre><code>public class Application {
-
-
-public static void main(String[] args) {
-
-    ConcreteMediator mediator=new ConcreteMediator();
-
-    ColleagueA colleagA=new ColleagueA(mediator);
-    ColleageB colleageB=new ColleageB(mediator);
-    ColleageC colleageC=new ColleageC(mediator);
-    colleagA.setName(&quot;aA&quot;);
-
-    colleageB.setName(&quot;aB&quot;);
-    colleageC.setName(&quot;ac&quot;);
-    String [] messA={&quot;aa100，aa200&quot;};
-    colleagA.giveMess(messA);
-
-    String [] messB={&quot;aa10&quot;,&quot;aa20&quot;};
-    colleageB.giveMess(messB);
-    String [] messC={&quot;aa1&quot;,&quot;aa2&quot;};
-    colleageC.giveMess(messC);
-}
-
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;中介者模式详解&quot;&gt;&lt;a href=&quot;#中介者模式详解&quot; class=&quot;headerlink&quot; title=&quot;中介者模式详解&quot;&gt;&lt;/a&gt;中介者模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class
     
     </summary>
     
