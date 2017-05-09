@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.craymc.com/"/>
-  <updated>2017-03-11T06:41:01.437Z</updated>
+  <updated>2017-05-09T12:46:04.011Z</updated>
   <id>http://www.craymc.com/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>秒杀系统实现思路</title>
+    <link href="http://www.craymc.com/2017/05/09/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/"/>
+    <id>http://www.craymc.com/2017/05/09/秒杀系统实现思路/</id>
+    <published>2017-05-09T12:40:43.000Z</published>
+    <updated>2017-05-09T12:46:04.011Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="如何设计一个秒杀系统"><a href="#如何设计一个秒杀系统" class="headerlink" title="如何设计一个秒杀系统"></a>如何设计一个秒杀系统</h3><hr>
+<h4 id="一-条件"><a href="#一-条件" class="headerlink" title="一.条件"></a>一.条件</h4><p>1.这是一个秒杀系统，即大量用户抢有限的商品，先到先得<br>2.用户并发访问流量非常大, 需要分布式的机器集群处理请求<br>3.系统实现使用Java</p>
+<hr>
+<h4 id="二-实现思路"><a href="#二-实现思路" class="headerlink" title="二.实现思路"></a>二.实现思路</h4><p>1.用户请求首先进入请求分发集群，该集群通过OCS等分布式缓存初步判断分发条件是否合适(例如是否还有库存，没有库存直接在这一步就停了)<br><a id="more"></a><br>2.分发集群发现还有库存，则将请求路由到负载较低的业务处理机器</p>
+<p>3.业务处理机对分布式缓存进行count–原子操作(或在分布式缓存上自己实现CAS操作)，如果成功则进入数据库处理逻辑</p>
+<p>4.数据库正确的进行了count–操作，给用户返回成功秒杀</p>
+<p>5.如果数据库操作没有完成count–或者发现库存竟然没了，则触发分布式缓存重新加载数据库库存，同时返回给用户秒杀失败</p>
+<hr>
+<h4 id="三-模块设计"><a href="#三-模块设计" class="headerlink" title="三.模块设计"></a>三.模块设计</h4><p>1、用户请求分发模块：使用Nginx或Apache将用户的请求分发到不同的机器上。<br>2、用户请求预处理模块：判断商品是不是还有剩余来决定是不是要处理该请求。<br>3、用户请求处理模块：把通过预处理的请求封装成事务提交给数据库，并返回是否成功。<br>4、数据库接口模块：该模块是数据库的唯一接口，负责与数据库交互，提供RPC接口供查询是否秒杀结束、剩余数量等信息。</p>
+<hr>
+<h5 id="具体方案："><a href="#具体方案：" class="headerlink" title="具体方案："></a>具体方案：</h5><p>1.配置HTTP服务器<br>2.经过HTTP服务器的分发后，单个服务器的负载相对低了一些，但总量依然可能很大，如果后台商品已经被秒杀完毕，那么直接给后来的请求返回秒杀失败即可，不必再进一步发送事务了<br>3.<strong>并发队列的选择</strong> Java的并发包提供了三个常用的并发队列实现，分别是：ConcurrentLinkedQueue 、 LinkedBlockingQueue 和 ArrayBlockingQueue。</p>
+<p>ArrayBlockingQueue是初始容量固定的阻塞队列，我们可以用来作为数据库模块成功竞拍的队列，比如有10个商品，那么我们就设定一个10大小的数组队列。</p>
+<p>ConcurrentLinkedQueue使用的是CAS原语无锁队列实现，是一个异步队列，入队的速度很快，出队进行了加锁，性能稍慢。</p>
+<p>LinkedBlockingQueue也是阻塞的队列，入队和出队都用了加锁，当队空的时候线程会暂时阻塞。</p>
+<p>由于我们的系统入队需求要远大于出队需求，一般不会出现队空的情况，所以我们可以选择ConcurrentLinkedQueue来作为我们的请求队列实现。<br>4.<strong>数据库模块</strong> 数据库主要是使用一个ArrayBlockingQueue来暂存有可能成功的用户请求。</p>
+<hr>
+<p>参考资料：<br><a href="http://www.infoq.com/cn/articles/ConcurrentLinkedQueue" target="_blank" rel="external">http://www.infoq.com/cn/articles/ConcurrentLinkedQueue</a><br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-concurrent/" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/java/j-lo-concurrent/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;如何设计一个秒杀系统&quot;&gt;&lt;a href=&quot;#如何设计一个秒杀系统&quot; class=&quot;headerlink&quot; title=&quot;如何设计一个秒杀系统&quot;&gt;&lt;/a&gt;如何设计一个秒杀系统&lt;/h3&gt;&lt;hr&gt;
+&lt;h4 id=&quot;一-条件&quot;&gt;&lt;a href=&quot;#一-条件&quot; class=&quot;headerlink&quot; title=&quot;一.条件&quot;&gt;&lt;/a&gt;一.条件&lt;/h4&gt;&lt;p&gt;1.这是一个秒杀系统，即大量用户抢有限的商品，先到先得&lt;br&gt;2.用户并发访问流量非常大, 需要分布式的机器集群处理请求&lt;br&gt;3.系统实现使用Java&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;二-实现思路&quot;&gt;&lt;a href=&quot;#二-实现思路&quot; class=&quot;headerlink&quot; title=&quot;二.实现思路&quot;&gt;&lt;/a&gt;二.实现思路&lt;/h4&gt;&lt;p&gt;1.用户请求首先进入请求分发集群，该集群通过OCS等分布式缓存初步判断分发条件是否合适(例如是否还有库存，没有库存直接在这一步就停了)&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="秒杀系统" scheme="http://www.craymc.com/tags/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>win8.1下vc6.0的安装详解</title>
@@ -2220,139 +2260,6 @@ public void printInfo() {
     <summary type="html">
     
       &lt;h3 id=&quot;单子模式详解&quot;&gt;&lt;a href=&quot;#单子模式详解&quot; class=&quot;headerlink&quot; title=&quot;单子模式详解&quot;&gt;&lt;/a&gt;单子模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>迭代器详解</title>
-    <link href="http://www.craymc.com/2017/01/22/%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/22/迭代器详解/</id>
-    <published>2017-01-22T13:38:27.000Z</published>
-    <updated>2017-01-22T13:51:30.670Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="迭代器模式详解"><a href="#迭代器模式详解" class="headerlink" title="迭代器模式详解"></a>迭代器模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h3 id="定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。"><a href="#定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。" class="headerlink" title="定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。"></a>定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。</h3><hr>
-<h3 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h3><p>迭代器模式的结构中包括四种角色：</p>
-<ul>
-<li>集合：一个接口，规定了具体集合需要实现的操作。</li>
-<li>具有集合：具体集合是实现集合接口的类的实例，具体集合按着一定结构存储对象。具体集合应该当有一个方法，该方法返回一个针对该集合的具体迭代器。</li>
-<li>迭代器：一个接口，规定了遍历具体集合的方法。</li>
-<li>具体迭代器实现迭代器接口的类的实例。具体迭代器在实现迭代器接口所规定的遍历集合的方法时，要保证方法的首次调用将按着集合的数据结构找到该集合中的一个对象，立刻根据该集合的存储结构得到待遍历的后继对象的引用，并保证依次调用的方法可以遍历集合。</li>
-</ul>
-<hr>
-<h3 id="迭代器模式的优点"><a href="#迭代器模式的优点" class="headerlink" title="迭代器模式的优点"></a>迭代器模式的优点</h3><ul>
-<li>用户使用迭代器访问集合中的对象，而不需要知道这些对象在集合中是如何表示及存储的。</li>
-<li>用户可以同时使用多个迭代器遍历一个集合。</li>
-</ul>
-<hr>
-<h3 id="适合使用迭代器模式的情景"><a href="#适合使用迭代器模式的情景" class="headerlink" title="适合使用迭代器模式的情景"></a>适合使用迭代器模式的情景</h3><ul>
-<li>让用户访问一个集合中是对象，但不想暴露对象在集合中的存储结构。</li>
-<li>希望对遍历不同的集合提供一个统一的接口。</li>
-</ul>
-<hr>
-<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><pre><code>import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.TreeSet;
-
-public class UseSet {
-LinkedList&lt;Student&gt;list;
-Hashtable&lt;String, Student&gt;table;
-TreeSet&lt;Student&gt;tree;
-UseSet(){
-    list=new LinkedList&lt;Student&gt;();
-    tree=new TreeSet&lt;Student&gt;();
-    table=new Hashtable&lt;String,Student&gt;();
-}
-public void addStudent(Student stu){
-    list.add(stu);
-    update();
-
-}
-public  void lookStudent(String n) {
-        Student stu=table.get(n);
-        String number=stu.getNumber();
-        String name=stu.getName();
-        double score=stu.getSorce();
-        System.out.println(&quot;学号：&quot;+number+&quot;姓名:&quot;+name+&quot;分数：&quot;+score);
-
-}
-public void printStudentByScore(){
-    Iterator&lt;Student&gt;iterator=tree.iterator();
-    while(iterator.hasNext()){
-        Student stu=iterator.next();
-        String number=stu.getNumber();
-        String name=stu.getName();
-        double sorce=stu.getSorce();
-        System.out.println(&quot;学号：&quot;+number+&quot;姓名：&quot;+name+&quot;分数：&quot;+sorce);
-    }
-}
-private void update() {
-        tree.clear();
-        Iterator&lt;Student&gt;iterator=list.iterator();
-        while(iterator.hasNext()){
-            Student stu=iterator.next();
-            String number=stu.getNumber();
-            table.put(number, stu);
-            tree.add(stu);
-        }
-}
-</code></pre><p>   }</p>
-<p>   public class Student implements Comparable{<br>    String number,name;<br>    double sorce=0;<br>    private int x=10;</p>
-<pre><code>public Student() {
-    super();
-    // TODO Auto-generated constructor stub
-}
-
-public Student(String number, String name, double sorce) {
-    super();
-    this.number = number;
-    this.name = name;
-    this.sorce = sorce;
-}
-
-@Override
-public int compareTo(Object o) {
-    Student st=(Student)o;
-    if(Math.abs(this.sorce-st.sorce)&lt;=1/10000)
-         return 1;
-    return (int)(1000*(this.sorce-st.sorce));
-}
-
-public String getNumber() {
-    return number;
-}
-
-public String getName() {
-    return name;
-}
-
-public double getSorce() {
-    return sorce;
-}
-</code></pre><p>   }</p>
-<pre><code>public class Application {
-public static void main(String[] args) {
-UseSet useSet=new UseSet();
-useSet.addStudent(new Student(&quot;001&quot;, &quot;cc&quot;, 76.9));
-String n=&quot;001&quot;;
-System.out.println(&quot;查找学号为：&quot;+n+&quot;的学生：&quot;);
-useSet.lookStudent(n);
-System.out.println(&quot;将学生按成绩排列:&quot;);
-useSet.printStudentByScore();
-}
-
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;迭代器模式详解&quot;&gt;&lt;a href=&quot;#迭代器模式详解&quot; class=&quot;headerlink&quot; title=&quot;迭代器模式详解&quot;&gt;&lt;/a&gt;迭代器模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class
     
     </summary>
     
