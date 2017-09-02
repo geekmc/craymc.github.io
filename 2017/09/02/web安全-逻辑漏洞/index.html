@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="craymc">
-    <title>秒杀系统实现思路 - craymc</title>
+    <title>web安全-逻辑漏洞 - craymc</title>
     <meta name="author" content="craymc">
     
         <link rel="icon" href="/assets/images/bi_favicon .ico">
@@ -14,25 +14,19 @@
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="如何设计一个秒杀系统
-一.条件1.这是一个秒杀系统，即大量用户抢有限的商品，先到先得2.用户并发访问流量非常大, 需要分布式的机器集群处理请求3.系统实现使用Java
-
-二.实现思路1.用户请求首先进入请求分发集群，该集群通过OCS等分布式缓存初步判断分发条件是否合适(例如是否还有库存，没有库存直接在这一步就停了)">
+    <meta name="description" content="定义：通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误
+举几个列子：">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="秒杀系统实现思路">
-<meta property="og:url" content="http://www.craymc.com/2017/05/09/秒杀系统实现思路/index.html">
+<meta property="og:title" content="web安全-逻辑漏洞">
+<meta property="og:url" content="http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/index.html">
 <meta property="og:site_name" content="craymc">
-<meta property="og:description" content="如何设计一个秒杀系统
-一.条件1.这是一个秒杀系统，即大量用户抢有限的商品，先到先得2.用户并发访问流量非常大, 需要分布式的机器集群处理请求3.系统实现使用Java
-
-二.实现思路1.用户请求首先进入请求分发集群，该集群通过OCS等分布式缓存初步判断分发条件是否合适(例如是否还有库存，没有库存直接在这一步就停了)">
-<meta property="og:updated_time" content="2017-05-09T12:46:04.011Z">
+<meta property="og:description" content="定义：通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误
+举几个列子：">
+<meta property="og:updated_time" content="2017-09-02T14:26:54.873Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="秒杀系统实现思路">
-<meta name="twitter:description" content="如何设计一个秒杀系统
-一.条件1.这是一个秒杀系统，即大量用户抢有限的商品，先到先得2.用户并发访问流量非常大, 需要分布式的机器集群处理请求3.系统实现使用Java
-
-二.实现思路1.用户请求首先进入请求分发集群，该集群通过OCS等分布式缓存初步判断分发条件是否合适(例如是否还有库存，没有库存直接在这一步就停了)">
+<meta name="twitter:title" content="web安全-逻辑漏洞">
+<meta name="twitter:description" content="定义：通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误
+举几个列子：">
     
     
     
@@ -179,13 +173,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            秒杀系统实现思路
+            web安全-逻辑漏洞
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Tue May 09 2017 20:40:43 GMT+0800">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:16:40 GMT+0800">
 	
-		    5月09日, 2017年
+		    9月02日, 2017年
     	
     </time>
     
@@ -194,23 +188,20 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="如何设计一个秒杀系统"><a href="#如何设计一个秒杀系统" class="headerlink" title="如何设计一个秒杀系统"></a>如何设计一个秒杀系统</h3><hr>
-<h4 id="一-条件"><a href="#一-条件" class="headerlink" title="一.条件"></a>一.条件</h4><p>1.这是一个秒杀系统，即大量用户抢有限的商品，先到先得<br>2.用户并发访问流量非常大, 需要分布式的机器集群处理请求<br>3.系统实现使用Java</p>
-<hr>
-<h4 id="二-实现思路"><a href="#二-实现思路" class="headerlink" title="二.实现思路"></a>二.实现思路</h4><p>1.用户请求首先进入请求分发集群，该集群通过OCS等分布式缓存初步判断分发条件是否合适(例如是否还有库存，没有库存直接在这一步就停了)<br><a id="more"></a><br>2.分发集群发现还有库存，则将请求路由到负载较低的业务处理机器</p>
-<p>3.业务处理机对分布式缓存进行count–原子操作(或在分布式缓存上自己实现CAS操作)，如果成功则进入数据库处理逻辑</p>
-<p>4.数据库正确的进行了count–操作，给用户返回成功秒杀</p>
-<p>5.如果数据库操作没有完成count–或者发现库存竟然没了，则触发分布式缓存重新加载数据库库存，同时返回给用户秒杀失败</p>
-<hr>
-<h4 id="三-模块设计"><a href="#三-模块设计" class="headerlink" title="三.模块设计"></a>三.模块设计</h4><p>1、用户请求分发模块：使用Nginx或Apache将用户的请求分发到不同的机器上。<br>2、用户请求预处理模块：判断商品是不是还有剩余来决定是不是要处理该请求。<br>3、用户请求处理模块：把通过预处理的请求封装成事务提交给数据库，并返回是否成功。<br>4、数据库接口模块：该模块是数据库的唯一接口，负责与数据库交互，提供RPC接口供查询是否秒杀结束、剩余数量等信息。</p>
-<hr>
-<h5 id="具体方案："><a href="#具体方案：" class="headerlink" title="具体方案："></a>具体方案：</h5><p>1.配置HTTP服务器<br>2.经过HTTP服务器的分发后，单个服务器的负载相对低了一些，但总量依然可能很大，如果后台商品已经被秒杀完毕，那么直接给后来的请求返回秒杀失败即可，不必再进一步发送事务了<br>3.<strong>并发队列的选择</strong> Java的并发包提供了三个常用的并发队列实现，分别是：ConcurrentLinkedQueue 、 LinkedBlockingQueue 和 ArrayBlockingQueue。</p>
-<p>ArrayBlockingQueue是初始容量固定的阻塞队列，我们可以用来作为数据库模块成功竞拍的队列，比如有10个商品，那么我们就设定一个10大小的数组队列。</p>
-<p>ConcurrentLinkedQueue使用的是CAS原语无锁队列实现，是一个异步队列，入队的速度很快，出队进行了加锁，性能稍慢。</p>
-<p>LinkedBlockingQueue也是阻塞的队列，入队和出队都用了加锁，当队空的时候线程会暂时阻塞。</p>
-<p>由于我们的系统入队需求要远大于出队需求，一般不会出现队空的情况，所以我们可以选择ConcurrentLinkedQueue来作为我们的请求队列实现。<br>4.<strong>数据库模块</strong> 数据库主要是使用一个ArrayBlockingQueue来暂存有可能成功的用户请求。</p>
-<hr>
-<p>参考资料：<br><a href="http://www.infoq.com/cn/articles/ConcurrentLinkedQueue" target="_blank" rel="external">http://www.infoq.com/cn/articles/ConcurrentLinkedQueue</a><br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-concurrent/" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/java/j-lo-concurrent/</a></p>
+            <p><strong>定义：</strong>通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误</p>
+<p>举几个列子：<br><a id="more"></a></p>
+<ol>
+<li><p>密码找回（任意手机号注册）:程序根据一个验证码来确定是用户本人，但攻击者可以暴力破解密码</p>
+</li>
+<li><p>支付漏洞：修改商品数量为负数是的支付价格为负数，或者修改支付金额</p>
+</li>
+<li><p>越权</p>
+</li>
+<li><p>cookie和session验证问题（攻击者在知道用户ID的前提下，构造一个cookies或让session值为true就可以绕过验证）</p>
+</li>
+<li><p>顺序执行缺陷：假如在网购过程中直接从放入购物车调过支付直接进入先写收货地址步骤</p>
+</li>
+</ol>
 
             
                 
@@ -223,7 +214,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/秒杀系统/">秒杀系统</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/web安全/">web安全</a>
 
             </div>
         
@@ -232,7 +223,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-ddos/"  data-tooltip="web安全-ddos">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-命令注入/"  data-tooltip="web安全-命令注入">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -240,7 +231,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/11/win8-1下vc6-0的安装详解/" data-tooltip="win8.1下vc6.0的安装详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-服务端安全/" data-tooltip="web安全-服务端安全">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -256,17 +247,17 @@
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/05/09/秒杀系统实现思路/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/05/09/秒杀系统实现思路/&amp;title=秒杀系统实现思路">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/&amp;title=web安全-逻辑漏洞">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/05/09/秒杀系统实现思路/&amp;title=秒杀系统实现思路">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/&amp;title=web安全-逻辑漏洞">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -275,7 +266,7 @@
 
 
         
-            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-秒杀系统实现思路" data-title="秒杀系统实现思路" data-url="http://www.craymc.com/2017/05/09/秒杀系统实现思路/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-web安全-逻辑漏洞" data-title="web安全-逻辑漏洞" data-url="http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
         
     </div>
 </article>
@@ -296,7 +287,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-ddos/"  data-tooltip="web安全-ddos">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-命令注入/"  data-tooltip="web安全-命令注入">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
@@ -304,7 +295,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/11/win8-1下vc6-0的安装详解/" data-tooltip="win8.1下vc6.0的安装详解">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-服务端安全/" data-tooltip="web安全-服务端安全">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
                     <i class="fa fa-angle-right"></i>
@@ -320,17 +311,17 @@
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/05/09/秒杀系统实现思路/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/05/09/秒杀系统实现思路/&amp;title=秒杀系统实现思路">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/&amp;title=web安全-逻辑漏洞">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/05/09/秒杀系统实现思路/&amp;title=秒杀系统实现思路">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/&amp;title=web安全-逻辑漏洞">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>
@@ -348,17 +339,17 @@
         </li>
         
         <li class="post-action hide-xs">
-             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/05/09/秒杀系统实现思路/">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/05/09/秒杀系统实现思路/&amp;title=秒杀系统实现思路">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/&amp;title=web安全-逻辑漏洞">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/05/09/秒杀系统实现思路/&amp;title=秒杀系统实现思路">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/&amp;title=web安全-逻辑漏洞">
                 <i class="fa fa-weixin"></i>
             </a>
         </li>

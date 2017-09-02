@@ -170,6 +170,362 @@
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
                         
+                                <a class="link-unstyled" href="/2017/09/02/web安全-客户端安全/">web安全-客户端安全</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:27:54 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <h3 id="跨站脚本攻击（xss）"><a href="#跨站脚本攻击（xss）" class="headerlink" title="跨站脚本攻击（xss）"></a>跨站脚本攻击（xss）</h3><p><strong>定义：</strong> 通过向页面注入恶意HTML代码，插入JS脚本，在用户浏览网页的时候发起攻击。</p>
+<p><strong>本质：</strong> 是一种HTML的注入，用户的数据被当成了HTML代码的一部分执行。</p>
+<p><strong>分类</strong></p>
+<p>1.反射型（payload不经过数据库）</p>
+<p>XSS脚本在URL中，当用户点击URL的时候，XSS代码随响应内容一起传回给浏览器。也就是说payload存储在URL中</p>
+<hr>
+<p>2.存储型（payload经过数据库）</p>
+<p>XSS脚本存储在服务器中，只要有用户访问就会触发。【容易造成xss 蠕虫但是我不知道该如何构造】<br>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-客户端安全/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2017/09/02/web安全-文件上传/">web安全-文件上传</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:17:03 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p><em>定义:</em>用户上传了一个可执行的脚本文件，并通过此脚本获得了执行服务器端的命令，也就是能通过菜刀连接获取WEBSHELL。</p>
+<hr>
+<p><strong>常见的问题</strong></p>
+<ul>
+<li><p>上传的文件是web脚本语言，服务器解释并执行了用户上传的脚本，导致恶意代码执行</p>
+</li>
+<li><p>上传的文件夹是木马或者病毒诱导网站管理员下载执行</p>
+</li>
+</ul>
+<hr>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-文件上传/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2017/09/02/web安全-命令注入/">web安全-命令注入</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:16:51 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>
+                            类型：
+
+文件包含：把文件包含进来，执行其中的代码
+绕过方式：1.%00截断
+
+         2.%00截断目录遍历
+
+         3.路径长度截断
+
+         4.点号截断
+
+任意代码执行
+
+任意命令执行
+
+
+<br>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-命令注入/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                        </p>
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2017/09/02/web安全-逻辑漏洞/">web安全-逻辑漏洞</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:16:40 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p><strong>定义：</strong>通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误</p>
+<p>举几个列子：<br>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-逻辑漏洞/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2017/09/02/web安全-服务端安全/">web安全-服务端安全</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:16:28 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p><strong>本质:</strong>服务器获取外部资源，修改外部资源，但是服务器并没有发现别修改，然后让其通过。服务器以自己的身份来访问其他服务器，然后实现了外网无法访问内网系统的需求。</p>
+<p><strong>场景：</strong></p>
+<ul>
+<li><p>web应用使用了用户指定的URL获取数据（图片），然后把这个数据（图片）展示。</p>
+</li>
+<li><p>应用根据用户提供的URL，抓取用户的WEB站点，并生成WAP站</p>
+</li>
+<li><p>web应用的分享功能处，如果没有对目标地址的范围做过滤和限制，存在了SSRF    </p>
+</li>
+<li><p>转码服务，在线翻译，图片加载下载</p>
+</li>
+</ul>
+<hr>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-服务端安全/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2017/09/02/web安全-第三方风险/">web安全-第三方风险</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:16:02 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>分类：</p>
+<ul>
+<li><p>域名商</p>
+</li>
+<li><p>IDC</p>
+</li>
+<li><p>外域JS</p>
+</li>
+</ul>
+<p>这一块我了解的大概方向就是这个三个，好多资料搜集的也不全。</p>
+<hr>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-第三方风险/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2017/09/02/web安全-SQL注入/">web安全-SQL注入</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:15:40 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>###SQL注入注入##</p>
+<p><em>注入类型：</em></p>
+<ul>
+<li><p>数字型：sql语句特点：ID=1</p>
+</li>
+<li><p>字符型：SQL语句特点：’admin’</p>
+<pre><code>判断方式：&apos;and &apos;1&apos;=&apos;1
+
+          &apos;and&apos;1&apos;=&apos;2
+</code></pre>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-SQL注入/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2017/09/02/web安全-ddos/">web安全-ddos</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:08:12 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <h3 id="DDOS-分布式拒绝服务"><a href="#DDOS-分布式拒绝服务" class="headerlink" title="DDOS(分布式拒绝服务)"></a>DDOS(分布式拒绝服务)</h3><p><strong>理解：</strong> 以停车场来类比，系统就像是停车场，系统中的资源就是停车位。当车位都停满车之后，再有车想进来就必须等前面的车先出去才行，如果所有车位的车都不出去，那么停车场的入口就会出现堵塞，不能正常工作。即为：<em>拒绝服务</em></p>
+<hr>
+                    
+                    
+                        
+                            <a href="/2017/09/02/web安全-ddos/" class="postShorten-excerpt_link link ">阅读全文</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
                                 <a class="link-unstyled" href="/2017/05/09/秒杀系统实现思路/">秒杀系统实现思路</a>
                         
                     </h1>
@@ -240,336 +596,6 @@
             
         </article>
     
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/03/06/基于ssh框架的员工管理系统的总结/">基于ssh框架的员工管理系统的总结</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Mon Mar 06 2017 13:23:24 GMT+0800">
-	
-		    3月06日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>一个基于ssh框架的员工管理系统的总结.md</p>
-<h3 id="先来回顾一下SSH的知识点"><a href="#先来回顾一下SSH的知识点" class="headerlink" title="先来回顾一下SSH的知识点"></a>先来回顾一下SSH的知识点</h3><hr>
-<h5 id="三大框架的整合的jar文件是根据实际需求来确定真正使用的jar-下面列举的是必须的jar文件和常用的jar文件，一般的项目这些个jar都会导入，除此之外会增加别的jar来完成所需的功能。"><a href="#三大框架的整合的jar文件是根据实际需求来确定真正使用的jar-下面列举的是必须的jar文件和常用的jar文件，一般的项目这些个jar都会导入，除此之外会增加别的jar来完成所需的功能。" class="headerlink" title="三大框架的整合的jar文件是根据实际需求来确定真正使用的jar,下面列举的是必须的jar文件和常用的jar文件，一般的项目这些个jar都会导入，除此之外会增加别的jar来完成所需的功能。"></a>三大框架的整合的jar文件是根据实际需求来确定真正使用的jar,下面列举的是必须的jar文件和常用的jar文件，一般的项目这些个jar都会导入，除此之外会增加别的jar来完成所需的功能。</h5><p>一、首先整合Struts2: </p>
-<p>首先是必须要导入的jar文件 </p>
-<p>1.导入struts-2.3.15.1-all\struts-2.3.15.1\apps\struts2-blank\WEB-INF\lib下面的所有的jar文件 </p>
-<p>2.导入Struts2与Spring整合的jar文件struts-2.3.15.1-all\struts-2.3.15.1\lib下的struts2-spring-plugin-2.3.15.1.jar<br>其次导入可选的工具jar文件,例如:<br>1.struts2-json-plugin-2.3.15.1.jar，使用json并且整合Ajax的jar文件<br>2.struts2-convention-plugin-2.3.15.1.jar，使用注解开发的jar文件<br>
-                    
-                    
-                        
-                            <a href="/2017/03/06/基于ssh框架的员工管理系统的总结/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/02/08/计算机网络基础知识/">计算机网络基础知识</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Wed Feb 08 2017 14:01:26 GMT+0800">
-	
-		    2月08日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <h3 id="先从协议开始"><a href="#先从协议开始" class="headerlink" title="先从协议开始"></a>先从协议开始</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<p><strong>OSI，TCP/IP，五层协议的体系结构，以及各层协议</strong></p>
-<p>OSI分层 （7层）：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。<br>TCP/IP分层（4层）：网络接口层、 网际层、运输层、 应用层。<br>五层协议 （5层）：物理层、数据链路层、网络层、运输层、 应用层。<br>每一层的协议如下：<br>物理层：RJ45、CLOCK、IEEE802.3 （中继器，集线器）<br>数据链路：PPP、FR、HDLC、VLAN、MAC （网桥，交换机）<br>网络层：IP、ICMP、ARP、RARP、OSPF、IPX、RIP、IGRP、 （路由器）<br>传输层：TCP、UDP、SPX<br>会话层：NFS、SQL、NETBIOS、RPC<br>表示层：JPEG、MPEG、ASII<br>应用层：FTP、DNS、Telnet、SMTP、HTTP、WWW、NFS<br>
-                    
-                    
-                        
-                            <a href="/2017/02/08/计算机网络基础知识/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/01/29/解释器模式详解/">解释器模式详解</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jan 29 2017 12:10:57 GMT+0800">
-	
-		    1月29日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            解释器模式详解author：craymc
-定义：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。
-理解：语言是由语句组成的集合，而语句是由一组符号所构成的序列。当表述一种语言时，无非是说明这种语言有怎样的语句。解释模式是关于怎样实现一个简单语言的成熟模式，其关键是将每一个语法规则表示成一个类。
-解释器模式的结构与使用解释器模式包括四种角色：
-
-抽象表<br>
-                    
-                    
-                        
-                            <a href="/2017/01/29/解释器模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/01/29/备忘录模式详解/">备忘录模式详解</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jan 29 2017 12:10:34 GMT+0800">
-	
-		    1月29日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            author：craymc###　定义：在不破坏封装性的前提的下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将对象恢复到原先的状态。理解：对象的状态依赖于它的变量的取值情况，对象在程序运行期间的各个时刻可能具有不同的状态。在某些应用中，程序可能需要一种合理的方式来保存对象在某一时刻的状以便在需要时，对象能恢复到原先保存的状态。
-核心：备忘录模式是关于怎么保存对象状态的成熟模<br>
-                    
-                    
-                        
-                            <a href="/2017/01/29/备忘录模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/01/29/享元模式详解/">享元模式详解</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jan 29 2017 12:10:15 GMT+0800">
-	
-		    1月29日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            享元模式author：craymc
-定义：运用共享技术有效地支持大量细粒度的对象。
-理解：一个类中的成员变量表明该类所创建对象所具有的属性，在某些程序设计中可能用一个类创建若干个对象，但是发现这些对象的一个共同特点是他们有一部分属性的取值必须是完全相同。
-模式的结构和使用享元模式包括三种角色：
-
-享元接口：是一个接口，该接口定义了享元对外公开其内部数据的方法，以及享元接收外部数据的方法。
-具体享元<br>
-                    
-                    
-                        
-                            <a href="/2017/01/29/享元模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/01/29/访问者模式详解/">访问者模式详解</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jan 29 2017 12:09:46 GMT+0800">
-	
-		    1月29日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            访问者模式详解author：craymc
-定义： 表示一个作用于某些对象结构中的各个元素的操作。它可以在不改变各个元素的类的前提下定义作用于这些元素的新操作。
-理解：编写类的时候，可能在该类中编写了若干个实例方法，该类的对象通过调用这些实例方法操作其成员变量表明所产生的行为。在某些设计中，可能需要定义作用于类成员变量的新操作，而且这个新操作不应该由该类中的某个实例方法来承担。
-模式的结构与使用访问<br>
-                    
-                    
-                        
-                            <a href="/2017/01/29/访问者模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/01/29/桥接模式/">桥接模式</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jan 29 2017 12:09:22 GMT+0800">
-	
-		    1月29日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <p>
-                            桥接模式详解author：craymc
-[author：craymc][anchor-id]
-定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。
-理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。模式的结构和使用桥接模式包括四<br>
-                    
-                    
-                        
-                            <a href="/2017/01/29/桥接模式/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                        </p>
-                    
-                </div>
-            </div>
-            
-        </article>
-    
-        
-        
-                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
-        
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2017/01/29/代理模式详解/">代理模式详解</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jan 29 2017 12:08:58 GMT+0800">
-	
-		    1月29日, 2017年
-    	
-    </time>
-    
-</div>
-                </div>
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        <h3 id="代理模式详解"><a href="#代理模式详解" class="headerlink" title="代理模式详解"></a>代理模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h4 id="定义：为其他对象提供一种代理以控制对这个对象的访问。"><a href="#定义：为其他对象提供一种代理以控制对这个对象的访问。" class="headerlink" title="定义：为其他对象提供一种代理以控制对这个对象的访问。"></a>定义：为其他对象提供一种代理以控制对这个对象的访问。</h4><hr>
-<h4 id="理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。"><a href="#理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。" class="headerlink" title="理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。"></a>理解：当用户希望和某个对象打交道，但程序可能不希望用户之间访问该对象，而是提供一个特殊的对象，这个特殊的对象称为当前用户要访问对象的代理，程序让用户和对象的代理打交道，既让用户通过访问代理来访问想要访问的对象。</h4><hr>
-                    
-                    
-                        
-                            <a href="/2017/01/29/代理模式详解/" class="postShorten-excerpt_link link ">阅读全文</a>
-                            
-                        
-                    
-                    
-                </div>
-            </div>
-            
-        </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -581,7 +607,7 @@
             </a>
         </li>
         
-        <li class="pagination-number">页数 1 共 5</li>
+        <li class="pagination-number">页数 1 共 6</li>
     </ul>
 </div>
 

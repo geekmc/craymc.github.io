@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.craymc.com/"/>
-  <updated>2017-05-09T12:46:04.011Z</updated>
+  <updated>2017-09-02T14:29:45.851Z</updated>
   <id>http://www.craymc.com/</id>
   
   <author>
@@ -14,6 +14,641 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>web安全-客户端安全</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-客户端安全/</id>
+    <published>2017-09-02T14:27:54.000Z</published>
+    <updated>2017-09-02T14:29:45.851Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="跨站脚本攻击（xss）"><a href="#跨站脚本攻击（xss）" class="headerlink" title="跨站脚本攻击（xss）"></a>跨站脚本攻击（xss）</h3><p><strong>定义：</strong> 通过向页面注入恶意HTML代码，插入JS脚本，在用户浏览网页的时候发起攻击。</p>
+<p><strong>本质：</strong> 是一种HTML的注入，用户的数据被当成了HTML代码的一部分执行。</p>
+<p><strong>分类</strong></p>
+<p>1.反射型（payload不经过数据库）</p>
+<p>XSS脚本在URL中，当用户点击URL的时候，XSS代码随响应内容一起传回给浏览器。也就是说payload存储在URL中</p>
+<hr>
+<p>2.存储型（payload经过数据库）</p>
+<p>XSS脚本存储在服务器中，只要有用户访问就会触发。【容易造成xss 蠕虫但是我不知道该如何构造】<br><a id="more"></a></p>
+<hr>
+<p>3.DOM型（payload在前端页面）</p>
+<p>通过修改页面的DOM节点形成XSS。</p>
+<hr>
+<p><strong>利用方法</strong></p>
+<p>1.我认为XSS的利用本质就是JS脚本的利用，可以实现以下功能：</p>
+<ul>
+<li><p>依靠恶意脚本获取cookie</p>
+</li>
+<li><p>构造POST与GET请求</p>
+</li>
+<li><p>xss钓鱼（但是我觉得这个实现起来有一定的技术难度）</p>
+</li>
+<li><p>此外其他的场景我认为跟JS的基础有关系，可以自己定义一些模板</p>
+</li>
+</ul>
+<p>2.accesskey的利用</p>
+<hr>
+<p><strong>构造方法</strong></p>
+<p>1.字符编码</p>
+<p>2.绕过长度限制：</p>
+<ul>
+<li><p>利用“事件”</p>
+</li>
+<li><p>location.hash</p>
+</li>
+<li><p>利用注释</p>
+</li>
+<li><p>Windows.name：特点是不受同源策略的限制，可以实现跨域，跨页面传输数据</p>
+</li>
+</ul>
+<hr>
+<p><strong>防御方法</strong></p>
+<p>1.httpOnly:给关键的cookie使用(使用这个之后，JS取不到cookie的值)</p>
+<p>2.xss filter</p>
+<p>3.移除用户上传的DOM属性，移除用户上传的style节点，script节点，Iframe节点</p>
+<p>4.使用安全编码函数HTMLencode，Javascriptencode，转译敏感字符</p>
+<p>5.其实更稳妥的办法是根据不同场景的XSS利用构造适合的防御策略。</p>
+<hr>
+<h3 id="跨站请求伪造（csrf）"><a href="#跨站请求伪造（csrf）" class="headerlink" title="跨站请求伪造（csrf）"></a>跨站请求伪造（csrf）</h3><p><strong>理解：</strong>hacker诱导用户访问一个页面，就以该用户身份在第三方站点执行操作。或者说攻击者创建一个连接，受害者点击之后就会完成攻击者想要的操作。</p>
+<hr>
+<p><em>*本质</em>：*重要的操作和参数都是可以被攻击者猜测出。然后攻击者就可以继续构造。利用用户的身份操作用户的账户的攻击方式。</p>
+<p><strong>场景模拟</strong></p>
+<ol>
+<li>hacker在购物网站下单，生成CSRF攻击脚本，诱导用户A打开攻击页面，A完成对hacker下单的付账。</li>
+</ol>
+<hr>
+<p><strong>利用</strong></p>
+<p>1.如果攻击的目标并不需要cookie则不必考虑浏览器的cookie，否则需要。</p>
+<p>2.利用JS  可以构造POST请求</p>
+<hr>
+<p><strong>防御</strong></p>
+<ul>
+<li><p>把参数加密，或者使用一些随机数，从而让攻击者无法猜测出。</p>
+</li>
+<li><p>添加reference check（检查请求是否来自合法的源头），但是如果从HTTP条转到HTTPS的时候，浏览器不会发送referer</p>
+</li>
+<li><p>增加CSRF token，但是如果网站存在XSS，攻击者可以在请求页面后，找到页面内容里的token值，然后在构造请求。（<strong>xsrf</strong>）</p>
+</li>
+</ul>
+<hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;跨站脚本攻击（xss）&quot;&gt;&lt;a href=&quot;#跨站脚本攻击（xss）&quot; class=&quot;headerlink&quot; title=&quot;跨站脚本攻击（xss）&quot;&gt;&lt;/a&gt;跨站脚本攻击（xss）&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;定义：&lt;/strong&gt; 通过向页面注入恶意HTML代码，插入JS脚本，在用户浏览网页的时候发起攻击。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;本质：&lt;/strong&gt; 是一种HTML的注入，用户的数据被当成了HTML代码的一部分执行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分类&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.反射型（payload不经过数据库）&lt;/p&gt;
+&lt;p&gt;XSS脚本在URL中，当用户点击URL的时候，XSS代码随响应内容一起传回给浏览器。也就是说payload存储在URL中&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;2.存储型（payload经过数据库）&lt;/p&gt;
+&lt;p&gt;XSS脚本存储在服务器中，只要有用户访问就会触发。【容易造成xss 蠕虫但是我不知道该如何构造】&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web安全-文件上传</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-文件上传/</id>
+    <published>2017-09-02T14:17:03.000Z</published>
+    <updated>2017-09-02T14:26:58.784Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>定义:</em>用户上传了一个可执行的脚本文件，并通过此脚本获得了执行服务器端的命令，也就是能通过菜刀连接获取WEBSHELL。</p>
+<hr>
+<p><strong>常见的问题</strong></p>
+<ul>
+<li><p>上传的文件是web脚本语言，服务器解释并执行了用户上传的脚本，导致恶意代码执行</p>
+</li>
+<li><p>上传的文件夹是木马或者病毒诱导网站管理员下载执行</p>
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<p><strong>利用</strong></p>
+<ul>
+<li>FCKEditor文件上传漏洞,ewebeditor漏洞</li>
+</ul>
+<hr>
+<p><em>绕过方式</em></p>
+<ul>
+<li><p>抓包，改包（MIME修改绕过）</p>
+</li>
+<li><p>文件名后缀大小写绕过</p>
+</li>
+<li><p>文件内容绕过</p>
+</li>
+<li><p>JS绕过：</p>
+<p>  1.HTTP数据包<br>  2.审查元素–取消JS函数的调用<br>  3.JS部分全部删掉<br>  4.禁止加载JS</p>
+</li>
+</ul>
+<hr>
+<p>##解析漏洞##</p>
+<p>1.Nginx:</p>
+<p>假如有一张图片：http:a.test.com/1.jpg.当我们正常访问，nginx会把这个当做非脚本语言直接读取传送回客户端（浏览器），但存在解析漏洞的nginx会把如下链接解析并执行<strong><a href="http://a.test.com" target="_blank" rel="external">http://a.test.com</a> :8080/1.jpg/1.php</strong></p>
+<p>影响范围：0.765以下及0.8.37以下到8系列</p>
+<p>2.IIS：</p>
+<ul>
+<li><p>文件名解析：在IIS6.0下，分号后面不被解析，默认可执行文件：/.asa/.cer/.cdx</p>
+</li>
+<li><p>目录解析：网站目录有一个名为1.aso（其他的asp扩展名也可以），目录里面有一个1.jpg内容为asp的代码。访问:<a href="http://a.test.com/1.asp/1.jpg会被放成正常ASP文件执行。" target="_blank" rel="external">http://a.test.com/1.asp/1.jpg会被放成正常ASP文件执行。</a></p>
+</li>
+</ul>
+<p>3.Apache：</p>
+<ul>
+<li><p>Apache是从右到左开始判断解析，如果为不和识别解析，就在往左判断。例如：mst.php.owf.rar,由于.owf和.rar不可识别解析，Apache就会把它解析为php</p>
+</li>
+<li><p><em>如何判断是不是合法的后缀就是这个漏洞利用的关键</em></p>
+</li>
+</ul>
+<p>但是我不知道这个漏洞该如何修复</p>
+<p>##IIS写入权限漏洞##</p>
+<p>漏洞成因：</p>
+<ul>
+<li><p>IIS来宾用户对网站文件有写入权限</p>
+</li>
+<li><p>WEB服务扩展：webDev打钩</p>
+</li>
+<li><p>网站主目录：写入打钩</p>
+</li>
+<li><p>网站主目录：脚本资源访问打钩（可copy，Move）</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;em&gt;定义:&lt;/em&gt;用户上传了一个可执行的脚本文件，并通过此脚本获得了执行服务器端的命令，也就是能通过菜刀连接获取WEBSHELL。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;常见的问题&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;上传的文件是web脚本语言，服务器解释并执行了用户上传的脚本，导致恶意代码执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;上传的文件夹是木马或者病毒诱导网站管理员下载执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web安全-命令注入</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-命令注入/</id>
+    <published>2017-09-02T14:16:51.000Z</published>
+    <updated>2017-09-02T14:26:56.920Z</updated>
+    
+    <content type="html"><![CDATA[<p>类型：</p>
+<ul>
+<li><p>文件包含：把文件包含进来，执行其中的代码</p>
+<pre><code>绕过方式：1.%00截断
+
+         2.%00截断目录遍历
+
+         3.路径长度截断
+
+         4.点号截断
+</code></pre></li>
+<li><p>任意代码执行</p>
+</li>
+<li><p>任意命令执行</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;类型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;文件包含：把文件包含进来，执行其中的代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;绕过方式：1.%00截断
+
+         2.%00截断目录遍历
+
+         3.路径长度截断
+
+         4.点号截断
+&lt;/code&gt;&lt;/p
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web安全-逻辑漏洞</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-逻辑漏洞/</id>
+    <published>2017-09-02T14:16:40.000Z</published>
+    <updated>2017-09-02T14:26:54.873Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>定义：</strong>通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误</p>
+<p>举几个列子：<br><a id="more"></a></p>
+<ol>
+<li><p>密码找回（任意手机号注册）:程序根据一个验证码来确定是用户本人，但攻击者可以暴力破解密码</p>
+</li>
+<li><p>支付漏洞：修改商品数量为负数是的支付价格为负数，或者修改支付金额</p>
+</li>
+<li><p>越权</p>
+</li>
+<li><p>cookie和session验证问题（攻击者在知道用户ID的前提下，构造一个cookies或让session值为true就可以绕过验证）</p>
+</li>
+<li><p>顺序执行缺陷：假如在网购过程中直接从放入购物车调过支付直接进入先写收货地址步骤</p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;定义：&lt;/strong&gt;通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误&lt;/p&gt;
+&lt;p&gt;举几个列子：&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web安全-服务端安全</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-服务端安全/</id>
+    <published>2017-09-02T14:16:28.000Z</published>
+    <updated>2017-09-02T14:26:47.415Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>本质:</strong>服务器获取外部资源，修改外部资源，但是服务器并没有发现别修改，然后让其通过。服务器以自己的身份来访问其他服务器，然后实现了外网无法访问内网系统的需求。</p>
+<p><strong>场景：</strong></p>
+<ul>
+<li><p>web应用使用了用户指定的URL获取数据（图片），然后把这个数据（图片）展示。</p>
+</li>
+<li><p>应用根据用户提供的URL，抓取用户的WEB站点，并生成WAP站</p>
+</li>
+<li><p>web应用的分享功能处，如果没有对目标地址的范围做过滤和限制，存在了SSRF    </p>
+</li>
+<li><p>转码服务，在线翻译，图片加载下载</p>
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<p><strong>漏洞验证</strong></p>
+<ul>
+<li><p>常见的方法是排除法：比如一个URL+image=baidu.com/test.jpg,直接右键图片，在新窗口中打开图片，如果浏览器的URL是baidu.com/test.jpg则不存在</p>
+</li>
+<li><p>使用burp抓包，由于SSRF是服务端发起的请求，因此在加载资源的时候是由服务端发起的，所以在本地浏览器请求中就不应该存在资源的请求。</p>
+</li>
+</ul>
+<hr>
+<p><strong>防御</strong></p>
+<ul>
+<li>限制请求端口为常用端口</li>
+<li>禁用不需要的网协议</li>
+<li>内网IP限制</li>
+</ul>
+<hr>
+<p> <strong>绕过</strong></p>
+<ul>
+<li>URL构造和URL跳转</li>
+<li>IP转换为16进制，8进制</li>
+<li>短网址绕过</li>
+</ul>
+<hr>
+<p><strong>攻击</strong></p>
+<ul>
+<li><p>从容易出现的点进行排查</p>
+</li>
+<li><p>从URL关键字中寻找</p>
+</li>
+</ul>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><p><em>定义:</em>用户上传了一个可执行的脚本文件，并通过此脚本获得了执行服务器端的命令，也就是能通过菜刀连接获取WEBSHELL。</p>
+<hr>
+<p><strong>常见的问题</strong></p>
+<ul>
+<li><p>上传的文件是web脚本语言，服务器解释并执行了用户上传的脚本，导致恶意代码执行</p>
+</li>
+<li><p>上传的文件夹是木马或者病毒诱导网站管理员下载执行</p>
+</li>
+</ul>
+<hr>
+<p><strong>利用</strong></p>
+<ul>
+<li>FCKEditor文件上传漏洞,ewebeditor漏洞</li>
+</ul>
+<hr>
+<p><em>绕过方式</em></p>
+<ul>
+<li><p>抓包，改包（MIME修改绕过）</p>
+</li>
+<li><p>文件名后缀大小写绕过</p>
+</li>
+<li><p>文件内容绕过</p>
+</li>
+<li><p>JS绕过：</p>
+<p>  1.HTTP数据包<br>  2.审查元素–取消JS函数的调用<br>  3.JS部分全部删掉<br>  4.禁止加载JS</p>
+</li>
+</ul>
+<hr>
+<p>##解析漏洞##</p>
+<p>1.Nginx:</p>
+<p>假如有一张图片：http:a.test.com/1.jpg.当我们正常访问，nginx会把这个当做非脚本语言直接读取传送回客户端（浏览器），但存在解析漏洞的nginx会把如下链接解析并执行<strong><a href="http://a.test.com" target="_blank" rel="external">http://a.test.com</a> :8080/1.jpg/1.php</strong></p>
+<p>影响范围：0.765以下及0.8.37以下到8系列</p>
+<p>2.IIS：</p>
+<ul>
+<li><p>文件名解析：在IIS6.0下，分号后面不被解析，默认可执行文件：/.asa/.cer/.cdx</p>
+</li>
+<li><p>目录解析：网站目录有一个名为1.aso（其他的asp扩展名也可以），目录里面有一个1.jpg内容为asp的代码。访问:<a href="http://a.test.com/1.asp/1.jpg会被放成正常ASP文件执行。" target="_blank" rel="external">http://a.test.com/1.asp/1.jpg会被放成正常ASP文件执行。</a></p>
+</li>
+</ul>
+<p>3.Apache：</p>
+<ul>
+<li><p>Apache是从右到左开始判断解析，如果为不和识别解析，就在往左判断。例如：mst.php.owf.rar,由于.owf和.rar不可识别解析，Apache就会把它解析为php</p>
+</li>
+<li><p><em>如何判断是不是合法的后缀就是这个漏洞利用的关键</em></p>
+</li>
+</ul>
+<p>但是我不知道这个漏洞该如何修复</p>
+<p>##IIS写入权限漏洞##</p>
+<p>漏洞成因：</p>
+<ul>
+<li><p>IIS来宾用户对网站文件有写入权限</p>
+</li>
+<li><p>WEB服务扩展：webDev打钩</p>
+</li>
+<li><p>网站主目录：写入打钩</p>
+</li>
+<li><p>网站主目录：脚本资源访问打钩（可copy，Move）</p>
+</li>
+</ul>
+<hr>
+<!--more-->
+<h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><p>类型：</p>
+<ul>
+<li><p>文件包含：把文件包含进来，执行其中的代码</p>
+<pre><code>绕过方式：1.%00截断
+
+         2.%00截断目录遍历
+
+         3.路径长度截断
+
+         4.点号截断
+</code></pre></li>
+<li><p>任意代码执行</p>
+</li>
+<li><p>任意命令执行</p>
+</li>
+</ul>
+<hr>
+<h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><p><strong>原因：</strong> 开发人员在对数据进行CRUD的时候对客户端的请求过分相信而遗漏了权限的判定。</p>
+<p><strong>分类</strong></p>
+<ul>
+<li>垂直：身份不变，权限改变</li>
+</ul>
+<ul>
+<li>水平：权限不变，身份改变</li>
+</ul>
+<ul>
+<li>交叉： 二者都改变</li>
+</ul>
+<hr>
+<h3 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h3><p><strong>定义：</strong>通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误</p>
+<p>举几个列子：</p>
+<ol>
+<li><p>密码找回（任意手机号注册）:程序根据一个验证码来确定是用户本人，但攻击者可以暴力破解密码</p>
+</li>
+<li><p>支付漏洞：修改商品数量为负数是的支付价格为负数，或者修改支付金额</p>
+</li>
+<li><p>越权</p>
+</li>
+<li><p>cookie和session验证问题（攻击者在知道用户ID的前提下，构造一个cookies或让session值为true就可以绕过验证）</p>
+</li>
+<li><p>顺序执行缺陷：假如在网购过程中直接从放入购物车调过支付直接进入先写收货地址步骤</p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;本质:&lt;/strong&gt;服务器获取外部资源，修改外部资源，但是服务器并没有发现别修改，然后让其通过。服务器以自己的身份来访问其他服务器，然后实现了外网无法访问内网系统的需求。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;场景：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;web应用使用了用户指定的URL获取数据（图片），然后把这个数据（图片）展示。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;应用根据用户提供的URL，抓取用户的WEB站点，并生成WAP站&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;web应用的分享功能处，如果没有对目标地址的范围做过滤和限制，存在了SSRF    &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;转码服务，在线翻译，图片加载下载&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web安全-第三方风险</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-%E7%AC%AC%E4%B8%89%E6%96%B9%E9%A3%8E%E9%99%A9/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-第三方风险/</id>
+    <published>2017-09-02T14:16:02.000Z</published>
+    <updated>2017-09-02T14:26:28.684Z</updated>
+    
+    <content type="html"><![CDATA[<p>分类：</p>
+<ul>
+<li><p>域名商</p>
+</li>
+<li><p>IDC</p>
+</li>
+<li><p>外域JS</p>
+</li>
+</ul>
+<p>这一块我了解的大概方向就是这个三个，好多资料搜集的也不全。</p>
+<hr>
+<a id="more"></a>
+<h3 id="web层中间件"><a href="#web层中间件" class="headerlink" title="web层中间件"></a>web层中间件</h3><p><em>分类</em>：</p>
+<pre><code>1.Tomcat
+
+2.weblogic
+
+3.jboss
+
+4.jonas
+
+5.websphere    
+
+
+这些WEB中间件是应用于Java web工程容器，脚本语言：jsp，可在kali下生产war包  jar -cvf test.war test,jsp
+</code></pre><p><em>存在的漏洞</em>：</p>
+<ul>
+<li><p>弱口令</p>
+</li>
+<li><p>Java反序列</p>
+</li>
+<li><p>未授权</p>
+</li>
+<li><p>代码执行</p>
+</li>
+</ul>
+<p><em>漏洞挖掘</em>：</p>
+<ul>
+<li><p>Nmap扫描以下端口：8080,7001,9990,9000,9043</p>
+</li>
+<li><p>注意以上5种类型的对应路径</p>
+</li>
+</ul>
+<hr>
+<h3 id="Java反序列化"><a href="#Java反序列化" class="headerlink" title="Java反序列化"></a>Java反序列化</h3><p>目前我了解到的有：</p>
+<ul>
+<li><p>spring框架反序列化漏洞：利用JtaTransactionManager类中可以被控制的readObject()方法，从而构造恶意的被序列化类，利用readObject()会触发远程恶意类中的构造函数达到自己的目的。</p>
+</li>
+<li><p>fastjson反序列化漏洞：可以通过JSON.parse    Object来实例化任何带有setter方法的类；攻击者可以构造恶意json字符串，当fastjson解析的时候，会导致任意代码的执行。</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;分类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;域名商&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;IDC&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;外域JS&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这一块我了解的大概方向就是这个三个，好多资料搜集的也不全。&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web安全-SQL注入</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-SQL%E6%B3%A8%E5%85%A5/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-SQL注入/</id>
+    <published>2017-09-02T14:15:40.000Z</published>
+    <updated>2017-09-02T14:30:19.629Z</updated>
+    
+    <content type="html"><![CDATA[<p>###SQL注入注入##</p>
+<p><em>注入类型：</em></p>
+<ul>
+<li><p>数字型：sql语句特点：ID=1</p>
+</li>
+<li><p>字符型：SQL语句特点：’admin’</p>
+<pre><code>判断方式：&apos;and &apos;1&apos;=&apos;1
+
+          &apos;and&apos;1&apos;=&apos;2
+</code></pre><a id="more"></a>
+</li>
+<li><p>搜索型：sql语句特点：’%9%’</p>
+<pre><code>判断方式: %&apos;and&apos;%1%&apos;=&apos;%1
+
+         %&apos;and&apos;%1%&apos;=&apos;%2
+</code></pre></li>
+</ul>
+<hr>
+<p>当前阶段我主要使用的是sqlmap</p>
+<p><em>SQL注入总结</em></p>
+<h5 id="access偏移注入（当知道表名不知道列名的时候使用）"><a href="#access偏移注入（当知道表名不知道列名的时候使用）" class="headerlink" title="access偏移注入（当知道表名不知道列名的时候使用）"></a>access偏移注入（当知道表名不知道列名的时候使用）</h5><p>步骤：</p>
+<ul>
+<li><p>判断表名</p>
+</li>
+<li><p>判断字段长度：假设这里的字段长度为18我把它记做A</p>
+</li>
+<li><p>显示位数</p>
+</li>
+<li><p>判断表的字段数：假设这里的字段数为11我把它记做B</p>
+</li>
+<li><p>偏移注入的公式</p>
+<pre><code>A-B=C
+
+A-2C=D
+</code></pre><p>  <strong>把这个D带入到 union select 1，2,3,4 from （表名  as  a inner jion 表名 as b on a.id=b.id）</strong></p>
+</li>
+<li><p>如果经过上一步操作没有得到结果就打乱顺序</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;###SQL注入注入##&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;注入类型：&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;数字型：sql语句特点：ID=1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;字符型：SQL语句特点：’admin’&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;判断方式：&amp;apos;and &amp;apos;1&amp;apos;=&amp;apos;1
+
+          &amp;apos;and&amp;apos;1&amp;apos;=&amp;apos;2
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>web安全-ddos</title>
+    <link href="http://www.craymc.com/2017/09/02/web%E5%AE%89%E5%85%A8-ddos/"/>
+    <id>http://www.craymc.com/2017/09/02/web安全-ddos/</id>
+    <published>2017-09-02T14:08:12.000Z</published>
+    <updated>2017-09-02T14:13:30.558Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="DDOS-分布式拒绝服务"><a href="#DDOS-分布式拒绝服务" class="headerlink" title="DDOS(分布式拒绝服务)"></a>DDOS(分布式拒绝服务)</h3><p><strong>理解：</strong> 以停车场来类比，系统就像是停车场，系统中的资源就是停车位。当车位都停满车之后，再有车想进来就必须等前面的车先出去才行，如果所有车位的车都不出去，那么停车场的入口就会出现堵塞，不能正常工作。即为：<em>拒绝服务</em></p>
+<hr>
+<a id="more"></a>
+<p><strong>分类</strong></p>
+<ul>
+<li><p>协议层DDOS：</p>
+<p>  SYN flood:利用TCP/IP三次握手的特点，伪造大量的源IP地址，分别向服务的端发送大量的SYN包，此时服务器会返回SYN/ACK包，因为源IP是伪造的，所以并不会进行应答，此时服务端会进行重试和等待。如果发送大量的伪造IP地址不断发送请求，服务端就会消耗大量的资源。那么就会发<br>  生一个情况，服务端无暇顾及正常访问的IP地址的请求，所以就会造成拒绝服务。</p>
+</li>
+<li><p>应用层DDOS：</p>
+<p>  对一些资源消耗比较大的应用页面进行不断发起正常的请求，达到消耗服务端资源的目的。</p>
+<p>  <em>常见的消耗资源比较大的场景有：查询数据库，读写硬盘文件操作</em></p>
+</li>
+</ul>
+<ul>
+<li><p>Slowloris：</p>
+<p>  对web server连接数资源的恶意消耗，无限滥用。</p>
+</li>
+</ul>
+<hr>
+<p><strong>防御：</strong>只是知道一个理论上的防御方法就是<em>限制每个不可信任的资源使用者的配额</em>但是我不知道具体落实下来有什么可行的方案，之前了解过一种方案是：根据IP地址和COOKIE等信息，对客户端的请求频率进行计算，然后进行拦截。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;DDOS-分布式拒绝服务&quot;&gt;&lt;a href=&quot;#DDOS-分布式拒绝服务&quot; class=&quot;headerlink&quot; title=&quot;DDOS(分布式拒绝服务)&quot;&gt;&lt;/a&gt;DDOS(分布式拒绝服务)&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;理解：&lt;/strong&gt; 以停车场来类比，系统就像是停车场，系统中的资源就是停车位。当车位都停满车之后，再有车想进来就必须等前面的车先出去才行，如果所有车位的车都不出去，那么停车场的入口就会出现堵塞，不能正常工作。即为：&lt;em&gt;拒绝服务&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://www.craymc.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>秒杀系统实现思路</title>
@@ -1362,904 +1997,6 @@ public class Application {
     <summary type="html">
     
       &lt;h3 id=&quot;模板方法详解&quot;&gt;&lt;a href=&quot;#模板方法详解&quot; class=&quot;headerlink&quot; title=&quot;模板方法详解&quot;&gt;&lt;/a&gt;模板方法详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>桥接模式详解</title>
-    <link href="http://www.craymc.com/2017/01/25/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/25/桥接模式详解/</id>
-    <published>2017-01-25T12:11:29.000Z</published>
-    <updated>2017-01-25T13:50:32.529Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="桥接模式详解"><a href="#桥接模式详解" class="headerlink" title="桥接模式详解"></a>桥接模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h3 id="定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。"><a href="#定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。" class="headerlink" title="定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。"></a>定义：将抽象部分与它的实现部分分离，使他们都可以独立地变化。</h3><hr>
-<h4 id="理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。"><a href="#理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。" class="headerlink" title="理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。"></a>理解：抽象类或接口中可以定义若干抽象方法，习惯上将抽象方法称作操作。抽象类或接口使程序的设计者忽略操作的细节，既不必考虑这些操作是如何实现的，当用户程序面向抽象类或接口时，就不会依赖具体的实现，使系统有很好扩展性。</h4><h4 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h4><p>桥接模式包括四种角色：</p>
-<ul>
-<li>抽象：是一个抽象类，该抽象类含有implementor声明的变量，既维护一个implemnentor类型对象。</li>
-<li>实现者：实现者角色是一个接口，该接口中的方法不一定与abstract类中的方法一致。implementor接口负责定义基本操作，而abstract类负责定义基于这些基本操作的较高层次的操作。</li>
-<li>细化抽象：是抽象角色的一个子类，该子类在重写抽象角色中的抽象方法时，在给出一些必要的操作后，将委托所维护implementor类型对象调用相应的方法。</li>
-<li>具体实现者：是实现implementor接口的类。</li>
-</ul>
-<hr>
-<h3 id="桥接模式的优点"><a href="#桥接模式的优点" class="headerlink" title="桥接模式的优点"></a>桥接模式的优点</h3><ul>
-<li>桥接模式分离实现与抽象，使抽象和实现可以独立的扩展。当修改实现的代码时，不影响抽象的代码，反之也一样。</li>
-<li>满足开-闭模式。抽象和实现者处于同层次，使系统可独立地扩展者两个层次。增加新的具体实现者，不需要修改细化抽象，反之增加新的细化抽象也不需要修改具体实现。</li>
-</ul>
-<hr>
-<h3 id="适合桥接模式的情景"><a href="#适合桥接模式的情景" class="headerlink" title="适合桥接模式的情景"></a>适合桥接模式的情景</h3><ul>
-<li>不想让抽象和某些重要的实现代码是固定的绑定关系，这部分实现可运行时动态决定。</li>
-<li>抽象和实现者都可以继承的方式独立地扩充而互不影响，程序在运行期间可能需要动态的将一个抽象的子类的实例与一个实现者的子类的实例进行组合。</li>
-<li>希望对实现者层次代码的修改对抽象层不产生影响，既抽象层的代码不必重新编译，反之亦然。</li>
-</ul>
-<hr>
-<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><hr>
-<h4 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h4><p>   public abstract class ArchitectureCore {<br>    BuildingDesign design;<br>    double unitPrice;<br>    public abstract double giveCost();</p>
-<pre><code>}
-</code></pre><h4 id="实现者"><a href="#实现者" class="headerlink" title="实现者"></a>实现者</h4><pre><code>public interface BuildingDesign {
-    public double computerArea();
-}
-</code></pre><h4 id="细化抽象"><a href="#细化抽象" class="headerlink" title="细化抽象"></a>细化抽象</h4><pre><code>public class BuildingCost extends ArchitectureCore{
-public BuildingCost(BuildingDesign design,double unitPrice) {
-        this.design=design;
-        this.unitPrice=unitPrice;
-}
-
-
-
-@Override
-public double giveCost() {
-    double area=design.computerArea();
-    return area*unitPrice;
-}
-
-}
-</code></pre><h4 id="具体实现者"><a href="#具体实现者" class="headerlink" title="具体实现者"></a>具体实现者</h4><pre><code>public class HouseDesign implements BuildingDesign{
-double width,length;
-int floorNumber;
-
-
-public HouseDesign(double width, double length, int floorNumber) {
-    this.width = width;
-    this.length = length;
-    this.floorNumber = floorNumber;
-}
-
-
-@Override
-public double computerArea() {
-
-    return width*length*floorNumber;
-}
-
-}
-</code></pre><h4 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h4><pre><code>public class Application {
-public static void main(String[] args) {
-    double width=63,height=30;
-    int floorNumber=8;
-    double unitPrice=6867.38;
-    BuildingDesign design=new HouseDesign(width, height, floorNumber);
-    System.out.println(&quot;宽&quot;+width+&quot;米，高&quot;+height+&quot;米，层数为：&quot;+floorNumber);
-    ArchitectureCore cost=new BuildingCost(design, unitPrice);
-    double price=cost.giveCost();
-    System.out.printf(&quot;每平方米造价为：&quot;+unitPrice+&quot;元的商业楼的建设成本：%.2f\n&quot;,price);
-    width=50;
-    height=28;
-    floorNumber=6;
-    unitPrice=2687.88;
-    design=new HouseDesign(width, height, floorNumber);
-    System.out.printf(&quot;宽&quot;+width+&quot;米，高&quot;+height+&quot;米，层数为&quot;+floorNumber);
-
-    cost=new BuildingCost(design, unitPrice);
-    price=cost.giveCost();
-    System.out.printf(&quot;每平方米造价&quot;+unitPrice+&quot;元的住宅楼的建设成本%.2f\n&quot;,price);
-
-}
-
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;桥接模式详解&quot;&gt;&lt;a href=&quot;#桥接模式详解&quot; class=&quot;headerlink&quot; title=&quot;桥接模式详解&quot;&gt;&lt;/a&gt;桥接模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>组合模式详解</title>
-    <link href="http://www.craymc.com/2017/01/25/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/25/组合模式详解/</id>
-    <published>2017-01-25T12:08:18.000Z</published>
-    <updated>2017-01-25T14:12:30.936Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="组合模式详解"><a href="#组合模式详解" class="headerlink" title="组合模式详解"></a>组合模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h3 id="定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。"><a href="#定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。" class="headerlink" title="定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。"></a>定义：将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使用户对单个对象和组合对象的使用具有一致性。</h3><hr>
-<h3 id="理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。"><a href="#理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。" class="headerlink" title="理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。"></a>理解：如果一个对象包含另一个对象的引用，称这样的对象为组合对象。如果将当前组合对象作为一个整体的话，那么它所包含的对象就是整体的一部分。如果一个对象不含有其他对象的引用，称这样的对象为个体对象。</h3><hr>
-<h3 id="组合模式包括三种角色："><a href="#组合模式包括三种角色：" class="headerlink" title="组合模式包括三种角色："></a>组合模式包括三种角色：</h3><ul>
-<li>抽象组件：是一个接口（抽象类），该接口（抽象类）定义了个体对象和组合对象需要实现的关于操作其子节点的方法，比如add(),remove(),以及getChild()等方法。抽象组件也可以定义个体对象和组合对象用于操作其自身的方法，比如isLeaf（）方法等。</li>
-<li>Composite节点：实现component接口类的实例，composite节点不仅实现component接口，而且可以含有其他composite节点或leaf节点的引用。</li>
-<li>Leaf节点：实现component接口类的实例，leaf节点实现component接口，不可以含有其他composite节点或leaf节点的引用，因此，叶节点在实现component接口有关操作子节点的方法时，可以让方法抛出一个异常，也可以实现为空操作。</li>
-</ul>
-<hr>
-<h3 id="组合模式的优点"><a href="#组合模式的优点" class="headerlink" title="组合模式的优点"></a>组合模式的优点</h3><ul>
-<li>组合模式中包含个体对象和组合对象，并形成树形结构，使用户可以方便地处理个体对象和组合对象。</li>
-<li>组合对象和个体对象实现了相同的接口，用户一般无须区分个体对象和组合对象。</li>
-<li>当增加新的composite节点和Leaf节点时，用户的重要代码不需要作出修改。</li>
-</ul>
-<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><hr>
-<h4 id="抽象组件"><a href="#抽象组件" class="headerlink" title="抽象组件"></a>抽象组件</h4><pre><code>import java.util.Iterator;
-
-public interface MilitaryPerson {
-    public void add(MilitaryPerson person);
-    public void remove(MilitaryPerson person);
-    public MilitaryPerson getChild(int index);
-    public Iterator&lt;MilitaryPerson&gt; getAllChildren();
-    public boolean isleaf();
-    public double getSalary();
-    public void setSalary(double salary);
-}
-</code></pre><h4 id="composite节点"><a href="#composite节点" class="headerlink" title="composite节点"></a>composite节点</h4><pre><code>import java.util.Iterator;
-import java.util.LinkedList;
-
-public class MilitaryOfficer implements MilitaryPerson {
-            LinkedList&lt;MilitaryPerson&gt; list;
-            String name;
-            double salary;
-
-
-public MilitaryOfficer( String name,
-        double salary) {
-    list=new LinkedList&lt;MilitaryPerson&gt;();
-    this.name = name;
-    this.salary = salary;
-}
-
-@Override
-public void add(MilitaryPerson person) {
-    list.add(person);
-
-}
-
-@Override
-public void remove(MilitaryPerson person) {
-        list.remove(person);
-}
-
-@Override
-public MilitaryPerson getChild(int index) {
-    return list.get(index);
-}
-
-@Override
-public Iterator&lt;MilitaryPerson&gt; getAllChildren() {
-    return list.iterator();
-}
-
-@Override
-public boolean isleaf() {
-    return false;
-}
-
-@Override
-public double getSalary() {
-    return salary;
-}
-
-@Override
-public void setSalary(double salary) {
-    this.salary=salary;
-}
-
-
-}
-</code></pre><h4 id="Leaf节点"><a href="#Leaf节点" class="headerlink" title="Leaf节点"></a>Leaf节点</h4><pre><code>import java.util.Iterator;
-
-public class MilitarySoldier implements MilitaryPerson {
-       double salary;
-       String name;
-
-public MilitarySoldier(double salary, String name) {
-    this.salary = salary;
-    this.name = name;
-}
-
-@Override
-public void add(MilitaryPerson person) {
-
-}
-
-@Override
-public void remove(MilitaryPerson person) {
-
-}
-
-@Override
-public MilitaryPerson getChild(int index) {
-    return null;
-}
-
-@Override
-public Iterator&lt;MilitaryPerson&gt; getAllChildren() {
-    return null;
-}
-
-@Override
-public boolean isleaf() {
-    return true;
-}
-
-@Override
-public double getSalary() {
-    return salary;
-}
-
-@Override
-public void setSalary(double salary) {
-    this.salary=salary;
-}
-
-}
-</code></pre><h4 id="模式使用"><a href="#模式使用" class="headerlink" title="模式使用"></a>模式使用</h4><pre><code>import java.util.Iterator;
-
-public class ComputerSalary {
-    public static double computerSalary(MilitaryPerson person){
-         double sum=0;
-         if(person.isleaf()==true){
-        sum=sum+person.getSalary();
-    }
-    if(person.isleaf()==false){
-        sum=sum+person.getSalary();
-        Iterator&lt;MilitaryPerson&gt;iterator=person.getAllChildren();
-        while(iterator.hasNext()){
-            MilitaryPerson p=iterator.next();
-            sum=sum+computerSalary(p);
-        }
-
-    }
-
-
-    return sum;
-
-
-
-
-}
-}
-
-public class Application {
-public static void main(String[] args) {
-    MilitaryPerson 连长=new MilitaryOfficer( &quot;连长&quot;, 5000);
-    MilitaryPerson 排长1=new MilitaryOfficer(&quot;一排长&quot;, 4000);
-    MilitaryPerson 排长2=new MilitaryOfficer(&quot;二排长&quot;, 4000);
-
-    MilitaryPerson 班长11=new MilitaryOfficer(&quot;一班长&quot;, 2000);
-    MilitaryPerson 班长12=new MilitaryOfficer(&quot;二班长&quot;, 2000);
-    MilitaryPerson 班长13=new MilitaryOfficer(&quot;三班长&quot;, 2000);
-
-    MilitaryPerson 班长21=new MilitaryOfficer(&quot;一班长&quot;, 2000);
-    MilitaryPerson 班长22=new MilitaryOfficer(&quot;二班长&quot;, 2000);
-    MilitaryPerson 班长23=new MilitaryOfficer(&quot;三班长&quot;, 2000);
-
-    MilitaryPerson 班长31=new MilitaryOfficer(&quot;一班长&quot;, 2000);
-    MilitaryPerson 班长32=new MilitaryOfficer(&quot;二班长&quot;, 2000);
-    MilitaryPerson 班长33=new MilitaryOfficer(&quot;三班长&quot;, 2000);
-
-    MilitaryPerson [] 士兵=new MilitarySoldier[600];
-    for (int i = 0; i &lt; 士兵.length; i++) {
-        士兵[i]=new MilitarySoldier(1000, &quot;小兵&quot;);
-
-    }
-    连长.add(排长1);
-    连长.add(排长2);
-    排长1.add(班长11);
-    排长1.add(班长12);
-    排长1.add(班长13);
-
-    排长2.add(班长21);
-    排长2.add(班长22);
-    排长2.add(班长23);
-
-    for (int i = 0; i &lt;=9; i++) {
-        班长11.add(士兵[i]);
-        班长12.add(士兵[i+10]);
-        班长13.add(士兵[i+20]);
-
-        班长21.add(士兵[i+30]);
-        班长22.add(士兵[i+40]);
-        班长23.add(士兵[i+50]);
-
-        班长31.add(士兵[i+60]);
-        班长32.add(士兵[i+70]);
-        班长33.add(士兵[i+80]);
-    }
-    System.out.println(&quot;一班的军饷：&quot;+ComputerSalary.computerSalary(班长11));
-    System.out.println(&quot;一排的军饷:&quot;+ComputerSalary.computerSalary(排长1));
-    System.out.println(&quot;全连的军饷:&quot;+ComputerSalary.computerSalary(连长));
-
-
-
-
-}
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;组合模式详解&quot;&gt;&lt;a href=&quot;#组合模式详解&quot; class=&quot;headerlink&quot; title=&quot;组合模式详解&quot;&gt;&lt;/a&gt;组合模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>原型模式详解</title>
-    <link href="http://www.craymc.com/2017/01/23/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/23/原型模式详解/</id>
-    <published>2017-01-23T15:14:43.000Z</published>
-    <updated>2017-01-23T15:21:38.064Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="原型模式详解"><a href="#原型模式详解" class="headerlink" title="原型模式详解"></a>原型模式详解</h2><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h3 id="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"><a href="#定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。" class="headerlink" title="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"></a>定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。</h3><hr>
-<h3 id="原型模式的优点"><a href="#原型模式的优点" class="headerlink" title="原型模式的优点"></a>原型模式的优点</h3><ul>
-<li>当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。</li>
-<li>可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。</li>
-<li>可以在运行时创建新的对象，而无须创建一系列类和继承结构。</li>
-<li>可以动态地添加，删除原型复制品。</li>
-</ul>
-<hr>
-<h3 id="原型模式的适用场景"><a href="#原型模式的适用场景" class="headerlink" title="原型模式的适用场景"></a>原型模式的适用场景</h3><ul>
-<li>程序需要从一个对象出发，得到若干个和其状态相同，并可独立变化其状态的对象时。</li>
-<li>当对象的创建需要独立于它的构造过程和表示时。</li>
-</ul>
-<hr>
-<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>在某些情况下，可能不希望反复使用类的构造方法创建许多对象，而是希望用该类创建一个对象后，以该对象为原型得到该对象的若干个复制品。也就是说，将一个对象定义为原型对象，要求该原型对象提供一个方法，使该原型对象调用此方法可以复制一个和自己有完全相同状态的同类型对象，既该方法“克隆”原型对象得到一个新对象。<strong>核心：</strong>原型模式是从一个对象出发得到一个和自己有相同状态的新对象的成熟模式，该模式的关键是将一个对象定义为原型，并为其提供复制自己方法。</p>
-<hr>
-<h3 id="在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。"><a href="#在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。" class="headerlink" title="在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。"></a><strong>在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。</strong></h3>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;原型模式详解&quot;&gt;&lt;a href=&quot;#原型模式详解&quot; class=&quot;headerlink&quot; title=&quot;原型模式详解&quot;&gt;&lt;/a&gt;原型模式详解&lt;/h2&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>生成器模式详解</title>
-    <link href="http://www.craymc.com/2017/01/23/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/23/生成器模式详解/</id>
-    <published>2017-01-23T15:14:16.000Z</published>
-    <updated>2017-01-23T15:20:30.117Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="原型模式详解"><a href="#原型模式详解" class="headerlink" title="原型模式详解"></a>原型模式详解</h2><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h3 id="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"><a href="#定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。" class="headerlink" title="定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。"></a>定义：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。</h3><hr>
-<h3 id="原型模式的优点"><a href="#原型模式的优点" class="headerlink" title="原型模式的优点"></a>原型模式的优点</h3><ul>
-<li>当创建类的新实例的代价更大时，使用原型模式复制一个已有的实例可以提高创建新实例的效率。</li>
-<li>可以动态地保存当前对象的动态。在运行时，可以随时使用对象流保存当前对象的一个复制品。</li>
-<li>可以在运行时创建新的对象，而无须创建一系列类和继承结构。</li>
-<li>可以动态地添加，删除原型复制品。</li>
-</ul>
-<hr>
-<h3 id="原型模式的适用场景"><a href="#原型模式的适用场景" class="headerlink" title="原型模式的适用场景"></a>原型模式的适用场景</h3><ul>
-<li>程序需要从一个对象出发，得到若干个和其状态相同，并可独立变化其状态的对象时。</li>
-<li>当对象的创建需要独立于它的构造过程和表示时。</li>
-</ul>
-<hr>
-<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>在某些情况下，可能不希望反复使用类的构造方法创建许多对象，而是希望用该类创建一个对象后，以该对象为原型得到该对象的若干个复制品。也就是说，将一个对象定义为原型对象，要求该原型对象提供一个方法，使该原型对象调用此方法可以复制一个和自己有完全相同状态的同类型对象，既该方法“克隆”原型对象得到一个新对象。<strong>核心：</strong>原型模式是从一个对象出发得到一个和自己有相同状态的新对象的成熟模式，该模式的关键是将一个对象定义为原型，并为其提供复制自己方法。</p>
-<hr>
-<h3 id="在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。"><a href="#在Java-lang-Object的clone-方法以及在Serializable接口和对象流复制对象。" class="headerlink" title="在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。"></a><strong>在Java.lang.Object的clone()方法以及在Serializable接口和对象流复制对象。</strong></h3>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;原型模式详解&quot;&gt;&lt;a href=&quot;#原型模式详解&quot; class=&quot;headerlink&quot; title=&quot;原型模式详解&quot;&gt;&lt;/a&gt;原型模式详解&lt;/h2&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>适配器模式详解</title>
-    <link href="http://www.craymc.com/2017/01/22/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/22/适配器模式详解/</id>
-    <published>2017-01-22T13:42:33.000Z</published>
-    <updated>2017-03-06T05:26:11.608Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="适配器模式详解"><a href="#适配器模式详解" class="headerlink" title="适配器模式详解"></a>适配器模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h4 id="定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。"><a href="#定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。" class="headerlink" title="定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。"></a>定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</h4><hr>
-<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>对象适配器模式的结构中包括三种角色：</p>
-<ul>
-<li>目标： 目标是一个接口，该接口是客户想要使用的接口。</li>
-<li>被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。</li>
-<li>适配器：适配器是一个类，该类实现了目标接口并包含有被适配者的引用，既适配器的职责是对被适配者接口（抽象类）与目标接口进行适配。</li>
-</ul>
-<hr>
-<a id="more"></a>
-<h4 id="适配器的适配程度"><a href="#适配器的适配程度" class="headerlink" title="适配器的适配程度"></a>适配器的适配程度</h4><p>1.完全适配<br>如果目标接口中的方法数目与被适配者接口的方法数目相等，那么适配器可将被适配者接口与目标接口进行完全适配。<br>2.不完全适配<br>如果目标接口中的方法数目少于被适配者接口的方法数目，那么适配器只能将被适配者接口与目标接口进行部分适配。<br>3.剩余适配<br>如果目标接口中的方法数目大于被适配者接口的方法数目，那么适配器可将被适配者接口与目标接口进行完全适配，但必须将目标多余的办法给出用户允许的默认实现。</p>
-<h4 id="适配器模式的优点"><a href="#适配器模式的优点" class="headerlink" title="适配器模式的优点"></a>适配器模式的优点</h4><ul>
-<li>目标和被适配者是完全解耦的关系。</li>
-<li>适配器模式满足“开-闭原则”。当添加一个实现adapter接口的新类时，不必修改adapter，adapter就能对这个新类的实例进行适配。</li>
-</ul>
-<hr>
-<h4 id="适配器模式的使用场景"><a href="#适配器模式的使用场景" class="headerlink" title="适配器模式的使用场景"></a>适配器模式的使用场景</h4><h2 id="一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。"><a href="#一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。" class="headerlink" title=" 一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。"></a> 一个程序想使使用已经存在的类，但该类所实现的接口和当前程序所使用的接口不一致。</h2><h5 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h5><h6 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h6><pre><code>public interface ThreeElectricOutlet {
-public abstract void connectElectricCurrent();
-}
-</code></pre><h6 id="被适配者："><a href="#被适配者：" class="headerlink" title="被适配者："></a>被适配者：</h6><pre><code>public interface TwoElectricOutlet {
-
-public abstract void connectElectricCurrent();
-
-}
-</code></pre><h6 id="适配器："><a href="#适配器：" class="headerlink" title="适配器："></a>适配器：</h6><pre><code>public class TreeElectricAdapter implements ThreeElectricOutlet {
-
-TwoElectricOutlet outlet;
-
-
-public TreeElectricAdapter(TwoElectricOutlet outlet) {
-    super();
-    this.outlet = outlet;
-}
-
-
-@Override
-public void connectElectricCurrent() {
-    outlet.connectElectricCurrent();
-}
-
-}
-</code></pre><h6 id="模式使用："><a href="#模式使用：" class="headerlink" title="模式使用："></a>模式使用：</h6><pre><code>public class Application {
-        public static void main(String[] args) {
-            ThreeElectricOutlet outlet;
-            Wash w=new Wash();
-            outlet=w;
-            System.out.println(&quot;使用三相插座：&quot;);
-            outlet.connectElectricCurrent();
-            TV t=new TV();
-            TreeElectricAdapter adapter=new TreeElectricAdapter(t);
-            outlet=adapter;
-            System.out.println(&quot;使用三相插座&quot;);
-            outlet.connectElectricCurrent();
-        }
-}
-class Wash implements ThreeElectricOutlet{
-String name;
-Wash(){
-    name=&quot;黄河洗衣机&quot;;
-}
-
-
-public Wash(String s) {
-        name=s;
-}
-
-
-@Override
-public void connectElectricCurrent() {
-        turnOn();
-}
-
-
-public void turnOn() {
-    System.out.println(name+&quot;starting.....&quot;);
-}
-}
-class TV implements TwoElectricOutlet{
-String name;
-TV(){
-    name=&quot;长江电视&quot;;
-
-}
-public TV(String s) {
-    name = s;
-}
-
-
-@Override
-public void connectElectricCurrent() {
-        turnOn();
-}
-public void turnOn() {
-    System.out.println(name+&quot;开始播放节目&quot;);
-}
-
-
-} 
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;适配器模式详解&quot;&gt;&lt;a href=&quot;#适配器模式详解&quot; class=&quot;headerlink&quot; title=&quot;适配器模式详解&quot;&gt;&lt;/a&gt;适配器模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;headerlink&quot; title=&quot;author：craymc&quot;&gt;&lt;/a&gt;&lt;strong&gt;author：craymc&lt;/strong&gt;&lt;/h5&gt;&lt;hr&gt;
-&lt;h4 id=&quot;定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。&quot;&gt;&lt;a href=&quot;#定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。&quot; class=&quot;headerlink&quot; title=&quot;定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。&quot;&gt;&lt;/a&gt;定义：将一个类的接口转换成客户希望的另一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。&lt;/h4&gt;&lt;hr&gt;
-&lt;h4 id=&quot;模式的结构与使用&quot;&gt;&lt;a href=&quot;#模式的结构与使用&quot; class=&quot;headerlink&quot; title=&quot;模式的结构与使用&quot;&gt;&lt;/a&gt;模式的结构与使用&lt;/h4&gt;&lt;p&gt;对象适配器模式的结构中包括三种角色：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;目标： 目标是一个接口，该接口是客户想要使用的接口。&lt;/li&gt;
-&lt;li&gt;被适配者： 被适配者是一个已经存在的接口或抽象类，这个接口或抽象类需要适配。&lt;/li&gt;
-&lt;li&gt;适配器：适配器是一个类，该类实现了目标接口并包含有被适配者的引用，既适配器的职责是对被适配者接口（抽象类）与目标接口进行适配。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>外观模式详解</title>
-    <link href="http://www.craymc.com/2017/01/22/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/22/外观模式详解/</id>
-    <published>2017-01-22T13:41:27.000Z</published>
-    <updated>2017-01-22T13:51:52.999Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="外观模式详解"><a href="#外观模式详解" class="headerlink" title="外观模式详解"></a>外观模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h3 id="定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。"><a href="#定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。" class="headerlink" title="定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。"></a>定义：为系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</h3><hr>
-<h3 id="模式的结构和使用"><a href="#模式的结构和使用" class="headerlink" title="模式的结构和使用"></a>模式的结构和使用</h3><p>外观模式的结构中包括两种角色：</p>
-<ul>
-<li>子系统：子系统是若干个类的集合，这些类的实例协同合作作为用户提供所需要的功能，子系统中任何类都不包括外观类的实例引用。</li>
-<li>外观：外观是一个类，该类包含子系统中全部或部分类的实例引用，当用户想要和子系统中的若干类的实例打交道时，可以代替地和子系统的外观类的实例打交道。</li>
-</ul>
-<hr>
-<h3 id="外观模式的优点"><a href="#外观模式的优点" class="headerlink" title="外观模式的优点"></a>外观模式的优点</h3><ul>
-<li>使客户和子系统中的类无耦合，并且使子系统使用起来更加方便。</li>
-<li>外观只是提供了一个更加简洁的界面，并不影响用户直接使用子系统中的类。</li>
-<li>子系统中任何类对其方法的内容进行修改，不影响外观类的代码。</li>
-</ul>
-<hr>
-<h3 id="使用外观模式的情景"><a href="#使用外观模式的情景" class="headerlink" title="使用外观模式的情景"></a>使用外观模式的情景</h3><ul>
-<li>对于一个复杂的子系统，需要为用户提供一个单的交互操作。</li>
-<li>不希望客户代码和子系统中的类有耦合，以便提高子系统的独立性和可移植性。</li>
-<li>当整个系统需要构建一个层次结构的子系统，不希望这些子系统相互直接的交互。</li>
-</ul>
-<hr>
-<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="子系统："><a href="#子系统：" class="headerlink" title="子系统："></a>子系统：</h5><pre><code>import java.io.BufferedReader;
-import java.io.FileReader;
-
-public class ReadFile { 
-    public  String readFileContent(String fileName){
-        StringBuffer str=new StringBuffer();
-        try {
-            FileReader inOne=new FileReader(fileName);
-            BufferedReader inTwo=new BufferedReader(inOne);
-            String s=null;
-            while((s=inTwo.readLine())!=null){
-                str.append(s);
-                str.append(&quot;\n&quot;);
-            }
-            inOne.close();
-            inTwo.close();
-        } catch (Exception e) {
-        }
-        return new String(str);
-
-    }
-}
-import java.util.regex.Matcher;
-java.util.regex.Pattern;
-
-public class AnalyzeInformation {
-public String getSavedContent(String content,String deleteContent){
-    Pattern p;
-    Matcher m;
-    p=Pattern.compile(deleteContent);
-    m=p.matcher(content);
-    String savedContent=m.replaceAll(&quot;&quot;);
-    return savedContent;
-
-}
-
-}
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.StringReader;
-
-public class WriteFile {
-
-public void writeToFile(String fileName,String content){
-    StringBuffer str=new StringBuffer();
-    try {
-        StringReader inOne=new StringReader(content);
-        BufferedReader inTwo=new BufferedReader(inOne);
-        FileWriter outOne=new FileWriter(fileName);
-        BufferedWriter outTwo=new BufferedWriter(outOne);
-        String s=null;
-        while((s=inTwo.readLine())!=null){
-            outTwo.write(s);
-            outTwo.newLine();
-            outTwo.flush();
-        }
-        inOne.close();
-        inTwo.close();
-        outOne.close();
-        outTwo.close();
-    } catch (Exception e) {
-        // TODO: handle exception
-    }
-
-
-}
-
-}
-</code></pre><h5 id="外观"><a href="#外观" class="headerlink" title="外观"></a>外观</h5><pre><code>public class ReadAndWirteFacade {
-private ReadFile readFile;
-private WriteFile writeFile;
-private AnalyzeInformation analyzeInformation;
-public ReadAndWirteFacade() {
-    readFile=new ReadFile();
-    analyzeInformation=new AnalyzeInformation();
-    writeFile=new WriteFile();
-}
-public void doOption(String readFileName,String delContent,String savedFileName){
-    String content=readFile.readFileContent(readFileName);
-    System.out.println(&quot;读取文件&quot;+readFileName+&quot;的内容&quot;);
-    System.out.println(content);
-    String savedContent=analyzeInformation.getSavedContent(content, delContent);
-    writeFile.writeToFile(savedFileName, savedContent);
-    System.out.println(&quot;保存到文件&quot;+savedContent+&quot;中的内容&quot;);
-    System.out.println(savedContent);
-
-}
-
-}
-</code></pre><h5 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h5><pre><code>public class Application {
-    public static void main(String[] args) {
-        ReadAndWirteFacade clientFacade;
-        clientFacade=new ReadAndWirteFacade();
-        String readFileName=&quot;index.html&quot;;
-        String delConten=&quot;&lt;[^&gt;]*&gt;&quot;;
-        String savedFileName=&quot;save.txt&quot;;
-        clientFacade.doOption(readFileName, delConten, savedFileName);
-public class Application {
-    public static void main(String[] args) {
-        ReadAndWirteFacade clientFacade;
-        clientFacade=new ReadAndWirteFacade();
-        String readFileName=&quot;index.html&quot;;
-        String delConten=&quot;&lt;[^&gt;]*&gt;&quot;;
-        String savedFileName=&quot;save.txt&quot;;
-        clientFacade.doOption(readFileName, delConten, savedFileName);
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;外观模式详解&quot;&gt;&lt;a href=&quot;#外观模式详解&quot; class=&quot;headerlink&quot; title=&quot;外观模式详解&quot;&gt;&lt;/a&gt;外观模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>责任链模式详解</title>
-    <link href="http://www.craymc.com/2017/01/22/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/22/责任链模式详解/</id>
-    <published>2017-01-22T13:39:35.000Z</published>
-    <updated>2017-01-22T13:51:41.605Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="责任链模式详解"><a href="#责任链模式详解" class="headerlink" title="责任链模式详解"></a>责任链模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><h4 id="定义：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。"><a href="#定义：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。" class="headerlink" title="定义：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。"></a>定义：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。</h4><hr>
-<h4 id="模式的结构与使用"><a href="#模式的结构与使用" class="headerlink" title="模式的结构与使用"></a>模式的结构与使用</h4><p>责任链模式的结构中包括两种角色：</p>
-<ul>
-<li>处理者：处理者是一个接口，负责规定具体处理者处理用户请求的方法以及具体处理者设置后继对象的方法。</li>
-<li><p>具体处理者：具体处理者是实现处理者接口的类的实例。具体处理者通过调用处理者接口规定的方法处理用户的请求，既在接到用户的请求后，处理者将调用接口规定的方法，在执行该方法的过程中，如果发现能处理用户的请求，就处理有关数据，否则就反馈无法处理的信息给用户，然后将用户的请求传递给自己的后继对象。</p>
-<h4 id="责任链模式的优点"><a href="#责任链模式的优点" class="headerlink" title="责任链模式的优点"></a>责任链模式的优点</h4></li>
-<li><p>责任链中的对象只和自己的后继是低耦合关系，和其他对象毫无关联，这使得编写处理者对象以及创建责任链变得非常容易。</p>
-</li>
-<li>当在处理者中分配职责时，责任链给应用程序更多的灵活性。</li>
-</ul>
-<hr>
-<h4 id="责任链的适用模式和情景"><a href="#责任链的适用模式和情景" class="headerlink" title="责任链的适用模式和情景"></a>责任链的适用模式和情景</h4><ul>
-<li>有许多对象可以处理用户的请求，希望程序在运行期间自动确定处理用户的那个对象。</li>
-<li>希望用户不必明确指定接收者的情况下，向多个接收者的一个提交请求。</li>
-<li>程序希望动态制定可处理用户请求的对象集合。</li>
-</ul>
-<hr>
-<h5 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h5><h6 id="处理者："><a href="#处理者：" class="headerlink" title="处理者："></a>处理者：</h6><pre><code>public interface Handler {
-public abstract void computerMultiply(String number);
-public abstract void setNextHandler(Handler handler);
-}
-</code></pre><h6 id="具体处理者："><a href="#具体处理者：" class="headerlink" title="具体处理者："></a>具体处理者：</h6><pre><code>public class UseInt implements Handler{
-private Handler handler;
-private int result=1;
-@Override
-public void computerMultiply(String number) {
-        try {
-            int n=Integer.parseInt(number);
-            int i=1;
-            while(i&lt;=n){
-                result=result*i;
-                if(result&lt;=0){
-                    System.out.println(&quot;超出我的能力范围&quot;);
-                    handler.computerMultiply(number);
-                    return;
-                }
-                i++;
-            }
-            System.out.println(number+&quot;的阶乘:&quot;+result);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-}
-@Override
-public void setNextHandler(Handler handler) {
-        this.handler=handler;
-}
-}
-
-public class UseLong implements Handler {
-private Handler handler;
-private long result=1;
-
-@Override
-public void computerMultiply(String number) {
-        try {
-            long n=Long.parseLong(number);
-            long i=1;
-            while(i&lt;=n){
-                result=result*i;
-                if(result&lt;=0){
-                    System.out.println(&quot;超出能力范围,,,&quot;);
-                    handler.computerMultiply(number);
-                    return;
-                }
-                i++;
-            }
-            System.out.println(number+&quot;的阶乘&quot;+result);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-}
-@Override
-public void setNextHandler(Handler handler) {
-        this.handler=handler;
-}
-}
-
-import java.math.BigInteger;
-
-public class UseBigInteger implements Handler{
-private Handler handler;
-private BigInteger result=new BigInteger(&quot;1&quot;);
-@Override
-public void computerMultiply(String number) {
-        try {
-            BigInteger n=new BigInteger(number);
-            BigInteger ONE=new BigInteger(&quot;1&quot;);
-            BigInteger i=ONE;
-            while(i.compareTo(n)&lt;=0){
-                result=result.multiply(i);
-                i=i.add(ONE);
-            }
-            System.out.println(number+&quot;的阶乘&quot;+result);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-}
-@Override
-public void setNextHandler(Handler handler) {
-        this.handler=handler;
-}
-}
-</code></pre><h6 id="应用程序"><a href="#应用程序" class="headerlink" title="应用程序"></a>应用程序</h6><pre><code>public class Application {
-
-        private Handler useInt, useLong, useBig;
-        public void createChain(){
-            useInt=new UseInt();
-            useLong=new UseLong();
-            useBig=new UseBigInteger();
-            useInt.setNextHandler(useLong);
-            useLong.setNextHandler(useBig);
-        }
-        public void responseClient(String number){
-            useInt.computerMultiply(number);
-        }
-        public static void main(String[] args) {
-            Application application=new Application();
-            application.createChain();
-            application.responseClient(&quot;32&quot;);
-        }
-}
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;责任链模式详解&quot;&gt;&lt;a href=&quot;#责任链模式详解&quot; class=&quot;headerlink&quot; title=&quot;责任链模式详解&quot;&gt;&lt;/a&gt;责任链模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class
-    
-    </summary>
-    
-    
-      <category term="Java设计模式" scheme="http://www.craymc.com/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>单子模式详解</title>
-    <link href="http://www.craymc.com/2017/01/22/%E5%8D%95%E5%AD%90%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://www.craymc.com/2017/01/22/单子模式详解/</id>
-    <published>2017-01-22T13:38:44.000Z</published>
-    <updated>2017-01-22T13:51:36.239Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="单子模式详解"><a href="#单子模式详解" class="headerlink" title="单子模式详解"></a>单子模式详解</h3><h5 id="author：craymc"><a href="#author：craymc" class="headerlink" title="author：craymc"></a><strong>author：craymc</strong></h5><hr>
-<h2 id="定义：-保证一个类只有一个实例，并提供一个访问它的全局访问点。"><a href="#定义：-保证一个类只有一个实例，并提供一个访问它的全局访问点。" class="headerlink" title="定义： 保证一个类只有一个实例，并提供一个访问它的全局访问点。"></a>定义： 保证一个类只有一个实例，并提供一个访问它的全局访问点。</h2><h3 id="单子模式的优点"><a href="#单子模式的优点" class="headerlink" title="单子模式的优点"></a>单子模式的优点</h3><h2 id="单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。"><a href="#单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。" class="headerlink" title="单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。"></a>单子类的唯一实例由单子类本身控制，所以可以很好地控制用户何时访问它。</h2><h3 id="单子模式的使用场景"><a href="#单子模式的使用场景" class="headerlink" title="单子模式的使用场景"></a>单子模式的使用场景</h3><p>当系统需要某个类只能有一个实例。</p>
-<h3 id="下面代码实现了两种经典单子模式和线程安全的单子模式"><a href="#下面代码实现了两种经典单子模式和线程安全的单子模式" class="headerlink" title="下面代码实现了两种经典单子模式和线程安全的单子模式"></a>下面代码实现了两种经典单子模式和线程安全的单子模式</h3><hr>
-<h4 id="代码部分："><a href="#代码部分：" class="headerlink" title="代码部分："></a>代码部分：</h4><h5 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h5><pre><code>public class Singleton {
-
-
-private Singleton() {}  
-private static Singleton single=null;  
-//静态工厂方法   
-public static Singleton getInstance() {  
-     if (single == null) {    
-         single = new Singleton();  
-     }    
-    return single;  
-}  
-</code></pre><p>   }</p>
-<h5 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h5><pre><code>public class Singleton1 {
-
-
-   private Singleton1() {}  
-    private static final Singleton1 single = new Singleton1();  
-    //静态工厂方法   
-    public static Singleton1 getInstance() {  
-        return single;  
-    } 
-}
-</code></pre><h5 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h5><pre><code>public class TestSingleton {  
-String name = null;  
-
-    private TestSingleton() {  
-}  
-
-private static volatile TestSingleton instance = null;  
-
-public static TestSingleton getInstance() {  
-       if (instance == null) {    
-         synchronized (TestSingleton.class) {    
-            if (instance == null) {    
-               instance = new TestSingleton();   
-            }    
-         }    
-       }   
-       return instance;  
-}  
-
-public String getName() {  
-    return name;  
-}  
-
-public void setName(String name) {  
-    this.name = name;  
-}  
-
-public void printInfo() {  
-    System.out.println(&quot;the name is &quot; + name);  
-}  
-
-} 
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;单子模式详解&quot;&gt;&lt;a href=&quot;#单子模式详解&quot; class=&quot;headerlink&quot; title=&quot;单子模式详解&quot;&gt;&lt;/a&gt;单子模式详解&lt;/h3&gt;&lt;h5 id=&quot;author：craymc&quot;&gt;&lt;a href=&quot;#author：craymc&quot; class=&quot;he
     
     </summary>
     

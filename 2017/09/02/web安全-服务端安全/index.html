@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="craymc">
+    <title>web安全-服务端安全 - craymc</title>
+    <meta name="author" content="craymc">
+    
+        <link rel="icon" href="/assets/images/bi_favicon .ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="本质:服务器获取外部资源，修改外部资源，但是服务器并没有发现别修改，然后让其通过。服务器以自己的身份来访问其他服务器，然后实现了外网无法访问内网系统的需求。
+场景：
+
+web应用使用了用户指定的URL获取数据（图片），然后把这个数据（图片）展示。
+
+应用根据用户提供的URL，抓取用户的WEB站点，并生成WAP站
+
+web应用的分享功能处，如果没有对目标地址的范围做过滤和限制，存在了SSRF">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="web安全-服务端安全">
+<meta property="og:url" content="http://www.craymc.com/2017/09/02/web安全-服务端安全/index.html">
+<meta property="og:site_name" content="craymc">
+<meta property="og:description" content="本质:服务器获取外部资源，修改外部资源，但是服务器并没有发现别修改，然后让其通过。服务器以自己的身份来访问其他服务器，然后实现了外网无法访问内网系统的需求。
+场景：
+
+web应用使用了用户指定的URL获取数据（图片），然后把这个数据（图片）展示。
+
+应用根据用户提供的URL，抓取用户的WEB站点，并生成WAP站
+
+web应用的分享功能处，如果没有对目标地址的范围做过滤和限制，存在了SSRF">
+<meta property="og:updated_time" content="2017-09-02T14:26:47.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web安全-服务端安全">
+<meta name="twitter:description" content="本质:服务器获取外部资源，修改外部资源，但是服务器并没有发现别修改，然后让其通过。服务器以自己的身份来访问其他服务器，然后实现了外网无法访问内网系统的需求。
+场景：
+
+web应用使用了用户指定的URL获取数据（图片），然后把这个数据（图片）展示。
+
+应用根据用户提供的URL，抓取用户的WEB站点，并生成WAP站
+
+web应用的分享功能处，如果没有对目标地址的范围做过滤和限制，存在了SSRF">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">craymc</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="#search">
+        
+                <i class="fa fa-lg fa-bi_favicon .ico"></i>
+            </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png"/>
+                
+            </a>
+            <span class="sidebar-profile-name">craymc</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/geekmc" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://weibo.com/5324800710/profile?topnav=1&wvr=6&is_all=1" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                    <span class="sidebar-button-desc">微博</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            web安全-服务端安全
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Sep 02 2017 22:16:28 GMT+0800">
+	
+		    9月02日, 2017年
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p><strong>本质:</strong>服务器获取外部资源，修改外部资源，但是服务器并没有发现别修改，然后让其通过。服务器以自己的身份来访问其他服务器，然后实现了外网无法访问内网系统的需求。</p>
+<p><strong>场景：</strong></p>
+<ul>
+<li><p>web应用使用了用户指定的URL获取数据（图片），然后把这个数据（图片）展示。</p>
+</li>
+<li><p>应用根据用户提供的URL，抓取用户的WEB站点，并生成WAP站</p>
+</li>
+<li><p>web应用的分享功能处，如果没有对目标地址的范围做过滤和限制，存在了SSRF    </p>
+</li>
+<li><p>转码服务，在线翻译，图片加载下载</p>
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<p><strong>漏洞验证</strong></p>
+<ul>
+<li><p>常见的方法是排除法：比如一个URL+image=baidu.com/test.jpg,直接右键图片，在新窗口中打开图片，如果浏览器的URL是baidu.com/test.jpg则不存在</p>
+</li>
+<li><p>使用burp抓包，由于SSRF是服务端发起的请求，因此在加载资源的时候是由服务端发起的，所以在本地浏览器请求中就不应该存在资源的请求。</p>
+</li>
+</ul>
+<hr>
+<p><strong>防御</strong></p>
+<ul>
+<li>限制请求端口为常用端口</li>
+<li>禁用不需要的网协议</li>
+<li>内网IP限制</li>
+</ul>
+<hr>
+<p> <strong>绕过</strong></p>
+<ul>
+<li>URL构造和URL跳转</li>
+<li>IP转换为16进制，8进制</li>
+<li>短网址绕过</li>
+</ul>
+<hr>
+<p><strong>攻击</strong></p>
+<ul>
+<li><p>从容易出现的点进行排查</p>
+</li>
+<li><p>从URL关键字中寻找</p>
+</li>
+</ul>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><p><em>定义:</em>用户上传了一个可执行的脚本文件，并通过此脚本获得了执行服务器端的命令，也就是能通过菜刀连接获取WEBSHELL。</p>
+<hr>
+<p><strong>常见的问题</strong></p>
+<ul>
+<li><p>上传的文件是web脚本语言，服务器解释并执行了用户上传的脚本，导致恶意代码执行</p>
+</li>
+<li><p>上传的文件夹是木马或者病毒诱导网站管理员下载执行</p>
+</li>
+</ul>
+<hr>
+<p><strong>利用</strong></p>
+<ul>
+<li>FCKEditor文件上传漏洞,ewebeditor漏洞</li>
+</ul>
+<hr>
+<p><em>绕过方式</em></p>
+<ul>
+<li><p>抓包，改包（MIME修改绕过）</p>
+</li>
+<li><p>文件名后缀大小写绕过</p>
+</li>
+<li><p>文件内容绕过</p>
+</li>
+<li><p>JS绕过：</p>
+<p>  1.HTTP数据包<br>  2.审查元素–取消JS函数的调用<br>  3.JS部分全部删掉<br>  4.禁止加载JS</p>
+</li>
+</ul>
+<hr>
+<p>##解析漏洞##</p>
+<p>1.Nginx:</p>
+<p>假如有一张图片：http:a.test.com/1.jpg.当我们正常访问，nginx会把这个当做非脚本语言直接读取传送回客户端（浏览器），但存在解析漏洞的nginx会把如下链接解析并执行<strong><a href="http://a.test.com" target="_blank" rel="external">http://a.test.com</a> :8080/1.jpg/1.php</strong></p>
+<p>影响范围：0.765以下及0.8.37以下到8系列</p>
+<p>2.IIS：</p>
+<ul>
+<li><p>文件名解析：在IIS6.0下，分号后面不被解析，默认可执行文件：/.asa/.cer/.cdx</p>
+</li>
+<li><p>目录解析：网站目录有一个名为1.aso（其他的asp扩展名也可以），目录里面有一个1.jpg内容为asp的代码。访问:<a href="http://a.test.com/1.asp/1.jpg会被放成正常ASP文件执行。" target="_blank" rel="external">http://a.test.com/1.asp/1.jpg会被放成正常ASP文件执行。</a></p>
+</li>
+</ul>
+<p>3.Apache：</p>
+<ul>
+<li><p>Apache是从右到左开始判断解析，如果为不和识别解析，就在往左判断。例如：mst.php.owf.rar,由于.owf和.rar不可识别解析，Apache就会把它解析为php</p>
+</li>
+<li><p><em>如何判断是不是合法的后缀就是这个漏洞利用的关键</em></p>
+</li>
+</ul>
+<p>但是我不知道这个漏洞该如何修复</p>
+<p>##IIS写入权限漏洞##</p>
+<p>漏洞成因：</p>
+<ul>
+<li><p>IIS来宾用户对网站文件有写入权限</p>
+</li>
+<li><p>WEB服务扩展：webDev打钩</p>
+</li>
+<li><p>网站主目录：写入打钩</p>
+</li>
+<li><p>网站主目录：脚本资源访问打钩（可copy，Move）</p>
+</li>
+</ul>
+<hr>
+<!--more-->
+<h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><p>类型：</p>
+<ul>
+<li><p>文件包含：把文件包含进来，执行其中的代码</p>
+<pre><code>绕过方式：1.%00截断
+
+         2.%00截断目录遍历
+
+         3.路径长度截断
+
+         4.点号截断
+</code></pre></li>
+<li><p>任意代码执行</p>
+</li>
+<li><p>任意命令执行</p>
+</li>
+</ul>
+<hr>
+<h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><p><strong>原因：</strong> 开发人员在对数据进行CRUD的时候对客户端的请求过分相信而遗漏了权限的判定。</p>
+<p><strong>分类</strong></p>
+<ul>
+<li>垂直：身份不变，权限改变</li>
+</ul>
+<ul>
+<li>水平：权限不变，身份改变</li>
+</ul>
+<ul>
+<li>交叉： 二者都改变</li>
+</ul>
+<hr>
+<h3 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h3><p><strong>定义：</strong>通常指网站业务功能方面的缺陷，开发者在思考过程中做出的特殊假装存在明显或者隐含的错误</p>
+<p>举几个列子：</p>
+<ol>
+<li><p>密码找回（任意手机号注册）:程序根据一个验证码来确定是用户本人，但攻击者可以暴力破解密码</p>
+</li>
+<li><p>支付漏洞：修改商品数量为负数是的支付价格为负数，或者修改支付金额</p>
+</li>
+<li><p>越权</p>
+</li>
+<li><p>cookie和session验证问题（攻击者在知道用户ID的前提下，构造一个cookies或让session值为true就可以绕过验证）</p>
+</li>
+<li><p>顺序执行缺陷：假如在网购过程中直接从放入购物车调过支付直接进入先写收货地址步骤</p>
+</li>
+</ol>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/web安全/">web安全</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-逻辑漏洞/"  data-tooltip="web安全-逻辑漏洞">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-第三方风险/" data-tooltip="web安全-第三方风险">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/09/02/web安全-服务端安全/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-服务端安全/&amp;title=web安全-服务端安全">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-服务端安全/&amp;title=web安全-服务端安全">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <section id="comments">    <!-- ��˵���ۿ� start -->    <div class="ds-thread" data-thread-key="post-web安全-服务端安全" data-title="web安全-服务端安全" data-url="http://www.craymc.com/2017/09/02/web安全-服务端安全/"></div>    <!-- ��˵���ۿ� end -->    <!-- ��˵����JS���� start (һ����ҳֻ������һ��) -->    <script type="text/javascript">    var duoshuoQuery = {short_name:'geekmc'};      (function() {        var ds = document.createElement('script');        ds.type = 'text/javascript';ds.async = true;        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';        ds.charset = 'UTF-8';        (document.getElementsByTagName('head')[0]          || document.getElementsByTagName('body')[0]).appendChild(ds);      })();      </script>    <!-- ��˵����JS���� end --></section>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 craymc. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-逻辑漏洞/"  data-tooltip="web安全-逻辑漏洞">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇文章</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/02/web安全-第三方风险/" data-tooltip="web安全-第三方风险">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇文章</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/09/02/web安全-服务端安全/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-服务端安全/&amp;title=web安全-服务端安全">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-服务端安全/&amp;title=web安全-服务端安全">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+       <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+        <li class="post-action hide-xs">
+             <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至Twitter"href="https://twitter.com/intent/tweet?text=http://www.craymc.com/2017/09/02/web安全-服务端安全/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至新浪微博" href="http://www.jiathis.com/send/?webid=tsina&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-服务端安全/&amp;title=web安全-服务端安全">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default tooltip--top" target="new" data-tooltip="分享至微信" href="http://www.jiathis.com/send/?webid=weixin&amp;appkey=&amp;uid=你的uid&amp;url=http://www.craymc.com/2017/09/02/web安全-服务端安全/&amp;title=web安全-服务端安全">
+                <i class="fa fa-weixin"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png"/>
+        
+            <h4 id="about-card-name">craymc</h4>
+        
+            <p id="about-card-bio"><p>荣枯事过已成梦，悲喜不惊便是禅。</p>
+</p>
+            <p id="about-card-bio"><p>cray丶mc</p>
+</p>
+            <h5 id="about-card-bio"><p>十年饮冰，难凉热血</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Java|Python|大数据|全栈</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京· 中国
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://img.ycg.qq.com/201832/0/2cdc84a0-b5f2-4c9c-8870-e8bce75d4f89/preview');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'craymc';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>
